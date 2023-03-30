@@ -1,0 +1,128 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * The factory to build the node that [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+//---< Inclusions >-------------------------------------------------------------
+
+#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].hpp"
+#include "HEAP/heap_FormulaManager.hpp"
+
+//---< Local Types >------------------------------------------------------------
+//---< Local Macros >-----------------------------------------------------------
+//---< Local Structs >----------------------------------------------------------
+//---< Local Classes >----------------------------------------------------------
+//---< Local Variables >--------------------------------------------------------
+//---< Class >------------------------------------------------------------------
+
+/**
+ * Destructor
+*/
+[@ELEMENT_NAME@]::~[@ELEMENT_NAME@]()
+{
+}
+
+/**
+ * The virtual function used to create the node.
+ *
+ * @param handler - data_FormulaHandler* : The formula handler used to build the mode
+ * @param formula - base_Formula* : The formula for which the node is built
+ * @param extra - void* : The extra parameter used to get the way the built had to be done
+ * @param manager - heap_FormulaManager* : The formula heap manager used
+ * @param identifier - void* : The node identifier
+ * @param comment - data_StringStream* : The node comment
+ * @param parameters - base_Dynamic* : The parameter list
+ * @param defaultParameters - base_Dynamic* : The description's parameter list
+ * @param status - int : The initial status node
+ * @param totalSize - size_t : The total size to allocate
+ * @param objectSize - size_t : The current object size to allocate
+ * @param firstPage - char* : Address of the buffer used for the first page for the parent list
+ * @param firstPageSize - size_t : Size of the first page buffer for the parent list.
+ * @param value - void* : The value of the function
+ * @param valueType - DYNAMIC_TYPE : The value type of the function
+ * @param identifierHandler - int_IdentifierHandler* : The identifier handler object
+ * @param contextHandler - int_ContextHandler* : Describe how the execution context had to be used
+ * @param expectedPageSize - size_t : The page size to reserve in the parent list vector
+ * @param type - int : The node type
+ * @param allocator - heap_PageAllocator* : The way the pages are allocated in the parent list vector
+ * @param callbackMallocUsed - fctCallbackAllocation : The callback used each time a page is allocated
+ * @param callbackMallocParam - void* : The parameter pass to the callback used each time a page is allocated
+ *
+ * @return The created node.
+*/
+base_FormulaNode* [@ELEMENT_NAME@]::create( data_FormulaHandler*   handler,
+                                            base_Formula*          formula,
+                                            void*                  extra,
+                                            heap_FormulaManager*   manager,
+                                            void*                  identifier,
+                                            data_StringStream*     comment,
+                                            base_Dynamic*          parameters,
+                                            base_Dynamic*          defaultParameters,
+                                            int                    status,
+                                            size_t                 totalSize,
+                                            size_t                 objectSize,
+                                            char*                  firstPage,
+                                            size_t                 firstPageSize,
+                                            void*                  value,
+                                            DYNAMIC_TYPE           valueType,
+                                            int_IdentifierHandler* identifierHandler,
+                                            int_ContextHandler*    contextHandler,
+                                            size_t                 expectedPageSize,
+                                            int                    type,
+                                            heap_PageAllocator*    allocator,
+                                            fctCallbackAllocation  callbackMallocUsed,
+                                            void*                  callbackMallocParam )
+{
+   register base_FormulaNode* retValue;
+
+   if ( parameters != NULL )
+   {
+      // TODO : Raise an exception
+   } // End IF the parameter list is not empty
+
+   if ( totalSize == 0 )
+   {
+      retValue = new( manager ) [@NODEFILENAME@]( identifier,
+                                                  manager,
+                                                  comment,
+                                                  status,
+                                                  firstPage,
+                                                  firstPageSize,
+                                                  identifierHandler,
+                                                  contextHandler,
+                                                  expectedPageSize,
+                                                  type,
+                                                  allocator,
+                                                  callbackMallocUsed,
+                                                  callbackMallocParam );
+   } // End IF we are using the new without pre-allocated memory
+   else
+   {
+      retValue = new( totalSize,
+                      manager ) [@NODEFILENAME@]( identifier,
+                                                  manager,
+                                                  comment,
+                                                  totalSize,
+                                                  objectSize,
+                                                  status,
+                                                  identifierHandler,
+                                                  contextHandler,
+                                                  expectedPageSize,
+                                                  type,
+                                                  allocator,
+                                                  callbackMallocUsed,
+                                                  callbackMallocParam );
+   } // End IF wewill preallocate the first page to use
+
+   return retValue;
+}
+
+//---< End of file >------------------------------------------------------------
+

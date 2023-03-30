@@ -1,0 +1,45 @@
+/*
+|| TABLE : [@ELEMENT_NAME@]
+||
+|| OBJECT : [@ELEMENT_DESC@]
+||
+||-------------------------------------------------
+|| Creation : [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+||            [@ELEMENT_DATE@]
+*/
+USE <Database>
+GO
+
+SET QUOTED_IDENTIFIER OFF
+GO
+
+IF EXISTS
+(
+	SELECT
+		name
+	FROM
+		sysobjects
+	WHERE
+		id = object_id( N'[@ELEMENT_NAME@]' )
+	AND	OBJECTPROPERTY( id, N'IsTable' ) = 1
+)
+BEGIN
+	DROP TABLE dbo.[@ELEMENT_NAME@]
+END
+GO
+
+PRINT "Creating dbo.[@ELEMENT_NAME@]"
+GO
+
+CREATE TABLE dbo.[@ELEMENT_NAME@]
+(
+)
+GO
+
+CREATE UNIQUE CLUSTERED INDEX [@ELEMENT_NAME@]_pk ON dbo.[@ELEMENT_NAME@]
+(
+)
+GO
+
+/*---< Fin du fichier >-------------------------------------------------------*/
+

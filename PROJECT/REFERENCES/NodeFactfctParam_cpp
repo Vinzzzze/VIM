@@ -1,0 +1,278 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * The factory to build the node that [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+//---< Inclusions >-------------------------------------------------------------
+
+#include "DATA/data_FormulaHandler.hpp"
+#include "DATA/data_HashedDynamicStruct.hpp"
+#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].hpp"
+#include "HEAP/heap_FormulaManager.hpp"
+#include "ITERATOR/iter_DynamicStruct.hpp"
+
+//---< Local Types >------------------------------------------------------------
+//---< Local Macros >-----------------------------------------------------------
+
+// The default sizes
+//------------------
+#define FACTORY_FUNCTION_[@BASEMACRO@]_DEFAULT_NB_PARAMETERS<@NB_PARAMETRERS@>
+#define FACTORY_FUNCTION_[@BASEMACRO@]_ENTRY_SIZE           <@NB_PARAMETRERS@>
+
+#define FACTORY_FUNCTION_[@BASEMACRO@]_DEFAULT_TOTAL_SIZE <@TOTAL_SIZE@>
+#define FACTORY_FUNCTION_[@BASEMACRO@]_DEFAULT_FIELDS_SIZE ( sizeof( void* ) + ( FACTORY_FUNCTION_[@BASEMACRO@]_DEFAULT_NB_PARAMETERS * sizeof( void* ) ) )
+#define FACTORY_FUNCTION_[@BASEMACRO@]_DEFAULT_TYPES_SIZE  ( sizeof( void* ) + ( FACTORY_FUNCTION_[@BASEMACRO@]_DEFAULT_NB_PARAMETERS * 2 * sizeof( void* ) ) )
+
+#define FACTORY_FUNCTION_[@BASEMACRO@]_<@ARG_NAME@>_PARAM_NAME VM_CONST_STRING"<@ARGUMENT_NAME@>"
+
+//---< Local Structs >----------------------------------------------------------
+//---< Local Classes >----------------------------------------------------------
+//---< Local Variables >--------------------------------------------------------
+//---< Class >------------------------------------------------------------------
+
+/**
+ * Destructor
+*/
+[@ELEMENT_NAME@]::~[@ELEMENT_NAME@]()
+{
+}
+
+/**
+ * The virtual function used to create the node.
+ *
+ * @param handler - data_FormulaHandler* : The formula handler used to build the mode
+ * @param formula - base_Formula* : The formula for which the node is built
+ * @param extra - void* : The extra parameter used to get the way the built had to be done
+ * @param manager - heap_FormulaManager* : The formula heap manager used
+ * @param identifier - void* : The node identifier
+ * @param comment - data_StringStream* : The node comment
+ * @param parameters - base_Dynamic* : The parameter list
+ * @param defaultParameters - base_Dynamic* : The description's parameter list
+ * @param status - int : The initial status node
+ * @param totalSize - size_t : The total size to allocate
+ * @param objectSize - size_t : The current object size to allocate
+ * @param firstPage - char* : Address of the buffer used for the first page for the parent list
+ * @param firstPageSize - size_t : Size of the first page buffer for the parent list.
+ * @param value - void* : The value of the function
+ * @param valueType - DYNAMIC_TYPE : The value type of the function
+ * @param identifierHandler - int_IdentifierHandler* : The identifier handler object
+ * @param contextHandler - int_ContextHandler* : Describe how the execution context had to be used
+ * @param expectedPageSize - size_t : The page size to reserve in the parent list vector
+ * @param type - int : The node type
+ * @param allocator - heap_PageAllocator* : The way the pages are allocated in the parent list vector
+ * @param callbackMallocUsed - fctCallbackAllocation : The callback used each time a page is allocated
+ * @param callbackMallocParam - void* : The parameter pass to the callback used each time a page is allocated
+ *
+ * @return The created node.
+*/
+base_FormulaNode* [@ELEMENT_NAME@]::create( data_FormulaHandler*   handler,
+                                            base_Formula*          formula,
+                                            void*                  extra,
+                                            heap_FormulaManager*   manager,
+                                            void*                  identifier,
+                                            data_StringStream*     comment,
+                                            base_Dynamic*          parameters,
+                                            base_Dynamic*          defaultParameters,
+                                            int                    status,
+                                            size_t                 totalSize,
+                                            size_t                 objectSize,
+                                            char*                  firstPage,
+                                            size_t                 firstPageSize,
+                                            void*                  value,
+                                            DYNAMIC_TYPE           valueType,
+                                            int_IdentifierHandler* identifierHandler,
+                                            int_ContextHandler*    contextHandler,
+                                            size_t                 expectedPageSize,
+                                            int                    type,
+                                            heap_PageAllocator*    allocator,
+                                            fctCallbackAllocation  callbackMallocUsed,
+                                            void*                  callbackMallocParam )
+{
+   register base_FormulaNode* retValue;
+
+   if ( totalSize == 0 )
+   {
+      retValue = new( manager ) [@NODEFILENAME@]( identifier,
+                                                  manager,
+                                                  comment,
+                                                  this->computeFunctionContext( (data_HashedDynamicStruct*)parameters ),
+                                                  (data_HashedDynamicStruct*)parameters,
+                                                  (data_HashedDynamicStruct*)defaultParameters,
+                                                  status,
+                                                  firstPage,
+                                                  firstPageSize,
+                                                  identifierHandler,
+                                                  contextHandler,
+                                                  expectedPageSize,
+                                                  type,
+                                                  allocator,
+                                                  value,
+                                                  valueType,
+                                                  callbackMallocUsed,
+                                                  callbackMallocParam );
+   } // End IF we are using the new without pre-allocated memory
+   else
+   {
+      retValue = new( totalSize,
+                      manager ) [@NODEFILENAME@]( identifier,
+                                                  manager,
+                                                  comment,
+                                                  this->computeFunctionContext( (data_HashedDynamicStruct*)parameters ),
+                                                  (data_HashedDynamicStruct*)parameters,
+                                                  (data_HashedDynamicStruct*)defaultParameters,
+                                                  totalSize,
+                                                  objectSize,
+                                                  status,
+                                                  identifierHandler,
+                                                  contextHandler,
+                                                  expectedPageSize,
+                                                  type,
+                                                  allocator,
+                                                  value,
+                                                  valueType,
+                                                  callbackMallocUsed,
+                                                  callbackMallocParam );
+   } // End IF wewill preallocate the first page to use
+
+   return retValue;
+}
+
+/**
+ * Build the dynamic struct used to handle the function parameters.
+ *
+ * @param manager - heap_ObjectManager* : The manager where the structure had to be allocated
+ *
+ * @return The created parameters object
+*/
+base_Dynamic* [@ELEMENT_NAME@]::buildLocalParameters( heap_ObjectManager* manager )
+{
+   return new( FACTORY_FUNCTION_[@BASEMACRO@]_DEFAULT_TOTAL_SIZE,
+               manager ) data_HashedDynamicStruct( NULL,
+                                                   manager->getHeap(),
+                                                   manager->getHeap(),
+                                                   (size_t)FACTORY_FUNCTION_[@BASEMACRO@]_DEFAULT_TOTAL_SIZE,
+                                                   (size_t)FACTORY_FUNCTION_[@BASEMACRO@]_DEFAULT_FIELDS_SIZE,
+                                                   (size_t)FACTORY_FUNCTION_[@BASEMACRO@]_DEFAULT_TYPES_SIZE,
+                                                   false,                                 // deleteObjects
+                                                   (size_t)FACTORY_FUNCTION_[@BASEMACRO@]_ENTRY_SIZE,
+                                                   false,                                 // Allocate names
+                                                   false,                                 // Local field heap
+                                                   false );
+}
+
+/**
+ * Get the param value from the current initializor element.
+ *
+ * @param parameters - base_Dynamic* : The current parameters definition
+ * @param localParameter - base_Dynamic* : The current parameter definition for local usage only
+ * @param currentElement - ElementDynamicParam* : The current value that describe a parameter value.
+ *
+ * @return The current base_Dynamic object to use as parameter container
+*/
+base_Dynamic* [@ELEMENT_NAME@]::readFctParamValue( base_Dynamic*        parameters,
+                                                   base_Dynamic*        localParameter,
+                                                   ElementDynamicParam* currentElement )
+{
+   iter_DynamicStruct      loopParameters( (data_HashedDynamicStruct*)localParameter );
+   register DYNAMIC_TYPE   type;
+
+   switch ( type = currentElement->type )
+   {
+      case FACTORY_FCT_[@BASEMACRO@]_NODE_<@ARG_NAME@>_PARAM_VALUE:
+
+         this->addUpdateParameter( localParameter,
+                                   &loopParameters,
+                                   loopParameters.isValid(),
+                                   FACTORY_FUNCTION_[@BASEMACRO@]_<@ARG_NAME@>_PARAM_NAME,
+                                   currentElement->value,
+                                   type );
+         break;
+
+      default:
+
+         // TODO : Nothing to do here, or maybe, raise an exception...
+         //-----------------------------------------------------------
+         break;
+   } // End SWITCH on the current parameter type
+
+   return parameters;
+}
+
+/**
+ * Check if the current element defines a factory node
+ *
+ * @param currentElement - ElementDynamicParam* : The current value that describe a parameter value.
+ *
+ * @return NULL if the current element does not reference a formula node, the formula node otherwise
+*/
+base_FormulaNode* [@ELEMENT_NAME@]::isFormulaNodeParameter( ElementDynamicParam* currentElement )
+{
+   register base_FormulaNode* retValue = NULL;
+
+   if ( currentElement->type == FACTORY_FCT_[@BASEMACRO@]_NODE_<@ARG_NAME@>_PARAM_VALUE )
+   {
+      retValue = (base_FormulaNode*)currentElement->value;
+   } // End IF we are defining the position parameter
+   register base_FormulaNode* retValue;
+
+   switch ( currentElement->type )
+   {
+      case FACTORY_FCT_[@BASEMACRO@]_NODE_<@ARG_NAME@>_PARAM_VALUE:
+      case FACTORY_FCT_[@BASEMACRO@]_NODE_<@ARG_NAME@>_PARAM_VALUE:
+
+         retValue = (base_FormulaNode*)currentElement->value;
+
+         break;
+
+      default:
+
+         retValue = NULL;
+
+         break;
+   } // End SWITCH on the current parameter type
+
+   return retValue;
+}
+
+/**
+ * Copy the parameters from the original object to the current one.
+ *
+ * @param originalParameters - base_Dynamic* : The original parameters to read
+ * @param parameters - base_Dynamic* : The current parameters definition
+ *
+ * @return The parameters definition to use
+*/
+base_Dynamic* [@ELEMENT_NAME@]::copyParameters( base_Dynamic* originalParameters,
+                                                base_Dynamic* parameters )
+{
+   if ( originalParameters != NULL )
+   {
+      iter_DynamicStruct   loopDefinedParameters( (data_HashedDynamicStruct*)originalParameters );
+
+      if ( loopDefinedParameters.isValid() != false )
+      {
+         iter_DynamicStruct   loopParameters( (data_HashedDynamicStruct*)parameters );
+         DYNAMIC_TYPE         type;
+         void*                positionParameter = loopDefinedParameters.getCurrentField( &type );
+
+         this->addUpdateParameter( parameters,
+                                   &loopParameters,
+                                   loopParameters.isValid(),
+                                   FACTORY_FUNCTION_[@BASEMACRO@]_<@ARG_NAME@>_PARAM_NAME,
+                                   positionParameter,
+                                   type );
+      } // End IF the local parameter had been set
+   } // End IF some parameters had been defined
+
+   return parameters;
+}
+
+//---< End of file >------------------------------------------------------------
+

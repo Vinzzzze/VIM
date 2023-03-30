@@ -1,0 +1,7 @@
+beval_col beval_bufnr beval_lnum beval_text beval_winnr beval_winid char charconvert_from charconvert_to cmdarg
+cmdbang completed_item count count1 ctype dying errmsg errors exception false fcs_reason fcs_choice fname_in
+fname_out fname_new fname_diff folddashes foldlevel foldend foldstart hlsearch insertmode key lang lc_time lnum
+mouse_win mouse_winid mouse_lnum mouse_col none null oldfiles option_new option_old option_type operator prevcount
+profiling progname progpath register scrollstart servername searchforward shell_error statusmsg swapname swapchoice
+swapcommand t_bool t_channel t_dict t_float t_func t_job t_list t_none t_number t_string termresponse testing
+this_session throwpoint true val version vim_did_enter warningmsg windowid

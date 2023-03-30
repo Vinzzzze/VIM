@@ -1,0 +1,53 @@
+CREATE OR REPLACE PACKAGE [@ELEMENT_NAME@]
+IS
+	/*
+	|| Package : [@ELEMENT_NAME@]
+	||
+	|| Auteur : [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+	|| Date : [@ELEMENT_DATE@]
+	||
+	|| But : [@ELEMENT_DESC@]
+	||
+	||---< Maintenance >---------------------------------------------------------
+	*/
+
+	--#-< Déclaration des types >-######-------------------
+	--#-< Déclaration des variables >-######---------------
+	--#-< Déclaration des curseurs >-######----------------
+	--#-< Déclaration des fonctions et procédures >-######-
+
+END [@ELEMENT_NAME@];
+
+CREATE OR REPLACE PACKAGE BODY [@ELEMENT_NAME@]
+IS
+	--#-< Déclaration des types >-########-----------------
+	--#-< Déclaration des variables >-########-------------
+	--#-< Ecriture des curseurs >-########-----------------
+	--#-< Eciture des fonctions et procédures >-########---
+
+BEGIN
+
+	/*
+	|| CODE D'INITIALISATION : attention danger !!!
+	*/
+
+EXCEPTION
+
+	/*
+	|| EXCEPTIONS DU CODE D'INITIALISATION
+	*/
+
+END [@ELEMENT_NAME@];
+
+DROP PUBLIC SYNONYM [@ELEMENT_NAME@]
+/
+
+CREATE PUBLIC SYNONYM [@ELEMENT_NAME@] FOR [@ELEMENT_NAME@]
+/
+
+GRANT ALL ON [@ELEMENT_NAME@] TO Developper
+/
+
+GRANT EXECUTE ON [@ELEMENT_NAME@] TO Appli_User
+/
+

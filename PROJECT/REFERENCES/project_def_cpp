@@ -1,0 +1,23 @@
+if ( filereadable( "../.project_def" ) != 0 )
+   source ../.project_def
+endif
+
+" Define the specific tag definition
+"-----------------------------------
+let g:VM_projectSpecificTags = $EXPORT_LIBRARY . "/tags"
+
+" Define the path to search for
+"------------------------------
+let g:VM_pathBuildBase = " . ../KAMELEON"
+
+" Initialize the environement variables
+"--------------------------------------
+let $CURRENT_PROJECT = "[@ELEMENT_MACRO@]"
+let g:VM_projectDBExtension = "psql"
+
+" The project is a CPP one
+"-------------------------
+if ( filereadable( "../cpp.project_def" ) != 0 )
+   source ../cpp.project_def
+endif
+

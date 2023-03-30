@@ -1,0 +1,36 @@
+/*
+|| PROCEDURE LIST : [@ELEMENT_NAME@]
+||
+|| OBJECT : [@ELEMENT_DESC@]
+||
+||-------------------------------------------------
+|| Creation : [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+||            [@ELEMENT_DATE@]
+*/
+
+DROP FUNCTION "[@ELEMENT_PROJECT@]"."[@ELEMENT_NAME@]"(<@PARAMETER@>) CASCADE;
+
+CREATE FUNCTION "[@ELEMENT_PROJECT@]"."[@ELEMENT_NAME@]"(<@PARAMETER@>)
+	RETURNS SETOF <@RETURNED_TYPE@> AS
+$BODY$
+DECLARE
+	<@DECLARE_BLOCK@>
+BEGIN
+	<@CODE@>
+
+	RETURN QUERY
+		SELECT<@SELECT_QUERY@>
+
+	RETURN;
+END;
+$BODY$
+	LANGUAGE plpgsql VOLATILE
+	COST <@COST@>
+	ROWS <@ROWS@>;
+
+ALTER FUNCTION "[@ELEMENT_PROJECT@]"."[@ELEMENT_NAME@]"(<@PARAMETER@>)
+	OWNER TO kameleon_dbo;
+COMMENT ON FUNCTION "[@ELEMENT_PROJECT@]"."[@ELEMENT_NAME@]"(<@PARAMETER@>) IS '[@ELEMENT_DESC@]';
+
+/*---< Fin du fichier >-------------------------------------------------------*/
+

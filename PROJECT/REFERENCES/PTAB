@@ -1,0 +1,30 @@
+/*
+|| TABLE : [@ELEMENT_NAME@]
+||
+|| OBJECT : [@ELEMENT_DESC@]
+||
+||-------------------------------------------------
+|| Creation : [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+||            [@ELEMENT_DATE@]
+*/
+
+DROP TABLE "[@ELEMENT_PROJECT@]"."[@ELEMENT_NAME@]" CASCADE;
+
+CREATE TABLE "[@ELEMENT_PROJECT@]"."[@ELEMENT_NAME@]"
+(
+	&<@COLUMN_NAME@>
+)
+WITH (
+	OIDS=FALSE
+);
+ALTER TABLE "[@ELEMENT_PROJECT@]"."[@ELEMENT_NAME@]"
+	OWNER TO kameleon_dbo;
+COMMENT ON TABLE "[@ELEMENT_PROJECT@]"."[@ELEMENT_NAME@]"
+	IS '[@ELEMENT_DESC@]';
+
+CREATE INDEX "[@ELEMENT_NAME@]_pk" ON "[@ELEMENT_PROJECT@]"."[@ELEMENT_NAME@]"
+(
+);
+
+/*---< Fin du fichier >-------------------------------------------------------*/
+

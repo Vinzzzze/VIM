@@ -1,0 +1,20 @@
+/*
+|| SCHEMA : [@ELEMENT_NAME@]
+||
+|| OBJECT : [@ELEMENT_DESC@]
+||
+||-------------------------------------------------
+|| Creation : [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+||            [@ELEMENT_DATE@]
+*/
+DROP SCHEMA "[@ELEMENT_NAME@]" CASCADE;
+
+CREATE SCHEMA "[@ELEMENT_NAME@]"
+	AUTHORIZATION kameleon_dbo;
+
+GRANT ALL ON SCHEMA "[@ELEMENT_NAME@]" TO postgres;
+GRANT ALL ON SCHEMA "[@ELEMENT_NAME@]" TO kameleon_dbo;
+COMMENT ON SCHEMA "[@ELEMENT_NAME@]" IS '[@ELEMENT_DESC@]';
+
+-- End of schema ----------------------------------------
+

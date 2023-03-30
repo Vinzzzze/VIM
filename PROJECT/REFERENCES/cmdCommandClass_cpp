@@ -1,0 +1,71 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * The command used to [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+//---< Inclusions >-------------------------------------------------------------
+
+#include "BASE/base_FactoryCommandServer.hpp"
+#include "DATA/data_[@COMMAND_CLASS_NAME@]CommandMessageServer.hpp"
+#include "DATA/data_StringStream.hpp"
+#include "HEAP/heap_Vector.hpp"
+
+//---< Local Types >------------------------------------------------------------
+//---< Local Macros >-----------------------------------------------------------
+//---< Local Structs >----------------------------------------------------------
+//---< Local Classes >----------------------------------------------------------
+//---< Local Variables >--------------------------------------------------------
+//---< Class >------------------------------------------------------------------
+
+/**
+ * Destructor
+*/
+data_[@COMMAND_CLASS_NAME@]CommandMessageServer::~data_[@COMMAND_CLASS_NAME@]CommandMessageServer()
+{
+}
+
+/**
+ * The real command execution.
+*/
+void data_[@COMMAND_CLASS_NAME@]CommandMessageServer::internalRun()
+{
+   <@COMMAND_CODE@>
+}
+
+/**
+ * Convert the current command in a readable way.
+ *
+ * @param output - data_StringStream* : The object where the command had to be written
+ *
+ * @return The object where the command had really be written.
+*/
+data_StringStream* data_[@COMMAND_CLASS_NAME@]CommandMessageServer::convertReadable( data_StringStream* output )
+{
+   output->concat( this->getDefinition()->getMnemonic() );
+   <@PARAM_VALUE_PRINT@>
+
+   return output;
+}
+
+/**
+ * Fill the vector for describing the value of the parameters for the current command.
+ *
+ * @param paramList - heap_Vector* : The vector to fill with the parameter values description
+ *
+ * @return The filled vector
+*/
+heap_Vector* data_[@COMMAND_CLASS_NAME@]CommandMessageServer::buildParamValues( heap_Vector* paramList )
+{
+   <@PARAM_LIST_DESCRIPTION@>
+   return paramList;
+}
+
+//---< End of file >------------------------------------------------------------
+

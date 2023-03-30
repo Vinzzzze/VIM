@@ -1,0 +1,55 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * Pool for the command used to [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+//---< Inclusions >-------------------------------------------------------------
+
+#include "POOL/pool_[@COMMAND_CLASS_NAME@]CommandMessageServer.hpp"
+
+//---< Local Types >------------------------------------------------------------
+//---< Local Macros >-----------------------------------------------------------
+//---< Local Structs >----------------------------------------------------------
+//---< Local Classes >----------------------------------------------------------
+//---< Local Variables >--------------------------------------------------------
+//---< Class >------------------------------------------------------------------
+
+/**
+ * Destructor
+*/
+pool_[@COMMAND_CLASS_NAME@]CommandMessageServer::~pool_[@COMMAND_CLASS_NAME@]CommandMessageServer()
+{
+}
+
+/**
+ * Create an object on the pool. The allocation must be done in the
+ * heap_ObjectManager with the code
+ * new( this->getObjectAllocator() ) <class to create>( this );
+ *
+ * @return The created object
+*/
+base_PoolObject* pool_[@COMMAND_CLASS_NAME@]CommandMessageServer::createObject()
+{
+   return new( BASE_OBJECT_OFFSET( data_[@COMMAND_CLASS_NAME@]CommandMessageServer ),
+               this->getObjectAllocator() ) data_[@COMMAND_CLASS_NAME@]CommandMessageServer( this,
+                                                                           NULL,
+                                                                           this->getFactory(),
+                                                                           NULL,
+                                                                           NULL,
+                                                                           NULL,
+                                                                           NULL,
+                                                                           NULL,
+                                                                           NULL,
+                                                                           this->getForwardException(),
+                                                                           this->getForwardReleaseException() );
+}
+
+//---< End of file >------------------------------------------------------------
+

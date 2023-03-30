@@ -1,0 +1,66 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * Factory for the command used to [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+//---< Inclusions >-------------------------------------------------------------
+
+#include "FACTORY/fact_[@COMMAND_CLASS_NAME@]CommandMessageServer.hpp"
+
+//---< Local Types >------------------------------------------------------------
+//---< Local Macros >-----------------------------------------------------------
+//---< Local Structs >----------------------------------------------------------
+//---< Local Classes >----------------------------------------------------------
+//---< Local Variables >--------------------------------------------------------
+
+/** The local definition of the parameters name
+*/
+static VM_CHAR*   defaultParamName[] =
+{
+   NULL
+};
+
+/** The parameters name list
+*/
+VM_CHAR**   fact_[@COMMAND_CLASS_NAME@]CommandMessageServer::paramNameList = defaultParamName;
+
+/** The local definition of the parameters type
+*/
+static VM_CHAR*   defaultParamType[] =
+{
+   NULL
+};
+
+/** The parameters type list
+*/
+VM_CHAR**   fact_[@COMMAND_CLASS_NAME@]CommandMessageServer::paramTypeList = defaultParamType;
+
+/** The local definition of the parameters description
+*/
+static VM_CHAR*   defaultParamDesc[] =
+{
+   NULL
+};
+
+/** The parameter description list
+*/
+VM_CHAR**   fact_[@COMMAND_CLASS_NAME@]CommandMessageServer::paramDescList = defaultParamDesc;
+
+//---< Class >------------------------------------------------------------------
+
+/**
+ * Destructor
+*/
+fact_[@COMMAND_CLASS_NAME@]CommandMessageServer::~fact_[@COMMAND_CLASS_NAME@]CommandMessageServer()
+{
+}
+
+//---< End of file >------------------------------------------------------------
+

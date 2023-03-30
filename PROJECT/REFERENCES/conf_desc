@@ -1,0 +1,34 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * C Conflation description
+ * [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+#pragma once
+
+/*---< Includes >-------------------------------------------------------------*/
+/*---< Type >-----------------------------------------------------------------*/
+
+/**
+ * List the indexes for the conflation
+*/
+typedef enum
+{
+[@CONFLATION_INDEX_LIST@]   [@ELEMENT_MACRO@]_CONFLATION_INDEX_LAST
+} conflationIndex_[@ELEMENT_NAME@];
+
+#define [@ELEMENT_MACRO@]_CORRELATION_OFFSET \
+[@CONFLATION_OFFSET_LIST@]
+
+#define [@ELEMENT_MACRO@]_SWITCH_ATTRIBUTES( object, index, value, defaultAction ) \
+[@CONFLATION_SWITCH_FUNCTION@]
+
+/*---< End of file >----------------------------------------------------------*/
+

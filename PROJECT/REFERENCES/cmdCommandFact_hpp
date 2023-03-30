@@ -1,0 +1,178 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * Factory for the command used to [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+#pragma once
+
+//---< Inclusions >-------------------------------------------------------------
+
+#include "stdBaseDefinition.mac"
+
+#include "DATA/data_VMMessagesHandler.hpp"
+#include "FACTORY/fact_CommandMessageServer.hpp"
+#include "POOL/pool_[@COMMAND_CLASS_NAME@]CommandMessageServer.hpp"
+
+//---< Predefined Types >-------------------------------------------------------
+//---< Structures >-------------------------------------------------------------
+//---< Macros >-----------------------------------------------------------------
+
+<@DEFINE_THE_PARAMETER_NAMES@>
+
+//---< Classe >-----------------------------------------------------------------
+
+/**
+ * Factory for the command used to [@ELEMENT_DESC@]
+*/
+class fact_[@COMMAND_CLASS_NAME@]CommandMessageServer
+ : VM_PUBLIC fact_CommandMessageServer
+{
+   VM_PRIVATE:
+
+      // Attributes
+      //-----------
+
+      // Static Attributes
+      //------------------
+
+      /** The parameters name list
+      */
+      static VM_CHAR**  paramNameList;
+
+      /** The parameters type list
+      */
+      static VM_CHAR**  paramTypeList;
+
+      /** The parameter description list
+      */
+      static VM_CHAR**  paramDescList;
+
+      // Static Accessors
+      //-----------------
+
+      /**
+       * Get The parameters name list
+      */
+      VM_INLINE static VM_CHAR** getParamNameList()
+      {
+         return paramNameList;
+      }
+
+      /**
+       * Set The parameters name list
+      */
+      VM_INLINE static void setParamNameList( VM_CHAR** param )
+      {
+         paramNameList = param;
+      }
+
+      /**
+       * Get The parameters type list
+      */
+      VM_INLINE static VM_CHAR** getParamTypeList()
+      {
+         return paramTypeList;
+      }
+
+      /**
+       * Set The parameters type list
+      */
+      VM_INLINE static void setParamTypeList( VM_CHAR** param )
+      {
+         paramTypeList = param;
+      }
+
+      /**
+       * Get The parameter description list
+      */
+      VM_INLINE static VM_CHAR** getParamDescList()
+      {
+         return paramDescList;
+      }
+
+      /**
+       * Set The parameter description list
+      */
+      VM_INLINE static void setParamDescList( VM_CHAR** param )
+      {
+         paramDescList = param;
+      }
+
+   VM_PROTECTED:
+   VM_PUBLIC:
+
+      // Constructor
+      //------------
+
+      /**
+       * Constructor
+       *
+       * @param poolMessage - pool_DynamicStruct* : The pool used to build the messages to send
+       * @param entrySize - size_t : Size of the entry table
+       * @param allocateName - int : false if the name is allocated outside otherwise, any other value
+       * @param expectedPageSize - size_t : The minimal page size for the allocation
+       * @param vectorPageSize - size_t : The minimal page size for the allocation in the vector field list
+       * @param handler - data_DynamicHandler* : The handler used to manage the existing dynamic types.
+       * @param allocator - heap_PageAllocator* : The page allocator
+       * @param vectorAllocator - heap_PageAllocator* : The page allocator for the field vector
+       * @param callbackMallocUsed - fctCallbackAllocation : The callback to call when a malloc is performed on this heap manager.
+       * @param callbackMallocParam - void* : The parameter to forward to the callback used on allocation.
+       * @param vectorCallbackMallocUsed - fctCallbackAllocation : The callback to call when a malloc is performed on this heap manager.
+       * @param vectorCallbackMallocParam - void* : The parameter to forward to the callback used on allocation.
+      */
+      VM_INLINE fact_[@COMMAND_CLASS_NAME@]CommandMessageServer( pool_DynamicStruct*   poolMessage,
+                                               size_t                entrySize = 7,
+                                               int                   allocateName = false,
+                                               size_t                expectedPageSize = PAGE_MALLOC_SIZE,
+                                               size_t                vectorPageSize = PAGE_MALLOC_SIZE,
+                                               data_DynamicHandler*  handler = data_VMMessagesHandler::getDefaultHandler(),
+                                               heap_PageAllocator*   allocator = heap_PageAllocator::getAllocator(),
+                                               heap_PageAllocator*   vectorAllocator = heap_PageAllocator::getAllocator(),
+                                               fctCallbackAllocation callbackMallocUsed = NULL,
+                                               void*                 callbackMallocParam = NULL,
+                                               fctCallbackAllocation vectorCallbackMallocUsed = NULL,
+                                               void*                 vectorCallbackMallocParam = NULL )
+       : fact_CommandMessageServer( [@UPPER_COMMAND_NAME@]_COMMAND_IDENTIFIER,
+                                    VM_CONST_STRING"[@ELEMENT_NAME@]",
+                                    VM_CONST_STRING"[@ELEMENT_DESC@]",
+                                    fact_[@COMMAND_CLASS_NAME@]CommandMessageServer::getParamNameList(),
+                                    fact_[@COMMAND_CLASS_NAME@]CommandMessageServer::getParamTypeList(),
+                                    fact_[@COMMAND_CLASS_NAME@]CommandMessageServer::getParamDescList(),
+                                    poolMessage,
+                                    entrySize,
+                                    allocateName,
+                                    expectedPageSize,
+                                    vectorPageSize,
+                                    handler,
+                                    allocator,
+                                    vectorAllocator,
+                                    callbackMallocUsed,
+                                    callbackMallocParam,
+                                    vectorCallbackMallocUsed,
+                                    vectorCallbackMallocParam )
+      {
+         <@DEFINE_DEFAULT_PARAMETERS_VALUES@>
+      }
+
+      /**
+       * Copy constructor
+       *
+       * @param toCopy - const fact_[@COMMAND_CLASS_NAME@]CommandMessageServer& : Object to copy
+      */
+      fact_[@COMMAND_CLASS_NAME@]CommandMessageServer( const fact_[@COMMAND_CLASS_NAME@]CommandMessageServer& toCopy );
+
+      /**
+       * Destructor
+      */
+      virtual ~fact_[@COMMAND_CLASS_NAME@]CommandMessageServer();
+};
+
+//---< End of file >------------------------------------------------------------
+

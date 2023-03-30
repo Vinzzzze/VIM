@@ -1,0 +1,44 @@
+/*
+|| TABLE : [@ELEMENT_NAME@]
+||
+|| OBJECT : [@ELEMENT_DESC@]
+||
+||-------------------------------------------------
+|| Creation : [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+||            [@ELEMENT_DATE@]
+*/
+
+DROP TABLE IF EXISTS `[@ELEMENT_PROJECT@]`.`[@ELEMENT_NAME@]` CASCADE;
+
+CREATE TABLE `[@ELEMENT_PROJECT@]`.`[@ELEMENT_NAME@]`
+(
+	`Id`	int		NOT NULL,	-- Identifier
+	`Code`	varchar( 31 )	NOT NULL,	-- Mnemonic code
+	`Label`	varchar( 255 )	NOT NULL,	-- Complete label
+
+	INDEX `[@ELEMENT_NAME@]_pk` USING BTREE
+	(
+		`Id`
+	),
+	INDEX `[@ELEMENT_NAME@]_Code` USING HASH
+	(
+		`Code`
+	)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `[@ELEMENT_PROJECT@]`.`[@ELEMENT_NAME@]`
+(
+	`Id`,
+	`Code`,
+	`Label`
+)
+VALUES
+(
+	<@ID_VALUE@>,
+	"<@CODE_VALUE@>",
+	"<@LABEL_VALUE@>"
+);
+
+/*---< Fin du fichier >-------------------------------------------------------*/
+
+

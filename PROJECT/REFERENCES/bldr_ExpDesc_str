@@ -1,0 +1,30 @@
+/**
+ * @file bldr_ExportDescriptions.str
+ *
+ * C structure
+ * The builder for the object description.
+ *
+ * @author : [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date : [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+#pragma once
+
+/*---< Local Definition >----------------------------------*/
+
+#define BLDR_EXPORTDESCRIPTIONS_HSTR( prefixe ) \
+   /**
+    * The ancestor definition
+   */ \
+   INT_BUILDERDESCRIPTION_HSTR( prefixe ); \
+\
+   /**
+    * The array of the objects description
+   */ \
+   data_ObjectDescription** prefixe##_arrayDescriptions[ LAST_ALLOBJECTS_EXPORT_IDENTIFIER ]
+
+/*---< End of file >---------------------------------------*/
+

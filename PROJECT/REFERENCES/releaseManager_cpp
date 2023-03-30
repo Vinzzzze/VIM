@@ -1,0 +1,47 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+//---< Inclusions >-------------------------------------------------------------
+
+#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].hpp"
+
+//---< Local Types >------------------------------------------------------------
+//---< Local Macros >-----------------------------------------------------------
+//---< Local Structs >----------------------------------------------------------
+//---< Local Classes >----------------------------------------------------------
+//---< Local Variables >--------------------------------------------------------
+//---< Class >------------------------------------------------------------------
+
+/**
+ * Destructor
+*/
+[@ELEMENT_NAME@]::~[@ELEMENT_NAME@]()
+{
+}
+
+/**
+ * Build the object to be used.
+ * WARNING : The object had to be create in the current object manager
+ *           The allocationStatus vector should not be impacted by this call
+ *           as it is managed outside of this function.
+ *
+ * @param extra - void* : An extra parameter definition for building the object
+ *
+ * @return The object built
+*/
+void* data_PageReleasableManager::build( void*  extra )
+{
+   return <@OBJECT_BUILD@>;
+}
+
+//---< End of file >------------------------------------------------------------
+

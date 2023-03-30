@@ -1,0 +1,93 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+/*---< Includes >-------------------------------------------------------------*/
+
+#include "BASE/base_Memory.h"
+#include "DATA/data_ObjectDescription.h"
+#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@]Conflated.h"
+
+/*---< Local Predefined Types >-----------------------------------------------*/
+/*---< Local Macros >---------------------------------------------------------*/
+
+#include "BASE/base_Memory.mac"
+#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@]Conflated.mac"
+
+/*---< Local Variables >------------------------------------------------------*/
+/*---< Functions >------------------------------------------------------------*/
+
+/**
+ * Constructeur. Initialise les attributs de la structure.
+ *
+ * @param current - [@ELEMENT_NAME@]Conflated* : Structure à initialiser.
+ * @param conflatedInit - BASE_CONFLATIONOBJECT_DEFAULT_TYPE : The default conflation initialisation
+ *
+ * @return Structure initialisée.
+*/
+[@ELEMENT_NAME@]Conflated* build_[@ELEMENT_NAME@]Conflated( [@ELEMENT_NAME@]Conflated* current,
+[@ELEMENT_BLANK@]                [@ELEMENT_BLANK@]            BASE_CONFLATIONOBJECT_DEFAULT_TYPE conflatedInit )
+{
+   register BASE_CONFLATIONOBJECT_DEFAULT_TYPE* currentAttribute = [@ELEMENT_MACRO@]CONFLATED_GETARRAYCONFLATION( current );
+   register uint32                              nbAttributes = [@ELEMENT_MACRO@]CONFLATED_CONFLATION_INDEX_LAST;
+
+   [@ELEMENT_MACRO@]CONFLATED_INIT( current,
+   [@ELEMENT_BLANK@]                currentAttribute,
+   [@ELEMENT_BLANK@]                nbAttributes,
+   [@ELEMENT_BLANK@]                (int32)( (char*)( [@ELEMENT_MACRO@]CONFLATED_CONVERT_TO_BASE_CONFLATIONOBJECT( current ) ) - (char*)( current ) ) );
+
+   BASE_MEMORY_INIT_MEMORY_VALUE( currentAttribute,
+                                  nbAttributes,
+                                  conflatedInit );
+   return current;
+}
+
+/**
+ * Destructeur.
+ *
+ * @param current - [@ELEMENT_NAME@]Conflated* : Structure à détruire.
+*/
+void delete_[@ELEMENT_NAME@]Conflated( [@ELEMENT_NAME@]Conflated* current )
+{
+}
+
+/**
+ * The default init function called when the heap_StreamObjectAllocator build the object from
+ * the stream.
+ *
+ * @param current - data_ObjectDescription* : The object owner of the function call
+ * @param buffer - char* : The buffer that represent the object to initialize
+ * @param allocator - int_StreamObjectAllocator* : The allocator used to allocate the memory
+ * @param reference - char* : The buffer that represent the reference object used to perform the init
+ * @param referenceDesc - data_ObjectDescription* : The description of the reference object
+*/
+void defaultInit_[@ELEMENT_NAME@]Conflated( data_ObjectDescription*    current,
+                 [@ELEMENT_BLANK@]           char*                      buffer,
+                 [@ELEMENT_BLANK@]           int_StreamObjectAllocator* allocator,
+                 [@ELEMENT_BLANK@]           char*                      reference,
+                 [@ELEMENT_BLANK@]           data_ObjectDescription*    referenceDesc )
+{
+   register [@ELEMENT_NAME@]Conflated* object = ([@ELEMENT_NAME@]Conflated*)buffer;
+   register BASE_CONFLATIONOBJECT_DEFAULT_TYPE* currentAttribute = [@ELEMENT_MACRO@]CONFLATED_GETARRAYCONFLATION( object );
+   register uint32                              nbAttributes = [@ELEMENT_MACRO@]CONFLATED_CONFLATION_INDEX_LAST;
+
+   [@ELEMENT_MACRO@]CONFLATED_INIT( object,
+   [@ELEMENT_BLANK@]                currentAttribute,
+   [@ELEMENT_BLANK@]                nbAttributes,
+   [@ELEMENT_BLANK@]                (int32)( (char*)( [@ELEMENT_MACRO@]CONFLATED_CONVERT_TO_BASE_CONFLATIONOBJECT( object ) ) - (char*)( object ) ) );
+
+   BASE_MEMORY_INIT_MEMORY_VALUE( currentAttribute,
+                                  nbAttributes,
+                                  BASE_CONFLATIONOBJECT_ATTRIBUTE_CLEAN );
+}
+
+/*---< End of file >----------------------------------------------------------*/
+

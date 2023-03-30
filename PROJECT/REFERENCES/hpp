@@ -1,0 +1,65 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+#pragma once
+
+//---< Inclusions >-------------------------------------------------------------
+
+#include "stdBaseDefinition.mac"
+
+#include "HEAP/heap_Allocation.hpp"
+
+//---< Predefined Types >-------------------------------------------------------
+//---< Structures >-------------------------------------------------------------
+//---< Macros >-----------------------------------------------------------------
+//---< Classe >-----------------------------------------------------------------
+
+/**
+ * [@ELEMENT_DESC@]
+*/
+class [@ELEMENT_NAME@]
+{
+   VM_PRIVATE:
+
+      // Attributes
+      //-----------
+
+   VM_PROTECTED:
+   VM_PUBLIC:
+
+      // Constructor
+      //------------
+
+      /**
+       * Constructor
+       *
+       * @param 
+      */
+      VM_INLINE [@ELEMENT_NAME@]()
+      {
+      }
+
+      /**
+       * Copy constructor
+       *
+       * @param toCopy - const [@ELEMENT_NAME@]& : Object to copy
+      */
+      [@ELEMENT_NAME@]( const [@ELEMENT_NAME@]& toCopy );
+
+      /**
+       * Destructor
+      */
+      virtual ~[@ELEMENT_NAME@]();
+};
+
+//---< End of file >------------------------------------------------------------
+

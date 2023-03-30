@@ -1,0 +1,46 @@
+package [@ELEMENT_PROJECT@];
+
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+//---< Imports >----------------------------------------------------------------
+//---< Interface >--------------------------------------------------------------
+
+/**
+ * [@ELEMENT_DESC@]
+*/
+public interface [@ELEMENT_NAME@]
+{
+   // Constantes
+   // ----------
+
+   // Attributs
+   // ---------
+
+   // Constructeur
+   // ------------
+
+   /**
+    * Constructeur.
+    *
+    * @param 
+   */
+   public [@ELEMENT_NAME@]()
+   {
+   }
+
+   // Fonctionnel
+   // -----------
+
+} // Fin INTERFACE [@ELEMENT_NAME@]
+
+//---< End of file >------------------------------------------------------------
+

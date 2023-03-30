@@ -1,0 +1,34 @@
+/*
+|| PROCEDURE : [@ELEMENT_NAME@]
+||
+|| OBJECT : List all the data from the [@ELEMENT_DESC@]
+||
+||-------------------------------------------------
+|| Creation : [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+||            [@ELEMENT_DATE@]
+*/
+
+DROP PROCEDURE IF EXISTS `[@ELEMENT_PROJECT@]`.`[@ELEMENT_NAME@]`;
+
+DELIMITER $$
+
+CREATE PROCEDURE `[@ELEMENT_PROJECT@]`.`[@ELEMENT_NAME@]`( IdUser	int )
+BEGIN
+	DECLARE CurrentDate	date;
+
+	SET
+		CurrentDate = NOW();
+	SELECT
+		l.<@COLUMN_LIST@>
+	FROM
+		[@TABLE_NAME@] l
+	WHERE
+		l.DateValid <= CurrentDate
+	AND	l.DateDead > CurrentDate;
+END$$
+
+DELIMITER ;
+
+/*---< Fin du fichier >-------------------------------------------------------*/
+
+

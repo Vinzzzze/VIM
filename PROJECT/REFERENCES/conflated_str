@@ -1,0 +1,35 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * C structure
+ * [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+#pragma once
+
+/*---< Local Definition >----------------------------------*/
+
+#define [@ELEMENT_MACRO@]CONFLATED_HSTR( prefixe, typeConflation ) \
+   /**
+    * The ancestor definition
+   */ \
+   [@ELEMENT_MACRO@]_HSTR( prefixe ); \
+\
+   /**
+    * The conflation definition
+   */ \
+   BASE_CONFLATIONOBJECT_HSTR( prefixe, \
+                               typeConflation ); \
+   /**
+    * The array that stores the conflation values.
+   */ \
+   typeConflation prefixe##_arrayConflation[ [@ELEMENT_MACRO@]CONFLATED_CONFLATION_INDEX_LAST ]
+
+/*---< End of file >---------------------------------------*/
+

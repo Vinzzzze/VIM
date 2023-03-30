@@ -1,0 +1,34 @@
+/**
+ * @file : [@ELEMENT_FILE@]
+ *
+ * C accessors and macros
+ * [@ELEMENT_DESC@]
+ *
+ * @author : [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date : [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatime
+*/
+
+#pragma once
+
+/*---< Inclusions >-----------------------------------------------------------*/
+
+#include "BASE/base_ConflationObject.mac"
+#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].mac"
+
+/*---< Macros >---------------------------------------------------------------*/
+
+#define [@ELEMENT_MACRO@]CONFLATED_INIT( current, conflationArray, nbAttributes, offsetBase ) [@ELEMENT_MACRO@]CONFLATED_PREFIXED_INIT( std, current, conflationArray, nbAttributes, offsetBase )
+#define [@ELEMENT_MACRO@]CONFLATED_PREFIXED_INIT( prefixe, current, conflationArray, nbAttributes, offsetBase ) \
+   [@ELEMENT_MACRO@]_PREFIXED_INIT( prefixe, \
+   [@ELEMENT_BLANK@]                current ); \
+   BASE_CONFLATIONOBJECT_PREFIXED_INIT( prefixe, \
+                                        current, \
+                                        conflationArray, \
+                                        nbAttributes, \
+                                        offsetBase )
+
+/*---< End of file >----------------------------------------------------------*/
+

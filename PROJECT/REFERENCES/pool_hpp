@@ -1,0 +1,94 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+#pragma once
+
+//---< Inclusions >-------------------------------------------------------------
+
+#include "stdBaseDefinition.mac"
+
+#include "BASE/base_Pool.hpp"
+#include "DATA/data_[@ELEMENT_NAME@].hpp"
+
+//---< Predefined Types >-------------------------------------------------------
+//---< Structures >-------------------------------------------------------------
+//---< Macros >-----------------------------------------------------------------
+//---< Classe >-----------------------------------------------------------------
+
+/**
+ * [@ELEMENT_DESC@]
+*/
+class pool_[@ELEMENT_NAME@]
+ : VM_PUBLIC base_Pool
+{
+   VM_PRIVATE:
+
+      // Attributes
+      //-----------
+
+   VM_PROTECTED:
+
+      // Function
+      //---------
+
+      /**
+       * Create an object on the pool. The allocation must be done in the
+       * heap_ObjectManager with the code
+       * new( this->getObjectAllocator() ) <class to create>( this );
+       *
+       * @return The created object
+      */
+      virtual base_PoolObject* createObject();
+
+   VM_PUBLIC:
+
+      // Constructor
+      //------------
+
+      /**
+       * Constructor
+       *
+       * @param nbEntries - int : The number of entries
+       * @param manager - heap_ObjectManager* : The object manager dedicated to the pool objects allocation.
+       * @param nbEntriesFull - int : The number of entries to signal the pool full.
+       * @param keepAlive - int : false to delete objects on release otherwise,any other value
+       * @param waitForLock - int : Number of milliseconds to wait before cancelling the object get try.
+      */
+      VM_INLINE pool_[@ELEMENT_NAME@]( int                 nbEntries,
+                                       heap_ObjectManager* manager,
+                                       int                 nbEntriesFull = 0,
+                                       int                 keepAlive = true,
+                                       int                 waitForLock = INFINITE )
+       : base_Pool( nbEntries,
+                    BASE_POOL_OBJECT_OFFSET( data_[@ELEMENT_NAME@] ),
+                    manager,
+                    nbEntriesFull,
+                    keepAlive,
+                    waitForLock )
+      {
+      }
+
+      /**
+       * Copy constructor
+       *
+       * @param toCopy - const pool_[@ELEMENT_NAME@]& : Object to copy
+      */
+      pool_[@ELEMENT_NAME@]( const pool_[@ELEMENT_NAME@]& toCopy );
+
+      /**
+       * Destructor
+      */
+      virtual ~pool_[@ELEMENT_NAME@]();
+};
+
+//---< End of file >------------------------------------------------------------
+

@@ -1,0 +1,128 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * The command used to [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+#pragma once
+
+//---< Inclusions >-------------------------------------------------------------
+
+#include "stdBaseDefinition.mac"
+
+#include "DATA/data_CommandMessageServer.hpp"
+
+class data_StringStream;
+
+//---< Predefined Types >-------------------------------------------------------
+//---< Structures >-------------------------------------------------------------
+//---< Macros >-----------------------------------------------------------------
+//---< Classe >-----------------------------------------------------------------
+
+/**
+ * The command used to [@ELEMENT_DESC@]
+*/
+class data_[@COMMAND_CLASS_NAME@]CommandMessageServer
+ : VM_PUBLIC data_CommandMessageServer
+{
+   VM_PRIVATE:
+
+      // Attributes
+      //-----------
+
+      // Functions
+      //----------
+
+      /**
+       * The real command execution.
+      */
+      virtual void internalRun();
+
+      /**
+       * Fill the vector for describing the value of the parameters for the current command.
+       *
+       * @param paramList - heap_Vector* : The vector to fill with the parameter values description
+       *
+       * @return The filled vector
+      */
+      virtual heap_Vector* buildParamValues( heap_Vector*   paramList );
+
+   VM_PROTECTED:
+   VM_PUBLIC:
+
+      // Constructor
+      //------------
+
+      /**
+       * Constructor
+       *
+       * @param pool - base_Pool* : The pool the handle the current object
+       * @param message - base_MessageReader* : The message that contains all the execution parameters
+       * @param definition - base_FactoryCommandServer* : The command definition
+       * @param executor - base_ThreadServer* : The executor object that owns the command
+       * @param eventReader - int_IOEventRead* : The event reader object.
+       * @param memory - heap_Manager* : The memory heap used for internal operations
+       * @param objectMemory - heap_ObjectManager* : The memory heap used to create temporary objects
+       * @param responseBuilder - int_ResponseBuilder* : The response builder object.
+       * @param idOrigin - int* : The caller origin identifier
+       * @param exceptionForward - short : false to not forward exceptions, another value otherwise
+       * @param exceptionReleaseForward - short : false to not forward internal release exceptions, another value otherwise
+      */
+      VM_INLINE data_[@COMMAND_CLASS_NAME@]CommandMessageServer( base_Pool*                 pool,
+                                               base_MessageReader*        message,
+                                               base_FactoryCommandServer* definition,
+                                               base_ThreadServer*         executor,
+                                               int_IOEventRead*           eventReader,
+                                               heap_Manager*              memory,
+                                               heap_ObjectManager*        objectMemory,
+                                               int_ResponseBuilder*       responseBuilder,
+                                               int*                       idOrigin,
+                                               short                      exceptionForward = false,
+                                               short                      exceptionReleaseForward = false )
+       : data_CommandMessageServer( pool,
+                                    message,
+                                    definition,
+                                    executor,
+                                    eventReader,
+                                    memory,
+                                    objectMemory,
+                                    responseBuilder,
+                                    idOrigin,
+                                    exceptionForward,
+                                    exceptionReleaseForward )
+      {
+      }
+
+      /**
+       * Copy constructor
+       *
+       * @param toCopy - const data_[@COMMAND_CLASS_NAME@]CommandMessageServer& : Object to copy
+      */
+      data_[@COMMAND_CLASS_NAME@]CommandMessageServer( const data_[@COMMAND_CLASS_NAME@]CommandMessageServer& toCopy );
+
+      /**
+       * Destructor
+      */
+      virtual ~data_[@COMMAND_CLASS_NAME@]CommandMessageServer();
+
+      // Function
+      //---------
+
+      /**
+       * Convert the current command in a readable way.
+       *
+       * @param output - data_StringStream* : The object where the command had to be written
+       *
+       * @return The object where the command had really be written.
+      */
+      virtual data_StringStream* convertReadable( data_StringStream* output );
+};
+
+//---< End of file >------------------------------------------------------------
+

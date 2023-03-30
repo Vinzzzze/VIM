@@ -1,0 +1,94 @@
+/*
+|| PROCEDURE : [@ELEMENT_NAME@]
+||
+|| OBJECT : Update the [@ELEMENT_DESC@]
+||
+||-------------------------------------------------
+|| Creation : [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+||            [@ELEMENT_DATE@]
+*/
+
+DROP PROCEDURE IF EXISTS `[@ELEMENT_PROJECT@]`.`[@ELEMENT_NAME@]`;
+
+DELIMITER $$
+
+CREATE PROCEDURE `[@ELEMENT_PROJECT@]`.`[@ELEMENT_NAME@]`( IdUser		int,<@NEXT_LINE@>Identifier	int,<@PARAMETER@> )
+BEGIN
+	DECLARE ErrorCode	int;
+	DECLARE ErrorMessage	varchar( 511 );
+	DECLARE CurrentDate	date;
+	DECLARE LastDate	date;
+
+	SET
+		ErrorCode = 0,
+		CurrentDate = NOW(),
+		LastDate = STR_TO_DATE( "9999-12-31",
+                          		"%Y-%m-%d" );
+	IF NOT EXISTS
+	(
+		SELECT
+			1
+		FROM
+			[@TABLE_NAME@]
+		WHERE
+			Id = Identifier
+		AND	DateValid <= CurrentDate
+		AND	DateDead > CurrentDate
+	)
+	THEN
+		UPDATE
+			[@TABLE_NAME@] u
+		SET
+			u.DateDead = CurrentDate
+		WHERE
+			u.Id = Identifier
+		AND	u.DateValid < CurrentDate
+		AND	u.DateDead > CurrentDate;
+
+		UPDATE
+			[@TABLE_NAME@] u
+		SET
+			<@COLUN_UPDATE_LIST@>
+		WHERE
+			u.Id = Identifier
+		AND	u.DateValid = CurrentDate
+		AND	u.DateDead > CurrentDate;
+
+		IF ( ROW_COUNT() = 0 )
+		THEN
+			INSERT INTO [@TABLE_NAME@]
+			(
+				`<@COLUMN_LIST@>`,
+				`DateValid`,
+				`DateDead`,
+				`<@COLUMN_LIST@>`
+			)
+			VALUES
+			(
+				<@VALUE@>,
+				CurrentDate,
+				LastDate,
+				<@VALUE@>
+			);
+
+			IF ( ROW_COUNT() = 0 )
+			THEN
+				SET
+					ErrorCode = -2,
+					ErrorMessage = "Unable to update the [@ELEMENT_DESC@]";
+			END IF; -- End IF it was not possible to add the [@ELEMENT_DESC@]
+		END IF; -- End IF a new value had to be added
+	END IF; -- End IF the [@ELEMENT_DESC@] had to be updated
+
+	IF ( ErrorCode != 0 )
+	THEN
+		SIGNAL SQLSTATE '50000'
+			SET MESSAGE_TEXT = ErrorMessage,
+			    MYSQL_ERRNO = ErrorCode;
+	END IF; -- End IF an error had been detected
+END$$
+
+DELIMITER ;
+
+/*---< Fin du fichier >-------------------------------------------------------*/
+

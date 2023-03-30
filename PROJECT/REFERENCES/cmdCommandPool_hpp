@@ -1,0 +1,106 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * Pool for the command used to [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+#pragma once
+
+//---< Inclusions >-------------------------------------------------------------
+
+#include "stdBaseDefinition.mac"
+
+#include "BASE/base_PoolCommandMessageServer.hpp"
+#include "DATA/data_[@COMMAND_CLASS_NAME@]CommandMessageServer.hpp"
+
+//---< Predefined Types >-------------------------------------------------------
+//---< Structures >-------------------------------------------------------------
+//---< Macros >-----------------------------------------------------------------
+//---< Classe >-----------------------------------------------------------------
+
+/**
+ * Pool for the command used to [@ELEMENT_DESC@]
+*/
+class pool_[@COMMAND_CLASS_NAME@]CommandMessageServer
+ : VM_PUBLIC base_PoolCommandMessageServer
+{
+   VM_PRIVATE:
+
+      // Attributes
+      //-----------
+
+   VM_PROTECTED:
+
+      // Function
+      //---------
+
+      /**
+       * Create an object on the pool. The allocation must be done in the
+       * heap_ObjectManager with the code
+       * new( this->getObjectAllocator() ) <class to create>( this );
+       *
+       * @return The created object
+      */
+      virtual base_PoolObject* createObject();
+
+   VM_PUBLIC:
+
+      // Constructor
+      //------------
+
+      /**
+       * Constructor
+       *
+       * @param factory - fact_CommandMessageServer* : The factory that defines the default message value
+       * @param nbEntries - int : The number of entries
+       * @param manager - heap_ObjectManager* : The object manager dedicated to the pool objects allocation.
+       * @param useName - int : false to use parameter position, another value to use the parameter name
+       * @param forwardException - short : false to not forward the exceptions when running, another value otherwise
+       * @param forwardReleaseException - short : false to not forward the exceptions when releasing, another value otherwise
+       * @param nbEntriesFull - int : The number of entries to signal the pool full.
+       * @param keepAlive - int : false to delete objects on release otherwise, any other value
+       * @param waitForLock - int : Number of milliseconds to wait before cancelling the object get try.
+      */
+      VM_INLINE pool_[@COMMAND_CLASS_NAME@]CommandMessageServer( fact_CommandMessageServer* factory,
+                                               int                        nbEntries,
+                                               heap_ObjectManager*        manager,
+                                               int                        useName,
+                                               short                      forwardException,
+                                               short                      forwardReleaseException,
+                                               int                        nbEntriesFull = 0,
+                                               int                        keepAlive = true,
+                                               int                        waitForLock = INFINITE )
+       : base_PoolCommandMessageServer( factory,
+                                        nbEntries,
+                                        manager,
+                                        BASE_POOL_OBJECT_OFFSET( data_[@COMMAND_CLASS_NAME@]CommandMessageServer ),
+                                        useName,
+                                        forwardException,
+                                        forwardReleaseException,
+                                        nbEntriesFull,
+                                        keepAlive,
+                                        waitForLock )
+      {
+      }
+
+      /**
+       * Copy constructor
+       *
+       * @param toCopy - const pool_[@COMMAND_CLASS_NAME@]CommandMessageServer& : Object to copy
+      */
+      pool_[@COMMAND_CLASS_NAME@]CommandMessageServer( const pool_[@COMMAND_CLASS_NAME@]CommandMessageServer& toCopy );
+
+      /**
+       * Destructor
+      */
+      virtual ~pool_[@COMMAND_CLASS_NAME@]CommandMessageServer();
+};
+
+//---< End of file >------------------------------------------------------------
+

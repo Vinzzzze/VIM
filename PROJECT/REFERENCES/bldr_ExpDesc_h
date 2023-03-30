@@ -1,0 +1,80 @@
+/**
+ * @file bldr_ExportDescriptions.h
+ *
+ * The builder for the object description.
+ *
+ * @author : [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date : [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+#pragma once
+
+/*---< Includes >-------------------------------------------------------------*/
+
+#include "INTERFACE/int_BuilderDescription.h"
+
+/*---< Predefined Types >-----------------------------------------------------*/
+
+#include "BUILDER/bldr_ExportDescriptions.typ"
+#include "DATA/data_ObjectDescription.typ"
+
+/*---< Macros >---------------------------------------------------------------*/
+
+#include "BUILDER/bldr_ExportDescriptions.mac"
+
+/*---< Variables >------------------------------------------------------------*/
+/*---< Structure >------------------------------------------------------------*/
+
+#include "BUILDER/bldr_ExportDescriptions.str"
+
+struct s_bldr_ExportDescriptions
+{
+   /*
+   || La structure est définie dans un fichier include afin de permettre
+   || l'héritage des capacitées de cette structure
+   */
+   BLDR_EXPORTDESCRIPTIONS_HSTR( std );
+};
+
+/*---< Functions >------------------------------------------------------------*/
+
+/**
+ * Constructeur. Initialise les attributs de la structure.
+ *
+ * @param current - bldr_ExportDescriptions* : Structure à initialiser.
+ *
+ * @return Structure initialisée.
+*/
+bldr_ExportDescriptions* build_bldr_ExportDescriptions( bldr_ExportDescriptions* current );
+
+/**
+ * Destructeur.
+ *
+ * @param current - bldr_ExportDescriptions* : Structure à détruire.
+*/
+void delete_bldr_ExportDescriptions( bldr_ExportDescriptions* current );
+
+/**
+ * Get the description definition.
+ *
+ * @param current - int_BuilderDescription* : The factory used to get the description
+ * @param identifier - identifier_data_ObjectDescription : The object description identifier
+ *
+ * @return The description object to use
+*/
+data_ObjectDescription* getDescription_bldr_ExportDescriptions( int_BuilderDescription*            current,
+                                                                identifier_data_ObjectDescription  identifier );
+/**
+ * Release the description previously used.
+ *
+ * @param current - int_BuilderDescription* : The factory where the description had to be released
+ * @param description - data_ObjectDescription* : The description object
+*/
+void releaseDescription_bldr_ExportDescriptions( int_BuilderDescription*   current,
+                                                 data_ObjectDescription*   description );
+
+/*---< End of file >----------------------------------------------------------*/
+

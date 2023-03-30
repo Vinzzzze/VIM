@@ -1,0 +1,18 @@
+/*
+|| TYPE : [@ELEMENT_NAME@]
+||
+|| OBJECT : [@ELEMENT_DESC@]
+||
+||-------------------------------------------------
+|| Creation : [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+||            [@ELEMENT_DATE@]
+*/
+
+DROP TYPE "[@ELEMENT_PROJECT@]"."[@ELEMENT_NAME@]" CASCADE;
+
+CREATE TYPE "[@ELEMENT_PROJECT@]"."[@ELEMENT_NAME@]" AS
+(
+);
+
+/*---< Fin du fichier >-------------------------------------------------------*/
+

@@ -1,0 +1,25 @@
+" Fichier : gvimrc
+"
+" But : Définition de la configuration graphique de VIM pour le compte courant
+"
+" Auteur : Vini "Cool Coyote" - coolcoyote@club-internet.fr
+"-------------------------------
+" Modification : VM - 05/10/2001
+"    Définition de couleurs sympatiques pour utiliser la syntaxe SQL
+"-------------------------------------------------------------------------------
+
+unlet g:VM_terminalUsage
+
+" Définition des options graphiques : pas de menus ni de scroll bars, ni même de tool bar
+" idem pour la souris, moins elle fonctionne plus je suis heureux, alors...
+"----------------------------------------------------------------------------------------
+set guioptions=a
+set mouse=
+set guicursor=n-v-c:block-Cursor,ve:ver35-Cursor,o:hor50-Cursor,i-ci:ver25-Cursor,r-cr:hor20-Cursor,sm:
+
+" Execute le local file definition
+"---------------------------------
+let s:localFileDef = substitute( localFileDefinitions, "vimrc", "\g&", "" )
+if ( filereadable( expand( s:localFileDef ) ) != 0 )
+   execute "source " . s:localFileDef
+endif

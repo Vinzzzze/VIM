@@ -1,0 +1,110 @@
+/*
+|| PROCEDURE : [@ELEMENT_NAME@]
+||
+|| OBJECT : Add / Update data for the [@ELEMENT_DESC@]
+||
+||-------------------------------------------------
+|| Creation : [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+||            [@ELEMENT_DATE@]
+*/
+
+DROP PROCEDURE IF EXISTS `[@ELEMENT_PROJECT@]`.`[@ELEMENT_NAME@]`;
+
+DELIMITER $$
+
+CREATE PROCEDURE `[@ELEMENT_PROJECT@]`.`[@ELEMENT_NAME@]`( IdUser	int,<@PARAMETER@> )
+BEGIN
+	DECLARE ErrorCode	int;
+	DECLARE ErrorMessage	varchar( 511 );
+	DECLARE CurrentDate	date;
+	DECLARE Identifier	int;
+	DECLARE LastDate	date;
+	DECLARE BuildDone	int;
+
+	SET
+		Identifier = NULL,
+		ErrorCode = 0,
+		BuildDone = 0,
+		CurrentDate = NOW(),
+		LastDate = STR_TO_DATE( "9999-12-31",
+                          		"%Y-%m-%d" );
+	SELECT DISTINCT
+		<@IDENTIFIER@>
+	INTO
+		Identifier
+	FROM
+		[@TABLE_NAME@]
+	WHERE
+		<@CODE_CONDITION@>;
+
+	IF ( Identifier IS NULL )
+	THEN
+		SET
+			BuildDone = 1;
+
+		CALL Common.P_CMM_GetNextIdentifier( "[@TABLE_NAME@]",
+						     Identifier,
+						     ErrorCode,
+						     ErrorMessage );
+		SELECT DISTINCT
+			<@IDENTIFIER@>
+		INTO
+			Identifier
+		FROM
+			[@TABLE_NAME@]
+		WHERE
+			<@CODE_CONDITION@>;
+
+		IF ( ROW_COUNT() > 0 )
+		THEN
+			CALL Common.P_CMM_DelNextIdentifier( "[@TABLE_NAME@]" );
+
+			SET
+				ErrorCode = 0,
+				ErrorMessage = "";
+		END IF; -- End IF the company had already be created by another process
+	END IF; -- End IF we need to get a nw identifier
+
+	IF ( BuildDone > 0 )
+	THEN
+		IF ( ErrorCode = 0 )
+		THEN
+			INSERT INTO [@TABLE_NAME@]
+			(
+				`<@COLUMN_LIST@>`,
+				`DateValid`,
+				`DateDead`,
+				`<@COLUMN_LIST@>`
+			)
+			VALUES
+			(
+				<@VALUE@>,
+				CurrentDate,
+				LastDate,
+				<@VALUE@>
+			);
+
+			IF ( ROW_COUNT() = 0 )
+			THEN
+				SET
+					ErrorCode = -1,
+					ErrorMessage = "Unable to add the [@ELEMENT_DESC@]";
+			END IF; -- End IF it was not possible to add the [@ELEMENT_DESC@]
+		END IF; -- End IF there had been no error when creating the [@ELEMENT_DESC@]
+	ELSE	-- End IF the [@ELEMENT_DESC@] does not exists yet
+		CALL [@ELEMENT_UPD_NAME@]( IdUser,<@NEXT_LINE@>Identifier,<@PARAM_LIST@>);
+	END IF; -- End IF the [@ELEMENT_DESC@] had to be updated
+
+	IF ( ErrorCode != 0 )
+	THEN
+		SIGNAL SQLSTATE '50000'
+			SET MESSAGE_TEXT = ErrorMessage,
+			    MYSQL_ERRNO = ErrorCode;
+	END IF; -- End IF an error had been detected
+END$$
+
+DELIMITER ;
+
+/*---< Fin du fichier >-------------------------------------------------------*/
+
+

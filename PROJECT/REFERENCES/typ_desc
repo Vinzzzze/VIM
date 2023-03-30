@@ -1,0 +1,30 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * C Types
+ * [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+#pragma once
+
+/*---< Includes >-------------------------------------------------------------*/
+/*---< Type >-----------------------------------------------------------------*/
+
+typedef struct s_[@ELEMENT_NAME@] [@ELEMENT_NAME@];
+
+/**
+ * List the indexes for the current description
+*/
+typedef enum
+{
+[@ELEMENT_INDEX_LIST@]   [@ELEMENT_MACRO@]_INDEX_LAST
+} index_[@ELEMENT_NAME@];
+
+/*---< End of file >----------------------------------------------------------*/
+

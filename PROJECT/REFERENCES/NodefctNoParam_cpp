@@ -1,0 +1,153 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+//---< Inclusions >-------------------------------------------------------------
+
+#include "DATA/data_LogObject.hpp"
+#include "DATA/data_OutputFlags.hpp"
+#include "EXCEPTION/excp_Definition.hpp"
+#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].hpp"
+
+//---< Local Types >------------------------------------------------------------
+//---< Local Macros >-----------------------------------------------------------
+
+#define [@BASEMACRO@]_UNEXPECTED_EXCEPTION "Unable to [@ELEMENT_DESC@] ("MASK_POINTER")"
+
+//---< Local Structs >----------------------------------------------------------
+//---< Local Classes >----------------------------------------------------------
+//---< Local Variables >--------------------------------------------------------
+//---< Class >------------------------------------------------------------------
+
+/**
+ * Destructor
+*/
+[@ELEMENT_NAME@]::~[@ELEMENT_NAME@]()
+{
+}
+
+/**
+ * Compute the node value.
+ *
+ * @param executionContext - data_ExecutionContext* : The execution contexte to use
+ * @param value - void** : The value of the node
+ * @param type - DYNAMIC_TYPE* : The type of the value
+ * @param redo - int* : false to stop the retry execution, another value otherwise
+ *
+ * @return The next status of the block.
+*/
+int [@ELEMENT_NAME@]::execEval( data_ExecutionContext* executionContext,
+                                void**                 value,
+                                DYNAMIC_TYPE*          type,
+                                int*                   redo )
+{
+   int   retValue = COMPUTED_OK;
+
+   try
+   {
+      **(<@OUTPUT_TYPE@>**)value = <@COMPUTED_VALUE@>;
+   } // End TRY to move to the next line
+   catch ( excp_Definition*   exception )
+   {
+      retValue = ERROR_NODE;
+
+      exception->display( data_OutputFlags::getErrOutput() );
+
+      exception->release();
+   } // End CATCH the library exceptions while trying to the next line
+   catch ( ... )
+   {
+      retValue = ERROR_NODE;
+
+      DISPLAY_OUTPUT_FLAG_EXCEPTION
+      {
+         if ( data_LogObject::getDefaultLog() == NULL )
+         {
+            fprintf( data_OutputFlags::getErrOutput(),
+                     THREAD_MARK""UNEXPECTED_EXCEPTION_MARK""[@BASEMACRO@]_UNEXPECTED_EXCEPTION"\n",
+                     getSystemCurrentThreadId(),
+                     (data_ResultSetContext*)executionContext );
+         } // End IF there is no log object
+         else
+         {
+            VM_CHAR  bufferLog[ 1024 ];
+
+            VM_SPRINTF( bufferLog,
+                        VM_CONST_STRING""[@BASEMACRO@]_UNEXPECTED_EXCEPTION,
+                        (data_ResultSetContext*)executionContext );
+
+            data_LogObject::getDefaultLog()->add( data_LogObject::TEXT_CHAR_POINTER,
+                                                  bufferLog,
+                                                  true,
+                                                  data_LogObject::CODE_VALUE,
+                                                  LOGOBJECT_CODE_FORMULALIB,
+                                                  data_LogObject::SUB_CODE_VALUE,
+                                                  LOGOBJECT_SUB_CODE_EXCEPTION,
+                                                  data_LogObject::CODE_TEXT_CHAR_POINTER,
+                                                  UNKNOWN_EXCEPTION_LOG_MARK,
+                                                  false,
+                                                  data_LogObject::CURRENT_THREAD_ID,
+                                                  data_LogObject::END_PARAM_LIST );
+         } // End IF there is an object for logging
+      } // End DISPLAY_OUTPUT_FLAG_EXCEPTION
+   } // End CATCH all the exceptions while trying to the next line
+
+   return retValue;
+}
+
+/**
+ * Output the node definition in the data_StringPart
+ *
+ * @param output - data_StringPart* : the string part where the result will be stored
+ * @param deep - int : The position of the node from the main node
+ * @param lastIntro - VM_CHAR* : The last part used for the introduction of the last introduction part
+ *
+ * @return The data_StringPart output updated with the current node content
+*/
+data_StringStream* [@ELEMENT_NAME@]::outputDefinition( data_StringStream* output,
+                                                       int                deep /* = 0 */,
+                                                       VM_CHAR*           lastIntro /* = base_FormulaNode::getFirstSubNode() */ )
+{
+   this->buildOutput( VM_CONST_STRING"Function : [@BASEFILENAME@]",
+                      output,
+                      deep,
+                      lastIntro );
+
+   return this->outputParameters( output,
+                                  ++deep );
+}
+
+/**
+ * Build the node value and store it in the dedicated structure.
+ *
+ * @param structValue - AllTypes* : The structure where the value will be stored
+ * @param objectHeap - heap_ObjectManager* : The object manager where the element can be created
+*/
+void [@ELEMENT_NAME@]::contextValue( AllTypes*           structValue,
+                                     heap_ObjectManager* objectHeap )
+{
+   structValue-><@VALUE_SET@> = <@INIT_VALUE@>;
+}
+
+/**
+ * Get the real value from the context dedicated structure.
+ *
+ * @param structValue - AllTypes* : The structure where the value is stored
+ *
+ * @return The value pointer corresponding to the current node's type
+*/
+void* [@ELEMENT_NAME@]::getContextValue( AllTypes* structValue )
+{
+   return &( structValue-><@VALUE_SET@> );
+}
+
+//---< End of file >------------------------------------------------------------
+

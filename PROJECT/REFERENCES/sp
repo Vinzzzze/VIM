@@ -1,0 +1,32 @@
+CREATE OR REPLACE PROCEDURE [@ELEMENT_NAME@]
+	(
+	)
+IS
+BEGIN
+	/*
+	|| Procedure : [@ELEMENT_NAME@]
+	||
+	|| Auteur : [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+	|| Date : [@ELEMENT_DATE@]
+	||
+	|| But : [@ELEMENT_DESC@]
+	||
+	||---< Maintenance >---------------------------------------------------------
+	*/
+
+EXCEPTION
+
+END [@ELEMENT_NAME@];
+
+DROP PUBLIC SYNONYM [@ELEMENT_NAME@]
+/
+
+CREATE PUBLIC SYNONYM [@ELEMENT_NAME@] FOR [@ELEMENT_NAME@]
+/
+
+GRANT ALL ON [@ELEMENT_NAME@] TO Developper
+/
+
+GRANT EXECUTE ON [@ELEMENT_NAME@] TO Appli_User
+/
+

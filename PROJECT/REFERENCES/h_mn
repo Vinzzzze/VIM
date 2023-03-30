@@ -1,0 +1,32 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ *--------------------------
+ * @endverbatim
+*/
+
+#pragma once
+
+/*---< Includes >-------------------------------------------------------------*/
+/*---< Predefined Types >-----------------------------------------------------*/
+/*---< Macros >---------------------------------------------------------------*/
+/*---< Variables >------------------------------------------------------------*/
+/*---< Structure >------------------------------------------------------------*/
+/*---< Functions >------------------------------------------------------------*/
+
+/**
+ * The main function
+ *
+ * @param argc - int : The number of arguments on the command line
+ * @param argv - char*[] : The array of the string that represent each parameter
+*/
+int main( int     argc,
+          char*   argv[] );
+
+/*---< End of file >----------------------------------------------------------*/
+

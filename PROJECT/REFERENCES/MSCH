@@ -1,0 +1,15 @@
+/*
+|| DATABASE : [@ELEMENT_NAME@]
+||
+|| OBJECT : [@ELEMENT_DESC@]
+||
+||-------------------------------------------------
+|| Creation : [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+||            [@ELEMENT_DATE@]
+*/
+DROP DATABASE IF EXISTS `[@ELEMENT_NAME@]`;
+
+CREATE DATABASE `[@ELEMENT_NAME@]`;
+
+/*---< Fin du fichier >-------------------------------------------------------*/
+

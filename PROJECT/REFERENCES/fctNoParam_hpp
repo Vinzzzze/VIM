@@ -1,0 +1,219 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+//---< Double inclusion >-------------------------------------------------------
+
+#ifndef [@ELEMENT_INCLUDE@]
+#define [@ELEMENT_INCLUDE@] 1
+
+//---< Inclusions >-------------------------------------------------------------
+
+#include "stdBaseDefinition.mac"
+
+#include "BASE/base_FunctionNode.hpp"
+
+//---< Predefined Types >-------------------------------------------------------
+//---< Structures >-------------------------------------------------------------
+//---< Macros >-----------------------------------------------------------------
+
+#define FUNCTION_[@BASEMACRO@]_FORMULA_TYPE   <@TYPE_NUMBER@>
+
+//---< Classe >-----------------------------------------------------------------
+
+/**
+ * [@ELEMENT_DESC@]
+*/
+class [@ELEMENT_NAME@]
+ : VM_PUBLIC base_FunctionNode
+{
+   VM_PRIVATE:
+
+      // Attributes
+      //-----------
+
+   VM_PROTECTED:
+
+      // Function
+      //---------
+
+      /**
+       * Compute the node value.
+       *
+       * @param executionContext - data_ExecutionContext* : The execution contexte to use
+       * @param value - void** : The value of the node
+       * @param type - DYNAMIC_TYPE* : The type of the value
+       * @param redo - int* : false to stop the retry execution, another value otherwise
+       *
+       * @return The next status of the block.
+      */
+      virtual int execEval( data_ExecutionContext* executionContext,
+                            void**                 value,
+                            DYNAMIC_TYPE*          type,
+                            int*                   redo );
+   VM_PUBLIC:
+
+      // Constructor
+      //------------
+
+      /**
+       * Constructor
+       *
+       * @param identifier - void* : The identifier of the node
+       * @param manager - heap_FormulaManager* : The memory manager use for the current block
+       * @param comment - data_StringStream* : The string object to use for getting the comment
+       * @param status - int : The initialized status
+       * @param firstPage - char* : Address of the buffer used for the first page buffer
+       * @param firstPageSize - size_t : The complete size of the buffer used as a first page, header included
+       *                                 0 to use a standard page size.
+       * @param identifierHandler - int_IdentifierHandler* : The identifier handler
+       * @param contextHandler - int_ContextHandler* : The context handler
+       * @param expectedPageSize - size_t : The minimal page size for the allocation
+       * @param type - int : The node type
+       * @param allocator - heap_PageAllocator* : The page allocator
+       * @param callbackMallocUsed - fctCallbackAllocation : The callback to call when a malloc is performed on this heap manager.
+       * @param callbackMallocParam - void* : The parameter to forward to the callback used on allocation.
+      */
+      VM_INLINE [@ELEMENT_NAME@]( void*                   identifier,
+                                       heap_FormulaManager*    manager,
+                                       data_StringStream*      comment,
+                                       int                     status = TO_INITIALIZE,
+                                       char*                   firstPage = NULL,
+                                       size_t                  firstPageSize = 0,
+                                       int_IdentifierHandler*  identifierHandler = NULL,
+                                       int_ContextHandler*     contextHandler = NULL,
+                                       size_t                  expectedPageSize = PAGE_MALLOC_SIZE,
+                                       int                     type = FUNCTION_[@BASEMACRO@]_FORMULA_TYPE,
+                                       heap_PageAllocator*     allocator = heap_PageAllocator::getAllocator(),
+                                       fctCallbackAllocation   callbackMallocUsed = NULL,
+                                       void*                   callbackMallocParam = NULL )
+       : base_FunctionNode( identifier,
+                            manager,
+                            true,
+                            type,
+                            comment,
+                            NULL,               // paramValues
+                            NULL,               // paramDefinition
+                            status,
+                            firstPage,
+                            firstPageSize,
+                            NULL,
+                            data_DynamicHandler::SIZE_T,
+                            identifierHandler,
+                            contextHandler,
+                            expectedPageSize,
+                            allocator,
+                            callbackMallocUsed,
+                            callbackMallocParam )
+      {
+      }
+
+      /**
+       * Constructor used when the first page is allocated just after the current object
+       *
+       * @param identifier - void* : The identifier of the node
+       * @param manager - heap_FormulaManager* : The memory manager use for the current block
+       * @param comment - data_StringStream* : The string object to use for getting the comment
+       * @param totalSize - size_t : The size of the memory allocated, including the object size
+       * @param objectSize - size_t : The current object size
+       * @param status - int : The initialized status
+       * @param identifierHandler - int_IdentifierHandler* : The identifier handler
+       * @param contextHandler - int_ContextHandler* : The context handler
+       * @param expectedPageSize - size_t : The minimal page size for the allocation
+       * @param type - int : The node type
+       * @param allocator - heap_PageAllocator* : The page allocator
+       * @param callbackMallocUsed - fctCallbackAllocation : The callback to call when a malloc is performed on this heap manager.
+       * @param callbackMallocParam - void* : The parameter to forward to the callback used on allocation.
+      */
+      VM_INLINE [@ELEMENT_NAME@]( void*                   identifier,
+                                       heap_FormulaManager*    manager,
+                                       data_StringStream*      comment,
+                                       size_t                  totalSize,
+                                       size_t                  objectSize = sizeof( [@ELEMENT_NAME@] ),
+                                       int                     status = TO_COMPUTE,
+                                       int_IdentifierHandler*  identifierHandler = NULL,
+                                       int_ContextHandler*     contextHandler = NULL,
+                                       size_t                  expectedPageSize = PAGE_MALLOC_SIZE,
+                                       int                     type = FUNCTION_[@BASEMACRO@]_FORMULA_TYPE,
+                                       heap_PageAllocator*     allocator = heap_PageAllocator::getAllocator(),
+                                       fctCallbackAllocation   callbackMallocUsed = NULL,
+                                       void*                   callbackMallocParam = NULL )
+       : base_FunctionNode( identifier,
+                            manager,
+                            true,
+                            type,
+                            comment,
+                            totalSize,
+                            NULL,               // paramValues
+                            NULL,               // paramDefinition
+                            objectSize,
+                            status,
+                            NULL,
+                            data_DynamicHandler::SIZE_T,
+                            identifierHandler,
+                            contextHandler,
+                            expectedPageSize,
+                            allocator,
+                            callbackMallocUsed,
+                            callbackMallocParam )
+      {
+      }
+
+      /**
+       * Copy constructor
+       *
+       * @param toCopy - const [@ELEMENT_NAME@]& : Object to copy
+      */
+      [@ELEMENT_NAME@]( const [@ELEMENT_NAME@]& toCopy );
+
+      /**
+       * Destructor
+      */
+      virtual ~[@ELEMENT_NAME@]();
+
+      // Functions
+      //----------
+
+      /**
+       * Output the node definition in the data_StringPart
+       *
+       * @param output - data_StringPart* : the string part where the result will be stored
+       * @param deep - int : The position of the node from the main node
+       * @param lastIntro - VM_CHAR* : The last part used for the introduction of the last introduction part
+       *
+       * @return The data_StringPart output updated with the current node content
+      */
+      virtual data_StringStream* outputDefinition( data_StringStream*   output,
+                                                   int                  deep = 0,
+                                                   VM_CHAR*             lastIntro = base_FormulaNode::getFirstSubNode() );
+      /**
+       * Build the node value and store it in the dedicated structure.
+       *
+       * @param structValue - AllTypes* : The structure where the value will be stored
+       * @param objectHeap - heap_ObjectManager* : The object manager where the element can be created
+      */
+      virtual void contextValue( AllTypes*            structValue,
+                                 heap_ObjectManager*  objectHeap );
+      /**
+       * Get the real value from the context dedicated structure.
+       *
+       * @param structValue - AllTypes* : The structure where the value is stored
+       *
+       * @return The value pointer corresponding to the current node's type
+      */
+      virtual void* getContextValue( AllTypes*  structValue );
+};
+
+//---< End of double inclusion >------------------------------------------------
+
+#endif /* [@ELEMENT_INCLUDE@] */
+
+//---< End of file >------------------------------------------------------------
+

@@ -1,0 +1,26 @@
+/**
+ * @file bldr_ExportDescriptions.typ
+ *
+ * C Types
+ * The builder for the object description.
+ *
+ * @author : [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date : [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+#pragma once
+
+/*---< Includes >-------------------------------------------------------------*/
+/*---< Type >-----------------------------------------------------------------*/
+
+typedef struct s_bldr_ExportDescriptions bldr_ExportDescriptions;
+typedef enum
+{
+#include "allObjects.export"
+} enum_bldr_ExportDescriptions;
+
+/*---< End of file >----------------------------------------------------------*/
+

@@ -1,0 +1,51 @@
+package [@ELEMENT_PROJECT@];
+
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+//---< Imports >----------------------------------------------------------------
+
+import org.junit.Test;
+
+import [@ELEMENT_PROJECT@].[@ELEMENT_NAME@];
+
+//---< Class >------------------------------------------------------------------
+
+/**
+ * [@ELEMENT_DESC@]
+*/
+public class [@ELEMENT_NAME@]Test
+{
+   // Constantes
+   // ----------
+
+   // Attributs
+   // ---------
+
+   // Constructeur
+   // ------------
+
+   /**
+    * Constructeur.
+    *
+    * @param 
+   */
+   public [@ELEMENT_NAME@]Test()
+   {
+   }
+
+   // Fonctionnel
+   // -----------
+
+} // Fin CLASS [@ELEMENT_NAME@]Test
+
+//---< End of file >------------------------------------------------------------
+

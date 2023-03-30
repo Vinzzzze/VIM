@@ -1,0 +1,33 @@
+CREATE OR REPLACE PACKAGE BODY [@ELEMENT_NAME@]
+IS
+	/*
+	|| Package : [@ELEMENT_NAME@]
+	||
+	|| Auteur : [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+	|| Date : [@ELEMENT_DATE@]
+	||
+	|| But : [@ELEMENT_DESC@]
+	||
+	||---< Maintenance >---------------------------------------------------------
+	*/
+
+	--#-< Déclaration des types >-########-----------------
+	--#-< Déclaration des variables >-########-------------
+	--#-< Ecriture des curseurs >-########-----------------
+	--#-< Eciture des fonctions et procédures >-########---
+
+BEGIN
+
+	/*
+	|| CODE D'INITIALISATION : attention danger !!!
+	*/
+
+EXCEPTION
+
+	/*
+	|| EXCEPTIONS DU CODE D'INITIALISATION
+	*/
+
+END [@ELEMENT_NAME@];
+/
+

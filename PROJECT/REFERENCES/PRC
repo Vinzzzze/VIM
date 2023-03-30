@@ -1,0 +1,119 @@
+USE <Database>
+GO
+
+SET QUOTED_IDENTIFIER OFF
+GO
+
+IF EXISTS
+(
+	SELECT
+		1
+	FROM
+		sysobjects
+	WHERE
+		id = object_id( N'[@ELEMENT_NAME@]' )
+	AND	OBJECTPROPERTY( id, N'IsProcedure' ) = 1
+)
+BEGIN
+	DROP PROCEDURE dbo.[@ELEMENT_NAME@]
+END
+GO
+
+PRINT "Creating dbo.[@ELEMENT_NAME@]"
+GO
+
+CREATE PROCEDURE dbo.[@ELEMENT_NAME@]
+(
+)
+AS
+BEGIN
+/*
+|| Procedure : [@ELEMENT_NAME@]
+||
+|| [@ELEMENT_DESC@]
+||
+|| Parameters :
+||
+||-------------------------------------------------
+|| Creation : [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+||            [@ELEMENT_DATE@]
+*/
+	-- For transaction and error management
+	---------------------------------------
+	DECLARE
+		@Error		int,
+		@ErrorMessage	varchar( 255 ),
+		@OpenedTran	int
+	SELECT
+		@Error = 0,
+		@OpenedTran = 1,	-- At the beginning, no transaction is openned
+		@ErrorMessage = NULL
+
+	-- I cannot open a new transaction if one is already openned,
+	-- because, the rollback will rollback all the transactions openned
+	-- but the commit will commit just the lest openned transaction
+	-------------------------------------------------------------------
+	IF ( @@TRANCOUNT > 0 )
+	BEGIN
+		SELECT
+			@OpenedTran = 1
+	END -- End IF a transaction is already openned
+	ELSE
+	BEGIN
+		SELECT
+			@OpenedTran = 0
+
+		BEGIN TRAN
+	END -- End IF a transaction is not open yet
+
+	-- In case of an error, this code below should be used
+	------------------------------------------------------
+	IF ( @@ERROR <> 0 )
+	BEGIN
+		SELECT
+			@Error = -1,
+			@ErrorMessage = "MESSAGE"
+
+		GOTO GTRAN
+	END -- End IF there has been an error on the last command
+
+-- Label used to end stored procedure if an error occurs
+--------------------------------------------------------
+GTRAN:
+	IF ( @OpenedTran = 0 )
+	BEGIN
+		IF ( @Error = 0 )
+		BEGIN
+			COMMIT TRAN
+		END -- End IF there was no error
+		ELSE
+		BEGIN
+			ROLLBACK TRAN
+		END -- End IF there was an error
+	END -- End IF the transaction has been openned in this stored procedure
+
+	IF (   ( @@NESTLEVEL = 1 )
+	    AND( @Error <> 0 )   )
+	BEGIN
+		-- Only one RAISERROR can be get by the client, I return it only if I am
+		-- on the first call level
+		------------------------------------------------------------------------
+		SELECT
+			@ErrorMessage = CONVERT( varchar,
+						 @Error )
+				      + " : "
+				      + @ErrorMessage
+		RAISERROR 50001 @ErrorMessage
+	END
+	RETURN @Error
+END
+GO
+
+GRANT EXEC ON dbo.[@ELEMENT_NAME@] TO Exec_Exocet
+GO
+
+GRANT EXEC ON dbo.[@ELEMENT_NAME@] TO Web_Exocet
+GO
+
+/*---< End of file >-------------------------------------------------------*/
+

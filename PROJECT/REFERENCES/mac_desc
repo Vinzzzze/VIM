@@ -1,0 +1,42 @@
+/**
+ * @file : [@ELEMENT_FILE@]
+ *
+ * C accessors and macros
+ * [@ELEMENT_DESC@]
+ *
+ * @author : [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date : [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatime
+*/
+
+#pragma once
+
+/*---< Inclusions >-----------------------------------------------------------*/
+
+#include "DATA/data_ObjectDescription.mac"
+
+/*---< Macros >---------------------------------------------------------------*/
+
+#define [@ELEMENT_MACRO@]_INIT( current, type, offset, names, nameConverter, conflationIndex, specificDefinitions, conflationPosition, conflationSize ) [@ELEMENT_MACRO@]_PREFIXED_INIT( std, current, type, offset, names, nameConverter, conflationIndex, specificDefinitions, conflationPosition, conflationSize )
+#define [@ELEMENT_MACRO@]_PREFIXED_INIT( prefixe, current, type, offset, names, nameConverter, conflationIndex, specificDefinitions, conflationPosition, conflationSize ) \
+   DATA_OBJECTDESCRIPTION_PREFIXED_INIT( prefixe, \
+                                         current, \
+                                         type, \
+                                         offset, \
+                                         conflationIndex, \
+                                         [@FACTORY_INIT@], \
+                                         specificDefinitions, \
+                                         names, \
+                                         nameConverter, \
+                                         sizeof( [@ASSOCIATED_OBJECT_TYPE@] ), \
+                                         conflationPosition, \
+                                         conflationSize, \
+                                         [@ELEMENT_MACRO@]_INDEX_LAST, \
+                                         [@ELEMENT_MACRO@]_IDENTIFIER, \
+                                         NULL, \
+                                         [@CONFLATION_TYPE@]DATA_RIGHTDEFINITION_[@VALUE_TYPE@]_VALUE )
+
+/*---< End of file >----------------------------------------------------------*/
+

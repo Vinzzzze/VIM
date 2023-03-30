@@ -1,0 +1,37 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+//---< Inclusions >-------------------------------------------------------------
+
+#include "[@ELEMENT_REPOSITORY@]excp_[@ELEMENT_NAME@].hpp"
+
+//---< Local Types >------------------------------------------------------------
+//---< Local Macros >-----------------------------------------------------------
+//---< Local Structs >----------------------------------------------------------
+//---< Local Classes >----------------------------------------------------------
+//---< Local Variables >--------------------------------------------------------
+
+/** The default exception raised when 
+*/
+excp_[@ELEMENT_NAME@] excp_[@ELEMENT_NAME@]::exception( true );
+
+//---< Class >------------------------------------------------------------------
+
+/**
+ * Destructor
+*/
+excp_[@ELEMENT_NAME@]::~excp_[@ELEMENT_NAME@]()
+{
+}
+
+//---< End of file >------------------------------------------------------------
+

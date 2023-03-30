@@ -1,0 +1,37 @@
+/*
+|| TABLE : [@ELEMENT_NAME@]
+||
+|| OBJECT : [@ELEMENT_DESC@]
+||
+||-------------------------------------------------
+|| Creation : [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+||            [@ELEMENT_DATE@]
+*/
+
+DROP TABLE "Audit"."[@ELEMENT_NAME@]" CASCADE;
+
+CREATE TABLE "Audit"."[@ELEMENT_NAME@]"
+(
+	"IdAudit"	integer				NOT NULL,
+	"IdUser"	integer				NOT NULL,
+	"UpdateDate"	timestamp			NOT NULL,
+	&<@COLUMN_NAME@>
+)
+WITH (
+	OIDS=FALSE
+);
+ALTER TABLE "Audit"."[@ELEMENT_NAME@]"
+	OWNER TO kameleon_dbo;
+COMMENT ON TABLE "Audit"."[@ELEMENT_NAME@]"
+	IS '[@ELEMENT_DESC@]';
+
+CREATE INDEX "[@ELEMENT_NAME@]_pk" ON "Audit"."[@ELEMENT_NAME@]"
+(
+	"IdAudit"
+);
+COMMENT ON COLUMN "Audit"."[@ELEMENT_NAME@]"."IdAudit" IS 'Audit column identifier';
+COMMENT ON COLUMN "Audit"."[@ELEMENT_NAME@]"."IdUser" IS 'The identifier of the user that update the value';
+COMMENT ON COLUMN "Audit"."[@ELEMENT_NAME@]"."UpdateDate" IS 'When the update had been done';
+
+/*---< Fin du fichier >-------------------------------------------------------*/
+

@@ -1,0 +1,103 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * The message returned when [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+#pragma once
+
+//---< Inclusions >-------------------------------------------------------------
+
+#include "stdBaseDefinition.mac"
+
+#include "BASE/base_DBMessage.hpp"
+
+//---< Predefined Types >-------------------------------------------------------
+//---< Structures >-------------------------------------------------------------
+//---< Macros >-----------------------------------------------------------------
+//---< Classe >-----------------------------------------------------------------
+
+/**
+ * The message returned when [@ELEMENT_DESC@]
+*/
+class [@ELEMENT_NAME@]
+ : VM_PUBLIC base_DBMessage
+{
+   VM_PRIVATE:
+
+      // Attributes
+      //-----------
+
+   VM_PROTECTED:
+   VM_PUBLIC:
+
+      // Constructor
+      //------------
+
+      /**
+       * Constructor
+      */
+      VM_INLINE [@ELEMENT_NAME@]()
+       : base_DBMessage( <@LEVEL_ENUM@> )
+      {
+      }
+
+      /**
+       * Copy constructor
+       *
+       * @param toCopy - const [@ELEMENT_NAME@]msg_UnexpectedException& : Object to copy
+      */
+      [@ELEMENT_NAME@]( const [@ELEMENT_NAME@]& toCopy );
+
+      /**
+       * Destructor
+      */
+      virtual ~[@ELEMENT_NAME@]();
+
+      // Functions
+      //----------
+
+      /**
+       * Convert the message into a printable string.
+       *
+       * @param stringConverted - data_StringStream* : The string in which the message will have been converted
+       * @param outputHandler - FILE** : The output handler where the message will have to be written
+       * @param levelMessage - int* : The message level value ( data_LogObject value, example : LOGOBJECT_SUB_CODE_ERROR )
+       * @param codeMessage - VM_CHAR** : The message code value ( base_Messages value : <VALUE>_LOG_MARK, example : ERROR_LOG_MARK )
+       *
+       * @return The flag to test to display or not the message
+      */
+      virtual int convertMessage( data_StringStream*  stringConverted,
+                                  FILE**              outputHandler,
+                                  int*                levelMessage,
+                                  VM_CHAR**           codeMessage );
+      /**
+       * Test if the current message implied a retry for the last execution.
+       *
+       * @return false if a retry is not expected, another value otherwise
+      */
+      virtual int needRetry();
+
+      /**
+       * Test if the current message implied a new connection, then a retry of the last exec.
+       *
+       * @return false if a reconnect is not expected, another value otherwise
+      */
+      virtual int needReconnect();
+
+      /**
+       * Test if the current message is an error.
+       *
+       * @return false if the current message is not an error, another value otherwise.
+      */
+      virtual int isError();
+};
+
+//---< End of file >------------------------------------------------------------
+

@@ -1,0 +1,23 @@
+/*
+|| PROCEDURE : [@ELEMENT_NAME@]
+||
+|| OBJECT : [@ELEMENT_DESC@]
+||
+||-------------------------------------------------
+|| Creation : [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+||            [@ELEMENT_DATE@]
+*/
+
+DROP PROCEDURE IF EXISTS `[@ELEMENT_PROJECT@]`.`[@ELEMENT_NAME@]`;
+
+DELIMITER $$
+
+CREATE PROCEDURE `[@ELEMENT_PROJECT@]`.`[@ELEMENT_NAME@]`(<@PARAMETER@>)
+BEGIN
+	<@CODE@>
+END$$
+
+DELIMITER ;
+
+/*---< Fin du fichier >-------------------------------------------------------*/
+

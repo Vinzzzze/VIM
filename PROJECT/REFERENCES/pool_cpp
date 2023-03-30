@@ -1,0 +1,45 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+//---< Inclusions >-------------------------------------------------------------
+
+#include "[@ELEMENT_REPOSITORY@]pool_[@ELEMENT_NAME@].hpp"
+
+//---< Local Types >------------------------------------------------------------
+//---< Local Macros >-----------------------------------------------------------
+//---< Local Structs >----------------------------------------------------------
+//---< Local Classes >----------------------------------------------------------
+//---< Local Variables >--------------------------------------------------------
+//---< Class >------------------------------------------------------------------
+
+/**
+ * Destructor
+*/
+pool_[@ELEMENT_NAME@]::~pool_[@ELEMENT_NAME@]()
+{
+}
+
+/**
+ * Create an object on the pool. The allocation must be done in the
+ * heap_ObjectManager with the code
+ * new( this->getObjectAllocator() ) <class to create>( this );
+ *
+ * @return The created object
+*/
+base_PoolObject* pool_[@ELEMENT_NAME@]::createObject()
+{
+   return new( BASE_OBJECT_OFFSET( data_[@ELEMENT_NAME@] ),
+               this ) data_[@ELEMENT_NAME@]( this );
+}
+
+//---< End of file >------------------------------------------------------------
+

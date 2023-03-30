@@ -1,0 +1,85 @@
+/**
+ * @file bldr_ExportDescriptions.c
+ *
+ * The builder for the object description.
+ *
+ * @author : [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date : [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+/*---< Includes >-------------------------------------------------------------*/
+
+#include "BUILDER/bldr_ExportDescriptions.h"
+
+/*---< Local Predefined Types >-----------------------------------------------*/
+/*---< Local Macros >---------------------------------------------------------*/
+/*---< Local Variables >------------------------------------------------------*/
+/*---< Functions >------------------------------------------------------------*/
+
+/**
+ * Constructeur. Initialise les attributs de la structure.
+ *
+ * @param current - bldr_ExportDescriptions* : Structure à initialiser.
+ *
+ * @return Structure initialisée.
+*/
+bldr_ExportDescriptions* build_bldr_ExportDescriptions( bldr_ExportDescriptions* current )
+{
+   register data_ObjectDescription***  currentArrayPosition = BLDR_EXPORTDESCRIPTIONS_GETARRAYDESCRIPTIONS( current );
+
+   <@INIT_CODE@>
+
+   BLDR_EXPORTDESCRIPTIONS_INIT( current );
+
+   return current;
+}
+
+/**
+ * Destructeur.
+ *
+ * @param current - bldr_ExportDescriptions* : Structure à détruire.
+*/
+void delete_bldr_ExportDescriptions( bldr_ExportDescriptions* current )
+{
+}
+
+/**
+ * Get the description definition.
+ *
+ * @param current - int_BuilderDescription* : The factory used to get the description
+ * @param identifier - identifier_data_ObjectDescription : The object description identifier
+ *
+ * @return The description object to use
+*/
+data_ObjectDescription* getDescription_bldr_ExportDescriptions( int_BuilderDescription*            current,
+                                                                identifier_data_ObjectDescription  identifier )
+{
+   register data_ObjectDescription* retValue = NULL;
+
+   if ( identifier < LAST_ALLOBJECTS_EXPORT_IDENTIFIER )
+   {
+      register bldr_ExportDescriptions*   builder = BLDR_EXPORTDESCRIPTIONS_CONVERT_FROM_INT_BUILDERDESCRIPTION( current );
+
+      retValue = *( BLDR_EXPORTDESCRIPTIONS_GETARRAYDESCRIPTIONS( builder )[ identifier ] );
+   } /* End IF the identifier is valid */
+
+   return retValue;
+}
+
+/**
+ * Release the description previously used.
+ *
+ * @param current - int_BuilderDescription* : The factory where the description had to be released
+ * @param description - data_ObjectDescription* : The description object
+*/
+void releaseDescription_bldr_ExportDescriptions( int_BuilderDescription*   current,
+                                                 data_ObjectDescription*   description )
+{
+   /* Nothing to do */
+}
+
+/*---< End of file >----------------------------------------------------------*/
+

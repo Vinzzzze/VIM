@@ -1,0 +1,98 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+#pragma once
+
+//---< Inclusions >-------------------------------------------------------------
+
+#include "stdBaseDefinition.mac"
+
+#include "DATA/data_ObjectReleasableManager.hpp"
+
+//---< Predefined Types >-------------------------------------------------------
+//---< Structures >-------------------------------------------------------------
+//---< Macros >-----------------------------------------------------------------
+//---< Classe >-----------------------------------------------------------------
+
+/**
+ * [@ELEMENT_DESC@]
+*/
+class [@ELEMENT_NAME@]
+ : VM_PUBLIC data_ObjectReleasableManager
+{
+   VM_PRIVATE:
+
+      // Attributes
+      //-----------
+
+      // Functions
+      //----------
+
+      /**
+       * Build the object to be used.
+       * WARNING : The object had to be create in the current object manager
+       *           The allocationStatus vector should not be impacted by this call
+       *           as it is managed outside of this function.
+       *
+       * @param extra - void* : An extra parameter definition for building the object
+       *
+       * @return The object built
+      */
+      virtual void* build( void* extra );
+
+   VM_PROTECTED:
+   VM_PUBLIC:
+
+      // Constructor
+      //------------
+
+      /**
+       * Constructor
+       *
+       * @param firstPageAllocation - char* : Address of the buffer used for the first page buffer for the allocation vector
+       * @param firstPageAllocationSize - size_t : The complete size of the buffer used as a first page, header included for the allocation vector
+       *                                 0 to use a standard page size.
+       * @param expectedPageAllocationSize - size_t : The minimal page size for the allocation for the allocation vector
+       * @param allocatorAllocation - heap_PageAllocator* : The page allocator for the allocation vector
+       * @param callbackMallocAllocationUsed - fctCallbackAllocation : The callback to call when a malloc is performed on this heap manager for the allocation vector.
+       * @param callbackMallocAllocationParam - void* : The parameter to forward to the callback used on allocation. for the allocation vector
+      */
+      VM_INLINE [@ELEMENT_NAME@]( char*                 firstPageAllocation = NULL,
+                                  size_t                firstPageAllocationSize = 0,
+                                  size_t                expectedPageAllocationSize = PAGE_MALLOC_SIZE,
+                                  heap_PageAllocator*   allocatorAllocation = heap_PageAllocator::getAllocator(),
+                                  fctCallbackAllocation callbackMallocAllocationUsed = NULL,
+                                  void*                 callbackMallocAllocationParam = NULL )
+       : data_ObjectReleasableManager( firstPageAllocation,
+                                       firstPageAllocationSize,
+                                       expectedPageAllocationSize,
+                                       allocatorAllocation,
+                                       callbackMallocAllocationUsed,
+                                       callbackMallocAllocationParam )
+      {
+      }
+
+      /**
+       * Copy constructor
+       *
+       * @param toCopy - const [@ELEMENT_NAME@]& : Object to copy
+      */
+      [@ELEMENT_NAME@]( const [@ELEMENT_NAME@]& toCopy );
+
+      /**
+       * Destructor
+      */
+      virtual ~[@ELEMENT_NAME@]();
+};
+
+//---< End of file >------------------------------------------------------------
+

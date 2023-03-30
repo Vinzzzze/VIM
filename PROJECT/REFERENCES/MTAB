@@ -1,0 +1,24 @@
+/*
+|| TABLE : [@ELEMENT_NAME@]
+||
+|| OBJECT : [@ELEMENT_DESC@]
+||
+||-------------------------------------------------
+|| Creation : [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+||            [@ELEMENT_DATE@]
+*/
+
+DROP TABLE IF EXISTS `[@ELEMENT_PROJECT@]`.`[@ELEMENT_NAME@]` CASCADE;
+
+CREATE TABLE `[@ELEMENT_PROJECT@]`.`[@ELEMENT_NAME@]`
+(
+	&<@COLUMN_NAME@>
+
+	INDEX `[@ELEMENT_NAME@]_pk` USING BTREE
+	(
+		`<@COLUMN_NAME@>`
+	)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*---< Fin du fichier >-------------------------------------------------------*/
+

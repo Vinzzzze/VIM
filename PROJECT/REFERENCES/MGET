@@ -1,0 +1,34 @@
+/*
+|| PROCEDURE : [@ELEMENT_NAME@]
+||
+|| OBJECT : Get an element of the [@ELEMENT_DESC@]
+||
+||-------------------------------------------------
+|| Creation : [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+||            [@ELEMENT_DATE@]
+*/
+
+DROP PROCEDURE IF EXISTS `[@ELEMENT_PROJECT@]`.`[@ELEMENT_NAME@]`;
+
+DELIMITER $$
+
+CREATE PROCEDURE `[@ELEMENT_PROJECT@]`.`[@ELEMENT_NAME@]`( IdUser		int,<@NEXT_LINE@>Identifier	int )
+BEGIN
+	DECLARE CurrentDate	date;
+
+	SET
+		CurrentDate = NOW();
+	SELECT
+		g.<@COLUMN_LIST@>
+	FROM
+		[@TABLE_NAME@] g
+	WHERE
+		g.Id = Identifier
+	AND	g.DateValid <= CurrentDate
+	AND	g.DateDead > CurrentDate;
+END$$
+
+DELIMITER ;
+
+/*---< Fin du fichier >-------------------------------------------------------*/
+

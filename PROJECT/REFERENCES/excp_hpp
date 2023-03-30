@@ -1,0 +1,110 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+#pragma once
+
+//---< Inclusions >-------------------------------------------------------------
+
+#include "stdBaseDefinition.mac"
+
+#include "EXCEPTION/excp_Definition.hpp"
+
+//---< Predefined Types >-------------------------------------------------------
+//---< Structures >-------------------------------------------------------------
+//---< Macros >-----------------------------------------------------------------
+
+#define [@PROJECT_MACRO@]_[@ELEMENT_MACRO@]_TYPE_EXCEPTION           
+#define [@PROJECT_MACRO@]_[@ELEMENT_MACRO@]_CODE_EXCEPTION_UNCORRECT 
+
+#define [@PROJECT_MACRO@]_[@ELEMENT_MACRO@]_EXCEPTION_STRING "[@ELEMENT_DESC@]"
+
+//---< Classe >-----------------------------------------------------------------
+
+/**
+ * [@ELEMENT_DESC@]
+*/
+class excp_[@ELEMENT_NAME@]
+ : VM_PUBLIC excp_Definition
+{
+   VM_PRIVATE:
+
+      // Attributes
+      //-----------
+
+      // Static attributes
+      //------------------
+
+      /** The default exception raised when 
+      */
+      static excp_[@ELEMENT_NAME@] exception;
+
+   VM_PROTECTED:
+   VM_PUBLIC:
+
+      // Static Accessor
+      //----------------
+
+      /**
+       * Get The default exception raised
+      */
+      VM_INLINE static excp_[@ELEMENT_NAME@]* getException()
+      {
+         return &exception;
+      }
+
+      // Constructor
+      //------------
+
+      /**
+       * Constructor
+       *
+       * @param pool - base_Pool* : The pool that handle the object usage
+      */
+      VM_INLINE excp_[@ELEMENT_NAME@]( base_Pool* pool )
+       : excp_Definition( pool,
+                          [@PROJECT_MACRO@]_[@ELEMENT_MACRO@]_TYPE_EXCEPTION,
+                          [@PROJECT_MACRO@]_[@ELEMENT_MACRO@]_CODE_EXCEPTION_UNCORRECT,
+                          VM_CONST_STRING""[@PROJECT_MACRO@]_[@ELEMENT_MACRO@]_EXCEPTION_STRING )
+      {
+      }
+
+      /**
+       * Constructor
+       *
+       * @param neverDelete - int : false to let the object deletion as usual, any other value else.
+      */
+      VM_INLINE excp_[@ELEMENT_NAME@]( int neverDelete )
+       : excp_Definition( [@PROJECT_MACRO@]_[@ELEMENT_MACRO@]_TYPE_EXCEPTION,
+                          [@PROJECT_MACRO@]_[@ELEMENT_MACRO@]_CODE_EXCEPTION_UNCORRECT,
+                          VM_CONST_STRING""[@PROJECT_MACRO@]_[@ELEMENT_MACRO@]_EXCEPTION_STRING )
+      {
+         if ( neverDelete != false )
+         {
+            this->neverDelete();
+         } // End IF the exception should never be deleted
+      }
+
+      /**
+       * Copy constructor
+       *
+       * @param toCopy - const excp_[@ELEMENT_NAME@]& : Object to copy
+      */
+      excp_[@ELEMENT_NAME@]( const excp_[@ELEMENT_NAME@]& toCopy );
+
+      /**
+       * Destructor
+      */
+      virtual ~excp_[@ELEMENT_NAME@]();
+};
+
+//---< End of file >------------------------------------------------------------
+

@@ -1,0 +1,33 @@
+aleph allowrevins altkeymap ambiwidth antialias autochdir arabic arabicshape autoindent autoread autowrite autowriteall
+background backspace backup backupcopy backupdir backupext backupskip balloondelay ballooneval balloonexpr belloff
+binary bioskey bomb breakat breakindent breakindentopt browsedir bufhidden buflisted buftype casemap cdpath cedit
+charconvert cindent cinkeys cinoptions cinwords clipboard cmdheight cmdwinheight colorcolumn columns comments commentstring
+compatible complete completefunc completeopt concealcursor conceallevel confirm conskey copyindent cpoptions cryptmethod
+cscopepathcomp cscopeprg cscopequickfix cscoperelative cscopetag cscopetagorder cscopeverbose cursorbind cursorcolumn
+cursorline debug define delcombine dictionary diff diffexpr diffopt digraph directory display eadirection edcompatible
+emoji encoding endofline equalalways equalprg errorbells errorfile errorformat esckeys eventignore expandtab exrc
+fileencoding fileencodings fileformat fileformats fileignorecase filetype fillchars fixendofline fkmap foldclose foldcolumn
+foldenable foldexpr foldignore foldlevel foldlevelstart foldmarker foldmethod foldminlines foldnestmax foldopen foldtext
+formatexpr formatlistpat formatoptions formatprg fsync gdefault grepformat grepprg guicursor guifont guifontset guifontwide
+guiheadroom guioptions guipty guitablabel guitabtooltip helpfile helpheight helplang hidden highlight history hkmap hkmapp
+hlsearch icon iconstring ignorecase imactivatefunc imactivatekey imcmdline imdisable iminsert imsearch imstatusfunc include
+includeexpr incsearch indentexpr indentkeys infercase insertmode isfname isident iskeyword isprint joinspaces key keymap
+keymodel keywordprg langmap langmenu langremap laststatus lazyredraw linebreak lines linespace lisp lispwords list listchars
+loadplugins luadll macatsui magic makeef makeencoding makeprg matchpairs matchtime maxcombine maxfuncdepth maxmapdepth
+maxmem maxmempattern maxmemtot menuitems mkspellmem modeline modelines modifiable modified more mouse mousefocus mousehide
+mousemodel mouseshape mousetime mzquantum nrformats number numberwidth omnifunc opendevice operatorfunc osfiletype packpath
+paragraphs paste pastetoggle patchexpr patchmode path perldll preserveindent previewheight previewwindow printdevice
+printencoding printexpr printfont printheader printmbcharset printmbfont printoptions prompt pumheight pythondll
+pythonthreedll pyxversion quoteescape readonly redrawtime regexpengine relativenumber remap renderoptions report
+restorescreen revins rightleft rightleftcmd rubydll ruler rulerformat runtimepath scroll scrollbind scrolljump scrolloff
+scrollopt sections secure selection selectmode sessionoptions shell shellcmdflag shellpipe shellquote shellredir shellslash
+shelltemp shelltype shellxescape shellxquote shiftround shiftwidth shortmess shortname showbreak showcmd showfulltag
+showmatch showmode showtabline sidescroll sidescrolloff signcolumn smartcase smartindent smarttab softtabstop spell
+spellcapcheck spellfile spelllang spellsuggest splitbelow splitright startofline statusline suffixes suffixesadd swapfile
+swapsync switchbuf synmaxcol syntax tabline tabpagemax tabstop tagbsearch tagcase taglength tagrelative tags tagstack
+tcldll term termbidi termencoding termguicolors termkey termsize terse textauto textmode textwidth thesaurus tildeop timeout
+timeoutlen title titlelen titleold titlestring toolbar toolbariconsize ttimeout ttimeoutlen ttybuiltin ttyfast ttymouse
+ttyscroll ttytype undodir undofile undolevels undoreload updatecount updatetime verbose verbosefile viewdir viewoptions
+viminfo viminfofile virtualedit visualbell warn weirdinvert whichwrap wildchar wildcharm wildignore wildignorecase wildmenu
+wildmode wildoptions winaltkeys window winheight winfixheight winfixwidth winminheight winminwidth winwidth wrap wrapmargin
+wrapscan write writeany writebackup writedelay

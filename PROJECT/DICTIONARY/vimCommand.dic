@@ -1,0 +1,3 @@
+let unlet lockvar unlockvar if endif else elseif while endwhile for endfor for
+continue break try endtry catch finally throw echo echon echohl echomsg echoerr
+execute finish syntax highlight set setlocal call

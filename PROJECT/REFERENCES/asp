@@ -1,0 +1,30 @@
+<% language=VBScript %>
+<!--- #include file="login.inc" -->
+<%
+'*************************************************
+' These comments will be dropped by the ASP server
+'
+' File : [@ELEMENT_FILE@]
+'
+' But : [@ELEMENT_DESC@]
+'
+' Request description : Here is the list of the field used in a request object
+'----------------------
+'
+'-------------------------------------------------
+' Creation : [@ELEMENT_AUTHOR@] - [@ELEMENT_DATE@]
+'            [@ELEMENT_EMAIL@]
+'*************************************************
+%>
+<html>
+	<head>
+		<meta name="Exocet" content="[@ELEMENT_DESC@]">
+		<title>[@ELEMENT_DESC@]</title>
+		<!-- #include file="fct.inc" -->
+	</head>
+	<%=fontsize()%>
+	<body background="images/background.gif">
+	</body>
+	</font>
+</html>
+

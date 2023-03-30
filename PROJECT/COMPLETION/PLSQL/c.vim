@@ -1,0 +1,32 @@
+" Fichier : c.vim
+"
+" But : Use the varchar type
+"
+" Auteur : VM "Cool Coyote" - coolcoyote@noos.fr
+" Date : 21 juin 2014
+"
+"-------------------------------------------------------------------------------
+
+"---< Utilisation de modules communs >------------------------------------------
+
+"-------------------------------------------------------------------------------
+" DECLARATION DES VARIABLES GLOBALES
+"-------------------------------------------------------------------------------
+
+"-------------------------------------------------------------------------------
+" DECLARATION DES FONCTIONS
+"-------------------------------------------------------------------------------
+
+"-------------------------------------------------------------------------------
+" DEBUT DU CODE
+"-------------------------------------------------------------------------------
+
+let s:currentLineNum = line( "." )
+let s:currentColNum = col( "." )
+let s:currentLine = getline( s:currentLineNum )
+let s:currentIndent = substitute( s:currentLine, "[^ 	].*", "", "" )
+call setline( s:currentLineNum, strpart( s:currentLine, 0, s:currentColNum - 1 ) . "character varying( <@SIZE@> )" . substitute( strpart( s:currentLine, s:currentColNum ), "^	", "", "" ) )
+call append( s:currentLineNum, s:currentIndent . "&<@COLUMN_DEFINITION@>" )
+
+"---< Fin de fichier >----------------------------------------------------------
+

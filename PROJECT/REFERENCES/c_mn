@@ -1,0 +1,63 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ *--------------------------
+ * @endverbatim
+*/
+
+/*---< Includes >-------------------------------------------------------------*/
+
+#include <stdio.h>
+
+#include "vmtypes.h"
+
+<@@>#include "SYSTEM/sys_Socket.h"
+#include "BASE/base_Memory.h"
+<@@>#include "BUILDER/bldr_ThreadLib.h"
+#include "DATA/data_DateTime.h"
+#include "lang_Definition.h"
+#include "[@ELEMENT_NAME@].h"
+
+/*---< Local Predefined Types >-----------------------------------------------*/
+/*---< Local Macros >---------------------------------------------------------*/
+
+#define ERROR_INTRO  "ERROR : "
+
+/*---< Local Variables >------------------------------------------------------*/
+/*---< Functions >------------------------------------------------------------*/
+
+/**
+ * The main function
+ *
+ * @param argc - int : The number of arguments on the command line
+ * @param argv - char*[] : The array of the string that represent each parameter
+*/
+int main( int     argc,
+          char*   argv[] )
+{
+   register int   retValue = 0;
+
+   BASE_MEMORY_DEFAULT_INIT;
+   build_lang_Definition();
+   initialize_sys_DateTime();
+   build_sys_Socket();
+   init_bldr_ThreadLib();
+
+   <@CODE@>
+   if ( ( retValue = test<@TEST_FCTNAME@>_main() ) != 0 )
+   {
+      fprintf( stdout,
+               ERROR_INTRO"<@TEST_DESCRIPTION@> failed with code : %"MASK_INT32".\n",
+               retValue );
+   } /* End IF the export object test failed */
+
+   return retValue;
+}
+
+/*---< End of file >----------------------------------------------------------*/
+
