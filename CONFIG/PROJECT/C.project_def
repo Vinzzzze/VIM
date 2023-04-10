@@ -1,0 +1,138 @@
+if ( filereadable( expand( "$VM_PROJECT_DIR/.project_def" ) ) != 0 )
+   source $VM_PROJECT_DIR/.project_def
+endif
+
+" The project is a CPP one
+"-------------------------
+if ( filereadable( expand( "$VM_PROJECT_DIR/cpp.project_def" ) ) != 0 )
+   source $VM_PROJECT_DIR/cpp.project_def
+endif
+
+let g:VM_projectLocalEnteringFileInit = "$VM_PROJECT_DIR/c_mapping.vim"
+execute "source " . g:VM_projectLocalEnteringFileInit
+
+let g:VM_projectListFileMask = "*.c"
+
+if ( exists( "*C_DictionnaryName" ) == 0 )
+
+" Fonction : C_DictionnaryName
+"
+" But : Build the dictionnary name.
+"
+" Parametres :
+"     tagFile - The complete tag file name
+"-------------------------------------------------------------------------------
+function C_DictionnaryName( tagFile )
+   if ( g:VM_projectBaseFolder . "/tags" == a:tagFile )
+      return "Main"
+   else
+      return substitute( substitute( a:tagFile, "\/[^/]*", "", "" ), "\.*/", "", "" )
+   endif
+endfunction
+
+endif
+
+if ( exists( "*C_BuildExportDescriptionArray" ) == 0 )
+
+" Fonction : C_BuildExportDescriptionArray
+"
+" But : Build the array with the description export values.
+"-------------------------------------------------------------------------------
+function C_BuildExportDescriptionArray()
+   if ( VM_OpenProjectFileDescription( g:VM_allExportObjects, "split" ) == "" )
+      echo "Cannot found file " . g:VM_allExportObjects . ", nothing done.\n"
+   else
+      let currentLineNum = 1
+      let lastLine = line( "$" )
+      let loadElements = {}
+
+      while ( currentLineNum < line( "$" ) )
+         let currentLine = getline( currentLineNum )
+         let keyLine = substitute( substitute( currentLine, ".* \\*/ \\+", "", "" ), ",.*", "", "" )
+         let valueLine = substitute( substitute( currentLine, " \\+/\\* \\+", "", "" ), " \\+\\*/ .*", "", "" )
+         let loadElements[ keyLine ] = valueLine
+
+         let currentLineNum += 1
+      endwhile
+
+      quit
+
+      let currentLineNum = line( "." ) - 1
+      let lastElement = ""
+
+      for [ macro, class ] in items( loadElements )
+         let defaultMacro = substitute( macro, "_IDENTIFIER$", "_DEFAULT", "" )
+         call append( currentLineNum, g:VM_projectIndentation . "if ( " .defaultMacro . " == NULL )" )
+         let currentLineNum += 1
+         call append( currentLineNum, g:VM_projectIndentation . "{" )
+         let currentLineNum += 1
+         call append( currentLineNum, g:VM_projectIndentation . g:VM_projectIndentation . defaultMacro . " = build_" . class . "();" )
+         let currentLineNum += 1
+         call append( currentLineNum, g:VM_projectIndentation . "} /* End IF the initialisation of class " . class . " */" )
+         let currentLineNum += 1
+         call append( currentLineNum, "" )
+         let currentLineNum += 1
+         call append( currentLineNum, g:VM_projectIndentation . "currentArrayPosition[ " . macro . " ] = &( " . defaultMacro . " );" )
+         let currentLineNum += 1
+         call append( currentLineNum, "" )
+         let currentLineNum += 1
+
+         let lastElement = loadElements[ macro ]
+      endfor
+
+      if ( ( lastElement > "" )&&( search( "^#include", "w" ) > 0 ) )
+         let currentLineNum = line( "." )
+         let folderClass = VM_SelectFolder( lastElement, expand( "%:h:h" ) )
+
+         for className in values( loadElements )
+            call append( currentLineNum, "#include \"" . folderClass . "/" . className . ".h\"" )
+         endfor
+
+         ,/^$/-1 sort
+      endif
+
+      write
+   endif
+endfunction
+
+endif
+
+if ( exists( "g:VM_allExportObjects" ) == 0 )
+   let g:VM_allExportObjects = "allObjects.export"
+endif
+
+if ( exists( "g:VM_allExportLibrary" ) == 0 )
+   let g:VM_allExportLibrary = "COMMEXPORTLIB"
+endif
+
+if ( exists( "g:VM_classSearchCommand" ) == 0 )
+   let g:VM_classSearchCommand = "grep \"#define %s_HSTR(\" -r ."
+endif
+
+if ( exists( "g:VM_projectDefinitionFilename" ) == 0 )
+   let g:VM_projectDefinitionFilename = "fileList.xml"
+endif
+
+let g:c_syntax_for_h = 1
+
+if ( filereadable( "./tagSource.sh" ) !=0 )
+   let g:VM_projectCTags = "./tagSource.sh"
+else " End IF the tag build file is defined and must be used
+   let g:VM_projectCTags = "ctags --fields=+l --langmap=SQL:+.TAB.PRC --c-kinds=+p --c++-kinds=+p --extra=+q -R"
+
+   if ( exists( "g:VM_projectDBExtension" ) != 0 )
+      if ( g:VM_projectDBExtension == "psql" )
+         let g:VM_projectCTags = "ctags --fields=+l --langmap=C:+.str.typ.h.mac.cflt,SQL:+.PTAB.PSCH.PFCT.PTYP --c-kinds=+p --c++-kinds=+p --extra=+q -R"
+      elseif ( g:VM_projectDBExtension == "msql" )
+         let g:VM_projectCTags = "ctags --fields=+l --langmap=C:+.str.typ.h.mac.cflt,SQL:+.MTAB.MSCH.MPRC --c-kinds=+p --c++-kinds=+p --extra=+q -R"
+      endif
+   endif
+endif " End IF no tag build file is defined
+
+let g:VM_ShiftSearchedFileList = "**/*.[ch]"
+let g:VM_ControlSearchedFileList = "**/*.mac"
+let g:VM_AlternativeSearchedFileList = "**/*.[ch] **/*.typ **/*.mac **/*.str **/*.cflt"
+let g:VM_AllSearchedFileList = "**/*.txt"
+
+call VM_MapSearchGrep()
+call VM_BuildPath()

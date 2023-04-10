@@ -1,0 +1,61 @@
+if ( exists( "*VM_OpenProjectFileDescription" ) == 0 )
+
+" Fonction : VM_OpenProjectFileDescription
+"
+" But : Get the project file description and open it.
+"
+" Parametres :
+"    fileProject - The file name to open for representing the project.
+"    commandOpen - The command used to open the project file
+"-------------------------------------------------------------------------------
+function VM_OpenProjectFileDescription( fileProject, commandProject )
+   let currentFolder = substitute( expand( "%:h" ), "\\\\.*", "", "" )
+   let completeFilename = ""
+
+   while ( ( currentFolder > "" )&&( completeFilename == "" ) )
+      if ( filereadable( currentFolder . "/" . a:fileProject ) != 0 )
+         let completeFilename = currentFolder . "/" . a:fileProject
+      endif
+
+      let nextCurrentFolder = substitute( currentFolder, g:VM_projectDirSeparator . "[^\\" . g:VM_projectDirSeparator . "]*$", "", "" )
+
+      if ( nextCurrentFolder != currentFolder )
+         let currentFolder = nextCurrentFolder
+      else
+         let currentFolder = ""
+      endif
+   endwhile
+
+   if ( ( completeFilename == "" )&&( filereadable( a:fileProject ) != 0 ) )
+      let completeFilename = a:fileProject
+   endif
+
+   if ( completeFilename > "" )
+      execute a:commandProject . " " . completeFilename
+   else
+      echo "No project file can be found.\n"
+   endif
+
+   return completeFilename
+endfunction
+
+endif
+
+if ( exists( "g:VM_projectSpecificTags" ) != 0 )
+   unlet g:VM_projectSpecificTags
+endif
+
+if ( exists( "g:VM_projectBeforeTags" ) != 0 )
+   unlet g:VM_projectBeforeTags
+endif
+
+if ( exists( "g:VM_projectDBExtension" ) != 0 )
+   if ( g:VM_projectDBExtension == "psql" )
+      let g:VM_projectCTags = "ctags --fields=+l --langmap=C++:+.mac,SQL:+.PTAB.PSCH.PFCT.PTYP --c-kinds=+p --c++-kinds=+p --extra=+q -R"
+   elseif ( g:VM_projectDBExtension == "msql" )
+      let g:VM_projectCTags = "ctags --fields=+l --langmap=C++:+.mac,SQL:+.MTAB.MSCH.MPRC --c-kinds=+p --c++-kinds=+p --extra=+q -R"
+   endif
+endif
+
+let g:VM_workspaceSave = 1
+

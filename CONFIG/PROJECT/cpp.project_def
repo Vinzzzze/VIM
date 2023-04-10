@@ -1,0 +1,26 @@
+let g:CPPInlineCode = "VM_INLINE "
+let g:c_syntax_for_h = 1
+
+" Searched files
+"---------------
+let g:VM_ShiftSearchedFileList = "**/*.[ch]pp"
+let g:VM_ControlSearchedFileList = "**/*.xml"
+let g:VM_AlternativeSearchedFileList = "../**/*.txt"
+let g:VM_AllSearchedFileList = "../"
+
+call VM_MapSearchGrep()
+
+let g:VM_projectLocalEnteringFileInit = "$VM_PROJECT_DIR/cpp_mapping.vim"
+execute "source " . g:VM_projectLocalEnteringFileInit
+
+let g:VM_projectDirShell = "~/.VIM_SHELL/" . $CURRENT_PROJECT
+
+call VM_BuildPath()
+
+let $EXPORT_HOME = $REFERENCE_PROJECT . "/EXPORT/" . $CURRENT_PROJECT
+let $PROJECT_HOME = $REFERENCE_PROJECT . "/" . $CURRENT_PROJECT
+let $BUILD_HOME = $BUILD_PROJECT . "/" . $CURRENT_PROJECT
+
+set makeprg=make\ -C\ $BUILD_HOME\ -s\ -j\ 8
+
+let g:VM_projectListFileMask = "*.cpp"

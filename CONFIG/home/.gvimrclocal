@@ -1,0 +1,2 @@
+set guifont=Liberation\ Mono\ 8
+let g:VM_projectCtrlEnter = "<C-CR>"

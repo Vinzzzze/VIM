@@ -1,0 +1,36 @@
+" Fichier : _vimrclocal
+"
+" But : Définition de la configuration VIM pour le compte courant
+"
+" Auteur : Vini "Cool Coyote" - coolcoyote@noos.fr
+"-------------------------------
+
+" Configuration du project manager
+"---------------------------------
+let g:VM_projectMainFolder = "C:/ProgramData/VIM/PROJECT"
+let g:VM_projectDirShell = "~/VIMFILES/SHELL"
+let g:VM_projectDBExtension = "psql"
+let g:VM_projectIndentation = "   "
+let g:VM_projectFileFormat = "unix"
+let g:VM_todoClassOpen = "C:/ProgramData/VIM/TODO_CLASS"
+let g:CPPInlineCode = "VM_INLINE "
+let g:SQL_projectIndentation = "	"
+let g:JAVA_projectIndentation = "   "
+let g:XML_projectIndentation = "	"
+let g:VM_projectDirSeparator = "/"
+
+let s:VM_projectLocalDir = "~/VIMPROJECT_LOCAL"
+let g:VM_projectLocalDirEnterFile = s:VM_projectLocalDir . "/ENTERING"
+let g:VM_projectLocalDirLeaveFile = s:VM_projectLocalDir . "/LEAVING"
+let g:VM_projectDefaultEnteringFileInit = s:VM_projectLocalDir . "/portableMapping.vim"
+
+let g:VM_projectListFileStart = "C:\\win32app\\MINGW\\msys\\1.0\\bin\\ls -l "
+let g:VM_projectListFileEnd = " | grep \"^-\""
+let g:VM_projectBaseProjects = "/home/LINUX"
+let g:VM_projectVIMBaseProjects = "C:/win32app/MINGW/msys/1.0/home/LINUX"
+let g:VM_projectVIMBuildFolder = "C:/win32app/MINGW/msys/1.0/home/coolcoyote/PROJECTS/"
+
+" Définition du nom de l'utilisateur courant
+"-------------------------------------------
+let $USER_NAME = ""
+let $ADDRESS_EMAIL = ""

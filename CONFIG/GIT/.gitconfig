@@ -1,0 +1,12 @@
+[user]
+	name = 
+	email = 
+[core]
+	editor = vim
+	excludesfile = ~/SOURCES/MAKEFILEGENERATION/GIT/excludeFiles.txt
+[merge]
+	tool = gvim -d
+[gui]
+	trustmtime = true
+[push]
+	default = simple
