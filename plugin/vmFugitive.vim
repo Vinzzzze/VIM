@@ -195,6 +195,10 @@ function VM_GitBranchSelect( updateBaseFolder )
       let b:branches = branchesList
       let b:folder = localFolder
       execute s:activeIndex + 1
+
+      if ( localFolder > "" )
+         execute "cd " . localFolder
+      endif
    endif
 endfunction
 
@@ -355,7 +359,7 @@ function VM_DeleteBranch( lineNumber, forced )
             call delete( fileToDelete )
          endif
 
-         if ( exists( "*" . g:VM_fugitiveDeleteBranch ) != 0 )
+         if ( ( exists( "g:VM_fugitiveDeleteBranch" ) != 0 )&&( exists( "*" . g:VM_fugitiveDeleteBranch ) != 0 ) )
            execute "call " . g:VM_fugitiveDeleteBranch . "( deleteBranch.name )"
          endif
       endif
@@ -560,7 +564,7 @@ if ( exists( "*VM_SwitchBranch" ) == 0 )
 function VM_SwitchBranch( branchName )
    let g:VM_workspaceFilename = VM_GetBranchWorkspace( a:branchName )
 
-   if ( exists( "*" . g:VM_fugitiveSwitchBranch ) != 0 )
+   if ( ( exists( "g:VM_fugitiveSwitchBranch" ) != 0 )&&( exists( "*" . g:VM_fugitiveSwitchBranch ) != 0 ) )
      execute "call " . g:VM_fugitiveSwitchBranch . "( a:branchName )"
    endif
 endfunction
@@ -665,7 +669,7 @@ if ( exists( "g:VM_gitCommentSeparator" ) == 0 )
 endif
 
 if ( exists( "g:VM_gitWorkspaceAutoSave" ) == 0 )
-   let g:VM_gitWorkspaceAutoSave = 1
+   let g:VM_gitWorkspaceAutoSave = 0
 endif
 
 if ( exists( "g:VM_gitWorkspaceAutoLoad" ) == 0 )
