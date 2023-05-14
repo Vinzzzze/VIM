@@ -181,6 +181,10 @@ set statusline=%<%f%h%m%r%=\ (%b\ 0x%B)\ -\ [%c%V]%l/%L
 let php_folding = 2
 let vimsyn_folding = "a"
 
+" Load the debug terminal feature
+"---------------------------------
+packadd termdebug
+
 " Execute le local file definition
 "---------------------------------
 if ( filereadable( expand( localFileDefinitions ) ) != 0 )

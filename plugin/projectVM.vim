@@ -530,6 +530,26 @@ endfunction
 
 endif
 
+if ( exists( "*VM_ProjectFunctionExecute" ) == 0 )
+
+" Fonction : VM_ProjectFunctionExecute
+"
+" But : Execute the function file specified.
+"
+" Parametres :
+"    fileExecute - string : The file to be executed
+"-------------------------------------------------------------------------------
+function VM_ProjectFunctionExecute( fileExecute )
+   if ( ( exists( "g:VM_projectLocalDirAlternate" ) != 0 )&&( filereadable( expand( g:VM_projectLocalDirAlternate . "/" . a:fileExecute ) ) != 0 ) )
+      execute "source " . g:VM_projectLocalDirAlternate . "/" . a:fileExecute
+   " End IF the terminal mapping had been found in the local function folder
+   elseif ( ( exists( "g:VM_projectDirAlternate" ) != 0 )&&( filereadable( expand( g:VM_projectDirAlternate . "/" . a:fileExecute ) ) != 0 ) )
+      execute "source " . g:VM_projectDirAlternate . "/" . a:fileExecute
+   endif " End IF the terminal mapping had been found in the project function folder
+endfunction
+
+endif
+
 if ( exists( "*VM_ProjectTerminalMappingFile" ) == 0 )
 
 " Fonction : VM_ProjectTerminalMappingFile
@@ -549,12 +569,7 @@ function VM_ProjectTerminalMappingFile( mappingFile )
       let terminalFile = a:mappingFile . "-" . $TERM . ".vim"
    endif " End IF use the terminal corresponding to the definition
 
-   if ( ( exists( "g:VM_projectLocalDirAlternate" ) != 0 )&&( filereadable( expand( g:VM_projectLocalDirAlternate . "/" . terminalFile ) ) != 0 ) )
-      execute "source " . g:VM_projectLocalDirAlternate . "/" . terminalFile
-   " End IF the terminal mapping had been found in the local function folder
-   elseif ( ( exists( "g:VM_projectDirAlternate" ) != 0 )&&( filereadable( expand( g:VM_projectDirAlternate . "/" . terminalFile ) ) != 0 ) )
-      execute "source " . g:VM_projectDirAlternate . "/" . terminalFile
-   endif " End IF the terminal mapping had been found in the project function folder
+   call VM_ProjectFunctionExecute( terminalFile )
 endfunction
 
 endif
@@ -576,150 +591,15 @@ function VM_ProjectEnterFile()
    setlocal showmode
    setlocal textwidth=0
 
-   " Pour la création de fichiers
-   "-----------------------------
-   nmap <M-F5> :call VM_ProjectBuildAlternateFunction()<CR><CR>
-   nmap <S-F5> :call VM_ProjectBuildClass()<CR>
-   nmap <F5> :call VM_ProjectBuildFunction()<CR>
-   " Pour ne laisser qu'une seule fenêtre ouverte
-   "---------------------------------------------
-   nmap <F1> :help<CR>
-   nmap <S-F1> :execute "help " . expand( "<cword>" )<CR>
-   vmap <F1> y:help <C-R>+<CR>
-   nmap <C-F1> :execute "vsplit " . expand( "<cWORD>" )<CR>
-   nmap <S-C-F1> :execute "split " . expand( "<cWORD>" )<CR>
-   nmap <T-F1> :vert terminal<CR>
-   nmap <S-T-F1> :terminal<CR>
-   nmap <C-T-F1> :tabnew<CR>:terminal<CR>
-   nmap <F3> :vsplit<CR>:tjump <C-R><C-W><CR>
-   vmap <F3> y:vsplit<CR>:tjump <C-R>+<CR>
-   cmap <F3> <C-R><C-W>
-   cmap <S-F3> <C-R><C-A>
-   cmap <C-F3> <C-R><C-F>
-   nmap <M-F8> :find 
-   vmap <M-F8> y:find <C-R>+<Tab>
-   " Pour les recherches dans les fichiers du projet
-   "------------------------------------------------
-   nmap <F2> :vimgrep /
+   call VM_ProjectFunctionExecute( "defaultMapping.vim" )
+
    if ( exists( "g:VM_terminalUsage" ) == 0 )
-      execute "nmap <M-F1> :split " . g:VM_projectDirShell . "/VIM_SQLShell." . g:VM_projectDBExtension . "<CR>G"
-      nmap <S-F2> :vimgrep /<C-R>// 
-      nmap <M-F2> :vimgrep /<C-R>*/ 
-      vmap <F2> y<M-F2>
-      nmap <M-F3> :call VM_BuildPath()<CR>
-      nmap <C-F2> :echo VM_ProjectAnalyze()<CR>
-      nmap <S-C-F2> :call VM_ProjectInitialize()<CR>
-      nmap <S-F3> :split<CR>:tjump <C-R><C-W><CR>
-      nmap <C-F3> :vsplit<>:tjump <C-R><C-F><CR>
-      nmap <C-S-F3> :split<CR>:tjump <C-R><C-F><CR>
-      vmap <S-F3> y:split<CR>:tjump <C-R>+<CR>
-      vmap <C-F3> y:vsplit<CR>:tjump /<C-R>+<CR>
-      vmap <C-S-F3> y:tabnew<CR>:tjump /<C-R>+<CR>
-      " Copier / Coller
-      "----------------
-      map <S-Insert> P
-      map <C-Insert> y
-      " Le mapping des touches pour la compile en dev et en prod
-      "---------------------------------------------------------
-      if ( exists( "g:VM_keypad" ) != 0 )
-         nmap <kPlus> zo
-         nmap <kMinus> zc
-         nmap <S-kPlus> zO
-         nmap <S-kMinus> zC
-      else
-         nmap <PageDown> zo
-         nmap <PageUp> zc
-         nmap <S-PageDown> zO
-         nmap <S-PageUp> zC
-      endif
-      " Pour le déplacement dans les tabs
-      "----------------------------------
-      nmap <C-TAB> :tabnext<CR>
-      nmap <S-C-TAB> :tabprevious<CR>
-      nmap <M-v> :vsplit<CR>
-      nmap <M-s> :split<CR>
-      nmap <M-c> :tabclose<CR>
-      nmap <M-t> :tabnew<CR>:tjump 
-      nmap <M-r> :tjump 
-      " Pour la completion automatique
-      "-------------------------------
-      imap <C-S-CR> <S-CR>s<C-CR>
-      imap <C-CR> <Esc>:call VM_Completion( expand( "<cword>" ) )<CR>/<@/<CR>v/@>/<CR><Right>
-      imap <S-CR> <Esc>/<@/<CR>v/@>/<CR><Right>
-      nmap <S-CR> /<@/<CR>v/@>/<CR><Right>
-      vmap <S-CR> <Esc>/<@/<CR>v/@>/<CR><Right>
-      nmap <C-S-CR> ?<@?<CR>nv/@>/<CR><Right>
-      vmap <C-S-CR> <Esc>?<@?<CR>nv/@>/<CR><Right>
-      vmap <C-CR> s<C-CR>
-      " Pour se déplacer dans les buffers
-      "----------------------------------
-      nmap <C-Up> <C-W><Up>
-      nmap <C-Left> <C-W><Left>
-      nmap <C-Down> <C-W><Down>
-      nmap <C-Right> <C-W><Right>
-      nmap <M-Up> <C-W>-
-      nmap <M-Left> <C-W><
-      nmap <M-Down> <C-W>+
-      nmap <M-Right> <C-W>>
-      nmap <M-m> 1<C-W>_1<C-W>\|
-      nmap <M-M> <C-W>_<C-W>\|
-      nmap <C-a> <C-W>=
-      nmap <C-A> <C-W>=
-      " Pour déplacer les fenêtres
-      "---------------------------
-      nmap <C-S-Left> <C-W>H<C-W>=
-      nmap <C-S-Up> <C-W>K<C-W>=
-      nmap <C-S-Right> <C-W>L<C-W>=
-      nmap <C-S-Down> <C-W>J<C-W>=
-      " Pour l'indentation
-      "-------------------
-      nmap <Tab> <C-W>w
-      nmap <S-Tab> <C-W>W
-      vmap <Tab> >mg'>V'g
-      vmap <S-Tab> <mg'>V'g
-      nmap <C-T> :tabnew<CR>
-      " Pour accéder au nom de fichier
-      "-------------------------------
-      cmap <F1> <C-R>=expand( "%" )<CR>
-      cmap <S-F1> <C-R>=expand( "%:r" )<CR>
-      cmap <F2> <C-R>=expand( "%:t" )<CR>
-      cmap <S-F2> <C-R>=expand( "%:t:r" )<CR>
-      cmap <F3> <C-R>=expand( "%:h" )<CR>
-      cmap <S-F3> <C-R>=expand( "%:p:h" )<CR>
-      cmap <F4> <C-R>=expand( "%:p" )<CR>
-      cmap <S-F4> <C-R>=expand( "%:p:r" )<CR>
-      " Pour utiliser l'édition hexadicimale
-      "-------------------------------------
-      nmap <F9> :let b:originFT = &ft<CR>:%!xxd<CR>:set ft=xxd<CR>
-      nmap <S-F9> :%!xxd -r<CR>:let &ft = b:originFT<CR>:unlet b:originFR<CR>
-      " Pour la gestion des buffers
-      "----------------------------
-      nmap <F7> :call VM_CommandTabs()<CR>
-      nmap <S-F7> :call VM_CommandBuffer()<CR>
-      nmap <C-F7> :call VM_SwitchTab()<CR>
-      nmap <M-F7> :call VM_MarkWindow()<CR>:call VM_CommandTabs()<CR>
-      " Le mapping pour se déplacer dans les folders
-      "---------------------------------------------
-      nmap <S-F4> [z
-      nmap <F4> ]z
-      nmap <C-S-F4> zk
-      nmap <C-F4> zj
+      call VM_ProjectFunctionExecute( "graphicMapping.vim" )
    else
       call VM_ProjectTerminalMappingFile( "termMapping" )
    endif
 
    call VM_MapSearchGrep()
-
-   execute "nmap " . nr2char( 167 ) . " :q<CR>"
-   " Pour la conversion des dates excel
-   "-----------------------------------
-   nmap <C-K> :echo "Date : " . VM_ProjectCalculExcelDate( expand( "<cword>" ) )<CR>
-   " Pour recharger un fichier
-   "--------------------------
-   nmap <F6> G:e<CR>
-   " Pour passer en mode explorer
-   "-----------------------------
-   nmap <F8> :Explore<CR>
 
    if ( exists( "g:VM_bepoUsage" ) != 0 )
       nnoremap , ;
@@ -730,11 +610,6 @@ function VM_ProjectEnterFile()
       onoremap ; ,
    endif
 
-   if ( &diff != 0 )
-      nmap <S-Up> [c
-      nmap <S-Down> ]c
-   endif " End IF we are in a diff view
-
    if ( ( exists( "g:VM_projectDefaultEnteringFileInit" ) != 0 )&&( filereadable( expand( g:VM_projectDefaultEnteringFileInit ) ) != 0 ) )
       execute "source " . g:VM_projectDefaultEnteringFileInit
    endif
@@ -743,9 +618,7 @@ function VM_ProjectEnterFile()
       execute "source " . g:VM_projectLocalEnteringFileInit
    endif
 
-   if ( ( exists( "*term_list" ) != 0 )&&( index( term_list(), bufnr( "%" ) ) >= 0 ) )
-      call VM_ProjectExecuteEnteringFile( "terminal" )
-   elseif ( expand( "%" ) == "" )
+   if ( expand( "%" ) == "" )
       call VM_ProjectExecuteEnteringFile( "" )
    else
       call VM_ProjectExecuteEnteringFile( &filetype )
@@ -4643,11 +4516,11 @@ if ( exists( "g:VM_ctagsFolders" ) == 0 )
 endif
 
 if ( exists( "g:VM_listCmdPathBuild" ) == 0 )
-   let g:VM_listCmdPathBuild = ["let s:dirList = split( system( \"C:\\\\win32app\\\\MINGW\\\\msys\\\\1.0\\\\bin\\\\ls -R\" . g:VM_pathBuildBase ), expand( \"<CR>\" ) )", "call filter( s:dirList, 'v:val =~ \":\"' )", "call filter( s:dirList, 'v:val !~ \"\\\\.[a-zA-Z]\\\\+\"' )", "let g:VM_globalPath = substitute( substitute( substitute( substitute( join( s:dirList ), \"\\\\\", \"/\", \"g\" ), \": \", \",\", \"g\" ), \":$\", \"\", \"\" ), \"\\\\./\", \"\", \"g\" )"]
+   let g:VM_listCmdPathBuild = ["let s:dirList = split( system( \"ls -R\" . g:VM_pathBuildBase ), expand( \"<CR>\" ) )", "call filter( s:dirList, 'v:val =~ \":\"' )", "call filter( s:dirList, 'v:val !~ \"\\\\.[a-zA-Z]\\\\+\"' )", "let g:VM_globalPath = substitute( substitute( substitute( substitute( join( s:dirList ), \"\\\\\", \"/\", \"g\" ), \": \", \",\", \"g\" ), \":$\", \"\", \"\" ), \"\\\\./\", \"\", \"g\" )"]
 endif
 
 if ( exists( "g:VM_projectListDirStart" ) == 0 )
-   let g:VM_projectListDirStart = "C:\\win32app\\MINGW\\msys\\1.0\\bin\\ls -l "
+   let g:VM_projectListDirStart = "ls -l "
 endif
 
 if ( exists( "g:VM_projectListDirEnd" ) == 0 )
@@ -4659,7 +4532,7 @@ if ( exists( "g:VM_projectListFileEnd" ) == 0 )
 endif
 
 if ( exists( "g:VM_distantListDirStart" ) == 0 )
-   let g:VM_distantListDirStart = "C:\\win32app\\MINGW\\msys\\1.0\\bin\\ls -l "
+   let g:VM_distantListDirStart = "ls -l "
 endif
 
 if ( exists( "g:VM_distantListDirEnd" ) == 0 )
@@ -4755,7 +4628,7 @@ if ( exists( "g:VM_workspaceFilename" ) == 0 )
 endif
 
 if ( exists( "g:VM_projectShellExecute" ) == 0 )
-   let g:VM_projectShellExecute = "C:\\win32app\\MINGW\\msys\\1.0\\bin\\sh.exe --login -c"
+   let g:VM_projectShellExecute = "$SHELL --login -c"
 endif
 
 if ( exists( "g:VM_workspaceQuitCmd" ) == 0 )
@@ -4784,7 +4657,7 @@ autocmd BufReadPre * call VM_DetermineFileSize( expand( "<afile>" ) )
 autocmd BufReadPost * call VM_DeterminePostFileSize()
 autocmd BufEnter * call VM_ProjectEnterFile()
 autocmd BufLeave * call VM_ProjectLeaveFile()
-autocmd BufWinEnter * if ( &buftype == "terminal" ) | call VM_ProjectExecuteEnteringFile( "terminal" ) | endif
+autocmd TerminalWinopen * call VM_ProjectExecuteEnteringFile( "terminal" )
 
 " Setting the commands
 "---------------------

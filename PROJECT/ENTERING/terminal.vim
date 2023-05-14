@@ -21,22 +21,35 @@
 " DEBUT DU CODE
 "-------------------------------------------------------------------------------
 
-tmap <buffer> <F1> <C-W>:
-tmap <buffer> <C-Left> <C-W><Left>
-tmap <buffer> <C-Up> <C-W><Up>
-tmap <buffer> <C-Right> <C-W><Right>
-tmap <buffer> <C-Down> <C-W><Down>
-tmap <buffer> <F2> cds<CR>
-tmap <buffer> <F3> cdm<CR>
-tmap <buffer> <F8> updAll<CR>
-tmap <buffer> <F4> commitAll<CR>
-tmap <buffer> <F6> cdm && make<CR>
-tmap <buffer> <S-F6> outLib<CR>
-tmap <buffer> <C-T> <C-W>:tabnew<CR>
-tmap <buffer> <C-TAB> <C-W>:tabnext<CR>
-tmap <buffer> <S-C-TAB> <C-W>:tabprevious<CR>
-tmap <buffer> <C-Esc> <C-W>N
-tmap <buffer> <T-Esc> <C-W><C-C>
+tmap <buffer> <silent> <F1> <C-W>N
+tmap <buffer> <silent> <F3> <C-W>:
+tmap <buffer> <silent> <C-TAB> <C-W>:tabnext<CR>
+tmap <buffer> <silent> <S-C-TAB> <C-W>:tabprevious<CR>
+tmap <buffer> <silent> <M-v> <C-W>:vert new<CR>
+tmap <buffer> <silent> <M-s> <C-W>:new<CR>
+tmap <buffer> <silent> <M-t> <C-W>:tabnew<CR>:tjump 
+tmap <buffer> <silent> <M-r> <C-W>:tabnew<CR>:tjump 
+tmap <buffer> <silent> <C-Up> <C-W><Up>
+tmap <buffer> <silent> <C-Left> <C-W><Left>
+tmap <buffer> <silent> <C-Down> <C-W><Down>
+tmap <buffer> <silent> <C-Right> <C-W><Right>
+tmap <buffer> <silent> <M-Up> <C-W>-
+tmap <buffer> <silent> <M-Left> <C-W><
+tmap <buffer> <silent> <M-Down> <C-W>+
+tmap <buffer> <silent> <M-Right> <C-W>>
+tmap <buffer> <silent> <C-S-Left> <C-W>H<C-W>=
+tmap <buffer> <silent> <C-S-Up> <C-W>K<C-W>=
+tmap <buffer> <silent> <C-S-Right> <C-W>L<C-W>=
+tmap <buffer> <silent> <C-S-Down> <C-W>J<C-W>=
+tmap <buffer> <silent> <F7> <C-W>:call VM_CommandTabs()<CR>
+tmap <buffer> <silent> <S-F7> <C-W>:call VM_CommandBuffer()<CR>
+tmap <buffer> <silent> <C-F7> <C-W>:call VM_SwitchTab()<CR>
+tmap <buffer> <silent> <M-F7> <C-W>:call VM_MarkWindow()<CR>:call VM_CommandTabs()<CR>
+tmap <buffer> <silent> <C-V> <C-W>""
+tmap <buffer> <silent> <C-P> <C-W>"
+tmap <buffer> <silent> <M-M> <C-W>_<C-W>\|
+tmap <buffer> <silent> <C-A> <C-W>=
+tmap <buffer> <silent> <C-a> <C-W>=
 
 "---< Fin de fichier >----------------------------------------------------------
 

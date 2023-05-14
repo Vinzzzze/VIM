@@ -7,19 +7,19 @@
 "----------------------
 if has("fname_case")
   au BufNewFile,BufRead *.CPP,*.CXX,*.C++,*.HH,*.HXX,*.HPP,*.MOC,*.TCC,*.INL,*.I
-	\ if exists("cynlib_syntax_for_cc")|setf cynlib|else|setf cpp|endif
+	\ if exists("cynlib_syntax_for_cc")|setf cynlib|else|set ft=cpp|endif
 endif
 
 " VM : Add the log file definition
 "---------------------------------
-au BufNewFile,BufRead *.str,*.typ,*.cflt  setf c
+au BufNewFile,BufRead *.str,*.typ,*.cflt  set ft=c
 au BufNewFile,BufRead *.mac  call s:FTheaderMac()
 
 func! s:FTheaderMac()
   if exists("g:c_syntax_for_h")
-    setf c
+    set ft=c
   else
-    setf cpp
+    set ft=cpp
   endif
 endfunc
 
@@ -31,9 +31,9 @@ function! s:ExecSubExtention()
    let subExt = expand( "<amatch>:r:e" )
  
    if ( subExt == "h" )
-      setf c
+      set ft=c
    elseif ( subExt > "" )
-      execute "setf " . subExt
+      execute "set ft=" . subExt
    endif
 endfunction
 
@@ -43,53 +43,53 @@ endfunction
 "-------------------------------
 function! s:SQLSpecificType()
    if ( exists( "g:specific_syntax_for_sql" ) == 0 )
-      setf sql
+      set ft=sql
    else
-      execute "setf " . g:specific_syntax_for_sql
+      execute "set ft=" . g:specific_syntax_for_sql
    endif
 endfunction
  
 " VM : Add the log file definition
 "---------------------------------
-au BufNewFile,BufRead *.log            setf log
+au BufNewFile,BufRead *.log            set ft=log
 
 " VM : Prime Description Language
 "--------------------------------
-au BufNewFile,BufRead *.pdl	setf pdl
+au BufNewFile,BufRead *.pdl	set ft=pdl
 
 " VM : Exocet Template Language
 "------------------------------
-au BufNewFile,BufRead *.tpl   setf tpl
+au BufNewFile,BufRead *.tpl   set ft=tpl
 
 " VM : Complete the SQL
 "----------------------
-au BufNewFile,BufRead *.psch,*.psql,*.ptab,*.pfct,*.ptyp,*.pls			setf plsql
-au BufNewFile,BufRead *.msch,*.msql,*.mtab,*.mfct,*.mprc,*.mtyp			setf mysql
-au BufNewFile,BufRead *.mssql,*.tab,*.prc,*.viw			setf mssql
+au BufNewFile,BufRead *.psch,*.psql,*.ptab,*.pfct,*.ptyp,*.pls			set ft=plsql
+au BufNewFile,BufRead *.msch,*.msql,*.mtab,*.mfct,*.mprc,*.mtyp			set ft=mysql
+au BufNewFile,BufRead *.mssql,*.tab,*.prc,*.viw			set ft=mssql
 au BufNewFile,BufRead *.sql			call s:SQLSpecificType()
 
 " VM : add the project definition
 "--------------------------------
-au BufNewFile,BufRead *.project_def,*.workspace  setf vim
+au BufNewFile,BufRead *.project_def,*.workspace  set ft=vim
 
 " VM : Add the todo.txt definition
 "---------------------------------
-au BufNewFile,BufRead *todo*.txt  setf todo
+au BufNewFile,BufRead *todo*.txt  set ft=todo
 
 " TSL scripts
-au BufNewFile,BufReadPost *.tsl		setf tsl
+au BufNewFile,BufReadPost *.tsl		set ft=tsl
 
 " VM : Add the result definition
 "-------------------------------
-au BufNewFile,BufRead *.res  setf res
+au BufNewFile,BufRead *.res  set ft=res
 
 " VM : add the project definition
 "--------------------------------
-au BufNewFile,BufRead *.project_init,*.project_*_init,*.bash*  setf sh
+au BufNewFile,BufRead *.project_init,*.project_*_init,*.bash*  set ft=sh
 
 " Gradle file file, using groovy
 "-------------------------------
-au BufNewFile,BufRead *.gradle  setf groovy
+au BufNewFile,BufRead *.gradle  set ft=groovy
 
 " JSon files
 "-----------
@@ -97,7 +97,7 @@ au BufNewFile,BufRead *.json  setf json
 
 " Velocity files
 "---------------
-au BufNewFile,BufRead *.vm  setf velocity
+au BufNewFile,BufRead *.vm  set ft=velocity
 
 " csv files
 "----------
@@ -109,30 +109,30 @@ au BufNewFile,BufRead *.go  setf go
 
 " Project makefile
 "-----------------
-au BufNewFile,BufRead make.*  setf make
+au BufNewFile,BufRead make.*  set ft=make
 
 " Debug trace
 "------------
-au BufNewFile,BufRead debug.out  setf debug
+au BufNewFile,BufRead debug.out  set ft=debug
 
 " Edifact files
 "--------------
-au BufNewFile,BufRead *.edifact  setf edifact
+au BufNewFile,BufRead *.edifact  set ft=edifact
 
 " Config files
 "--------------
-au BufNewFile,BufRead *.cfg  setf xml
+au BufNewFile,BufRead *.cfg  set ft=xml
 
 " Language definition
 "--------------------
-au BufNewFile,BufRead lang_*.lang  setf lang
-au BufNewFile,BufRead lang_*.enum  setf lang_enum
-au BufNewFile,BufRead allObjects.export  setf export
-au BufNewFile,BufRead messages.enum,paramOrder.enum,paramUsage.enum  setf msg_enum
+au BufNewFile,BufRead lang_*.lang  set ft=lang
+au BufNewFile,BufRead lang_*.enum  set ft=lang_enum
+au BufNewFile,BufRead allObjects.export  set ft=export
+au BufNewFile,BufRead messages.enum,paramOrder.enum,paramUsage.enum  set ft=msg_enum
 
 au BufNewFile,BufRead *.glang  call s:ExecSubExtention()
 
-au BufNewFile,BufRead *.i,*.ec  setf cpp
+au BufNewFile,BufRead *.i,*.ec  set ft=cpp
 
 " Fixed length definition
 "------------------------
@@ -151,7 +151,7 @@ function! s:FixedLengthDefinition()
    endif
 
    if ( filereadable( definitionFile ) != 0 )
-   	setf VM_fixed_length
+   	set ft=VM_fixed_length
 
       call VM_ReadFixedLength( definitionFile )
       call VM_AutoCommandFixedLengh()
@@ -176,7 +176,7 @@ function! s:IsEdifact()
       let firstLine = getline( numLine )
 
       if ( substitute( firstLine, "^[A-Z]\\+\", "", "" ) != firstLine )
-        setf edifactVM
+        set ft=edifactVM
       endif " End IF the first line seems to belong to an edifact file
    endif " End IF the file already have a filetype
 endfunction
@@ -191,7 +191,7 @@ au BufNewFile,BufRead *.UISC.*.D[0123456789][0123456789][0123456789][0123456789]
 
 " The XML reference file
 "-----------------------
-au BufNewFile,BufRead *Output_[0123456789][0123456789][0123456789][0123456789][0123456789][0123456789][0123456789][0123456789]  setf xml
-au BufNewFile,BufRead *.edif setf edifact
+au BufNewFile,BufRead *Output_[0123456789][0123456789][0123456789][0123456789][0123456789][0123456789][0123456789][0123456789]  set ft=xml
+au BufNewFile,BufRead *.edif set ft=edifact
 au BufNewFile,BufRead * call s:IsEdifact()
 

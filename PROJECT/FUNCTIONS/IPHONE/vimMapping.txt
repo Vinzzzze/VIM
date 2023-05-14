@@ -1,0 +1,21 @@
+<M-A> : Project analyze           (insert)<C-C><Up> : Goto next completion and complete it
+<M-Z> : Split current word        (insert)<C-C><CR> : Complete the current word
+<M-E> : VSplit current word       (select)<C-C><CR> : Delete the selection and complete word
+<M-Z> : Split current selection   (insert)<C-C><Down> : Move to the next completion
+<M-E> : VSplit current selection  (select)<C-C><Down> : Move to the next completion
+                                          <C-C><Down> : Move to the next completion
+<Tab><Down> :tabnext<CR>                  <C-C><Up> : Move to the previous completion
+<Tab><Up> :tabprevious<CR>        (select)<C-C><Up> : Move to the previous completion
+
+<M-V> : vsplit                    k : window upper
+<M-S> : split                     h : window left
+<M-C> : Close tab                 j : window down
+<M-T> : Search new tab            l : window right
+<M-R> : Search current buffer     <C-F> : current filename
+                                  <C-G> : current filename without extention
+<C-H> : Use hexadecimal mode      <C-N> : Simple filename
+<C-Q> : Quit the hexadecimal mode <C-S> : Simple filename without extention
+                                  <C-J> : Current path without filename
+<C-O> : Open the tablist utility  <C-D> : Complete path without filename
+<C-X> : Exchange the current      <C-E> : Complete path with filename
+        buffer with the previous  <C-U> : Complete patch withe filename without extention
