@@ -42,7 +42,7 @@
  * The global variable 
 */
 extern base_ObjectDescription* [@ELEMENT_MACRO@]_DEFAULT;
-
+[@DESCRIPTION_DECLARATION@]
 /*---< Structure >------------------------------------------------------------*/
 
 #include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].str"
@@ -63,7 +63,16 @@ struct s_[@ELEMENT_NAME@]
  *
  * @return Structure initialisée.
 */
-data_ObjectDescription* build_[@ELEMENT_NAME@]();
+base_ObjectDescription* init_[@ELEMENT_NAME@]( void );
+
+/**
+ * Constructeur. Initialise les attributs de la structure.
+ *
+ * @param buffer - [@ELEMENT_NAME@]* : The buffer where the object definition can be created.
+ *
+ * @return Structure initialisée.
+*/
+[@ELEMENT_NAME@]* build_[@ELEMENT_NAME@]( [@ELEMENT_NAME@]* buffer );
 
 /**
  * Destructeur.

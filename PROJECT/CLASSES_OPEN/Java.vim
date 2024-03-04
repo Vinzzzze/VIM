@@ -2,7 +2,7 @@
 "
 " But : The way the Java classes are opened.
 "
-" Auteur : VM - vincent.menager@bnpparibas.com
+" Auteur : Vince "Cool Coyote" - coolcoyote358@gmail.com
 " Date : 16 Mar 2015
 "
 "-------------------------------------------------------------------------------

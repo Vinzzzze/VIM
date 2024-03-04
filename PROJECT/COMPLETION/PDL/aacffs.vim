@@ -2,7 +2,7 @@
 "
 " But : Build the create family from setup object.
 "
-" Auteur : VM - vincent.menager@bnpparibas.com
+" Auteur : Vince "Cool Coyote" - coolcoyote358@gmail.com
 " Date : 13 Apr 2015
 "
 "-------------------------------------------------------------------------------

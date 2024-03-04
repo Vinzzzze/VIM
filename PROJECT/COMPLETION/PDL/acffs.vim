@@ -2,7 +2,7 @@
 "
 " But : Create a JET family for the specified object
 "
-" Auteur : VM - vincent.menager@bnpparibas.com
+" Auteur : Vince "Cool Coyote" - coolcoyote358@gmail.com
 " Date : 29 Jan 2015
 "
 "-------------------------------------------------------------------------------

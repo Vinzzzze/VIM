@@ -21,7 +21,7 @@
 " DEBUT DU CODE
 "-------------------------------------------------------------------------------
 
-let g:colors_name = "vinceounours"
+let g:colors_name = "vinceounoursTerm"
 
 " Définition des couleurs spéciales
 "----------------------------------
@@ -38,6 +38,9 @@ highlight clear Procedure
 highlight clear Function
 highlight clear FoldColumn
 highlight clear Folded
+highlight clear TabLine
+highlight clear TabLineFill
+highlight clear TabLineSel
 
 highlight StatusLine guibg=#700000 guifg=yellow ctermfg=yellow ctermbg=darkred cterm=bold
 highlight StatusLineNC guibg=#606060 guifg=#c0c000 ctermfg=yellow ctermbg=darkgray cterm=NONE
@@ -49,6 +52,9 @@ highlight Procedure guifg=#90ffe0 gui=italic ctermfg=lightgreen cterm=bold
 highlight Function guifg=#d0ffff gui=italic ctermfg=white cterm=bold
 highlight FoldColumn guifg=green guibg=#606060 ctermfg=green ctermbg=gray
 highlight Folded guifg=#a0ffa0 guibg=#105010 ctermfg=white ctermbg=22
+highlight TabLineFill guifg=orange guibg=#202020 ctermfg=white ctermbg=gray
+highlight TabLine guifg=orange guibg=#303030 ctermfg=yellow ctermbg=darkgray
+highlight TabLineSel guifg=white guibg=#404040 ctermfg=white ctermbg=darkred cterm=bold
 
 " Definition des couleurs
 "------------------------

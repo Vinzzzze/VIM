@@ -2,7 +2,7 @@
 "
 " But : Build a real edifact message from the readable version
 "
-" Auteur : vmenager - Vincent.MENAGER@amadeus.com
+" Auteur : Vince "Cool Coyote" - coolcoyote358@gmail.com
 " Date : 11 Dec 2020
 "
 "-------------------------------------------------------------------------------

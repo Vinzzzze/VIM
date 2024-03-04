@@ -1,0 +1,108 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+/*---< Includes >-------------------------------------------------------------*/
+
+#include <stddef.h>
+
+[@ASSOCIATED_INCLUDE@]#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].h"
+
+/*---< Local Predefined Types >-----------------------------------------------*/
+
+/**
+ * The export object identifier list
+*/
+enum
+{
+#include "allObjects.export"
+};
+#include "FACTORY/fact_FactoryStreamSelector.typ"
+
+/*---< Local Macros >---------------------------------------------------------*/
+
+#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].mac"
+
+/*---< Local Variables >------------------------------------------------------*/
+
+/**
+ * The default definition for the default description usd
+*/
+static [@ELEMENT_NAME@] defaultDescription;
+
+/**
+ * The global variable 
+*/
+base_ObjectDescription* [@ELEMENT_MACRO@]_DEFAULT = NULL;
+
+/*---< Functions >------------------------------------------------------------*/
+
+/**
+ * Constructeur. Initialise les attributs de la structure.
+ *
+ * @param initFactory - base_FactoryInitStreamObject* : The factory used to initialize the built object
+ *
+ * @return Structure initialisée.
+*/
+base_ObjectDescription* init_[@ELEMENT_NAME@]( base_FactoryInitStreamObject* initFactory )
+{
+   if ( [@ELEMENT_MACRO@]_DEFAULT == NULL )
+   {
+      [@ELEMENT_MACRO@]_INIT( (&defaultDescription),
+      [@ELEMENT_BLANK@]       initFactory,
+      [@ELEMENT_BLANK@]       sizeof( [@ELEMENT_ASSOCIATED_TYPE@] ),
+      [@ELEMENT_BLANK@]       [@ELEMENT_MACRO@]_IDENTIFIER,
+      [@ELEMENT_BLANK@]       FACT_FACTORYSTREAMSELECTOR_VECTOR_FACTORY,
+      [@ELEMENT_BLANK@]       [@ELEMENT_ASSOCIATED_MACRO@],
+      [@ELEMENT_BLANK@]       BASE_OBJECTDESCRIPTION_TYPE_[@ELEMENT_USED_TYPE@],
+      [@ELEMENT_BLANK@]       BASE_OBJECTDESCRIPTION_ALLOCATEMODE_[@ELEMENT_ASSOCIATED_ALLOCATED@],
+      [@ELEMENT_BLANK@]       false );
+
+      [@ELEMENT_MACRO@]_DEFAULT = BASE_OBJECTDESCRIPTION_GETADDRFIRSTFIELD( (&defaultDescription) );
+   } /* End IF the default description is not initialized yet */
+
+   return [@ELEMENT_MACRO@]_DEFAULT;
+}
+
+/**
+ * Constructeur. Initialise les attributs de la structure.
+ *
+ * @param buffer - [@ELEMENT_NAME@]* : The buffer where the object definition can be created.
+ * @param initFactory - base_FactoryInitStreamObject* : The factory used to initialize the built object
+ *
+ * @return Structure initialisée.
+*/
+[@ELEMENT_NAME@]* build_[@ELEMENT_NAME@]( [@ELEMENT_NAME@]* buffer,
+[@ELEMENT_BLANK@]       [@ELEMENT_BLANK@]   base_FactoryInitStreamObject* initFactory )
+{
+   [@ELEMENT_MACRO@]_INIT( buffer,
+   [@ELEMENT_BLANK@]       initFactory,
+   [@ELEMENT_BLANK@]       sizeof( [@ELEMENT_ASSOCIATED_TYPE@] ),
+   [@ELEMENT_BLANK@]       [@ELEMENT_MACRO@]_IDENTIFIER,
+   [@ELEMENT_BLANK@]       FACT_FACTORYSTREAMSELECTOR_VECTOR_FACTORY,
+   [@ELEMENT_BLANK@]       [@ELEMENT_ASSOCIATED_MACRO@],
+   [@ELEMENT_BLANK@]       BASE_OBJECTDESCRIPTION_TYPE_[@ELEMENT_USED_TYPE@],
+   [@ELEMENT_BLANK@]       BASE_OBJECTDESCRIPTION_ALLOCATEMODE_[@ELEMENT_ASSOCIATED_ALLOCATED@],
+   [@ELEMENT_BLANK@]       false );
+   return buffer;
+}
+
+/**
+ * Destructeur.
+ *
+ * @param current - [@ELEMENT_NAME@]* : Structure à détruire.
+*/
+void delete_[@ELEMENT_NAME@]( [@ELEMENT_NAME@]* current )
+{
+}
+
+/*---< End of file >----------------------------------------------------------*/
+

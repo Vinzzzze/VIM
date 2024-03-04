@@ -25,7 +25,7 @@ nmap <F5> :call VM_ProjectBuildFunction()<CR>
 " Pour ne laisser qu'une seule fenêtre ouverte
 "---------------------------------------------
 nmap <F1> :help<CR>
-nmap <S-F1> :execute "help " . expand( "<cword>" )<CR>
+nmap <S-F1> :echo expand( "%" )<CR>
 vmap <F1> y:help <C-R>+<CR>
 nmap <C-F1> :execute "vsplit " . expand( "<cWORD>" )<CR>
 nmap <S-C-F1> :execute "split " . expand( "<cWORD>" )<CR>
@@ -58,6 +58,8 @@ if ( &diff != 0 )
    nmap <S-Up> [c
    nmap <S-Down> ]c
 endif " End IF we are in a diff view
+
+tmap <buffer> <silent> <Esc><CR> <C-W>:call VM_CloseTerminal()<CR><C-D><C-D>
 
 "---< Fin de fichier >----------------------------------------------------------
 

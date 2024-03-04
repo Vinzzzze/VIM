@@ -1,0 +1,68 @@
+/**
+ * @file : [@ELEMENT_FILE@]
+ *
+ * C accessors and macros
+ * [@ELEMENT_DESC@]
+ *
+ * @author : [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date : [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatime
+*/
+
+#pragma once
+
+/*---< Inclusions >-----------------------------------------------------------*/
+
+#include "BASE/base_CommandRemote.mac"
+
+/*---< Macros >---------------------------------------------------------------*/
+
+#define [@ELEMENT_MACRO@]_INIT( current, execute, release, errorHandler, application, indexIdentifier, signature, trackerId, userId<@INIT_PARAM_LIST@> ) [@ELEMENT_MACRO@]_PREFIXED_INIT( std, current, execute, release, errorHandler, application, indexIdentifier, signature, trackerId, userId<@INIT_PARAM_LIST@> )
+#define [@ELEMENT_MACRO@]_PREFIXED_INIT( prefixe, current, execute, release, errorHandler, application, indexIdentifier, signature, trackerId, userId<@INIT_PARAM_LIST@> ) \
+   [@ELEMENT_MACRO@]_PREFIXED_INITTRACKER( prefixe, \
+                                           current, \
+                                           execute, \
+                                           release, \
+                                           errorHandler, \
+                                           application, \
+                                           indexIdentifier, \
+                                           trackerId ); \
+   BASE_COMMANDREMOTE_PREFIXED_SETSIGNATURE( prefixe, \
+                                             current, \
+                                             signature ); \
+   BASE_COMMANDREMOTE_PREFIXED_SETUSERID( prefixe, \
+                                          current, \
+                                          userId ); \
+   <@INIT_CODE@>
+
+#define [@ELEMENT_MACRO@]_BASEINIT( current, execute, release, errorHandler, application, indexIdentifier ) [@ELEMENT_MACRO@]_PREFIXED_BASEINIT( std, current, execute, release, errorHandler, application, indexIdentifier )
+#define [@ELEMENT_MACRO@]_PREFIXED_BASEINIT( prefixe, current, execute, release, errorHandler, application, indexIdentifier ) \
+   BASE_COMMANDREMOTE_PREFIXED_BASEINIT( prefixe, \
+                                         current, \
+                                         execute, \
+                                         release, \
+                                         errorHandler, \
+                                         application, \
+                                         indexIdentifier, \
+                                         [@ELEMENT_MACRO@]_SIGNATURE ); \
+   <@INIT_MACRO_CODE@>
+
+#define [@ELEMENT_MACRO@]_INITTRACKER( current, execute, release, errorHandler, application, indexIdentifier, trackerId ) [@ELEMENT_MACRO@]_PREFIXED_INITTRACKER( std, current, execute, release, errorHandler, application, indexIdentifier, trackerId )
+#define [@ELEMENT_MACRO@]_PREFIXED_INITTRACKER( prefixe, current, execute, release, errorHandler, application, indexIdentifier, trackerId ) \
+   [@ELEMENT_MACRO@]_PREFIXED_BASEINIT( prefixe, \
+                                        current, \
+                                        execute, \
+                                        release, \
+                                        errorHandler, \
+                                        application, \
+                                        indexIdentifier ); \
+   BASE_COMMANDREMOTE_PREFIXED_SETTRACKERID( prefixe, \
+                                             current, \
+                                             trackerId )
+
+sig<@SIGNATURE@>
+
+/*---< End of file >----------------------------------------------------------*/
+

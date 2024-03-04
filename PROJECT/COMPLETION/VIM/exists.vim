@@ -2,7 +2,7 @@
 "
 " But : How the exists function is completed
 "
-" Auteur : VM - vincent.menager@bnpparibas.com
+" Auteur : Vince "Cool Coyote" - coolcoyote358@gmail.com
 " Date : 17 Jan 2018
 "
 "-------------------------------------------------------------------------------

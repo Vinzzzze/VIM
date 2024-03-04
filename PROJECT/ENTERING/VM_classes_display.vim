@@ -2,7 +2,7 @@
 "
 " But : The mapping and fold on the class display buffer.
 "
-" Auteur : VM - vincent.menager@bnpparibas.com
+" Auteur : Vince "Cool Coyote" - coolcoyote358@gmail.com
 " Date : 05 Jan 2015
 "
 "-------------------------------------------------------------------------------

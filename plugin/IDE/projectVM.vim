@@ -990,12 +990,7 @@ if ( exists( "*VM_ProjectBuildAllFolders" ) == 0 )
 "     folderToCreate - The folder to create
 "-------------------------------------------------------------------------------
 function VM_ProjectBuildAllFolders( folderToCreate )
-   let localSeparator = g:VM_projectDirSeparator
-   if ( g:VM_projectDirSeparator == "\\" )
-      let localSeparator = "\\\\\\\\"
-   endif
-
-   call system( g:VM_projectMkDir . " " . substitute( a:folderToCreate, "/", localSeparator, "g" )  )
+   call mkdir( a:folderToCreate, "p" )
 endfunction
 
 endif
@@ -1139,6 +1134,14 @@ function VM_ProjectBuildFile( command, elementName, modelName, comment, filename
          let elementMacro = VM_ConvertToUpper( a:elementName )
          let projectMacro = VM_ConvertToUpper( projectFolder )
 
+         " Boucle sur les valeurs additionnelles : played in first to have macro replaced after
+         "-------------------------------------------------------------------------------------
+         if ( ( exists( "g:VM_additionnalValues" ) != 0 ) && ( empty( g:VM_additionnalValues ) == 0 ) )
+            for fromName in keys( g:VM_additionnalValues )
+               execute "% substitute /\\[@" . fromName . "@\\]/" . substitute( g:VM_additionnalValues[ fromName ], "/", "\\\\/", "g" ) . "/ge"
+            endfor
+         endif
+
          " Remplace les templates par la valeur correspondante
          "----------------------------------------------------
          execute "% substitute /\\[@ELEMENT_FILE@\\]/" . substitute( a:filename, "/", "\\\\/", "g" ) . "/ge"
@@ -1153,14 +1156,7 @@ function VM_ProjectBuildFile( command, elementName, modelName, comment, filename
          execute "% substitute /\\[@ELEMENT_BLANK@\\]/" . substitute( a:elementName, ".", " ", "g" ) . "/ge"
          execute "% substitute /\\[@ELEMENT_REPOSITORY@\\]/" . substitute( repository . "/", "/", "\\\\/", "g" ) . "/ge"
          execute "% substitute /\\[@ELEMENT_PROJECT@\\]/" . substitute( repository, "/", ".", "g" ) . "/ge"
-
-         " Boucle sur les valeurs additionnelles
-         "--------------------------------------
-         if ( ( exists( "g:VM_additionnalValues" ) != 0 ) && ( empty( g:VM_additionnalValues ) == 0 ) )
-            for fromName in keys( g:VM_additionnalValues )
-               execute "% substitute /\\[@" . fromName . "@\\]/" . substitute( g:VM_additionnalValues[ fromName ], "/", "\\\\/", "g" ) . "/ge"
-            endfor
-         endif
+         % substitute /@++@//ge
 
          " Update the file format
          "-----------------------
@@ -3710,7 +3706,7 @@ function VM_ChooseProject()
    for currentProject in VM_GetFolders( "" )
       echo "> " . currentProject . "\n"
    endfor
-   let projectFolder = input( "\nProject : " )
+   let projectFolder = input( "\nProject : ", "", "dir" )
    echo "\n"
 
    return projectFolder
@@ -3761,7 +3757,7 @@ if ( exists( "*VM_SelectFolder" ) == 0 )
 "
 " Parametres :
 "    className - the name of the class to create
-"     projectFolder - The project base folder
+"    projectFolder - The project base folder
 " Retour :
 "    The folder name choosen
 "-------------------------------------------------------------------------------
@@ -4385,6 +4381,8 @@ function VM_AddDictionary( fileToAdd )
    execute "setlocal dictionary=" . current . a:fileToAdd
 endfunction
 
+endif
+
 if ( exists( "*VM_CleanDictionary" ) == 0 )
 
 " Fonction : VM_CleanDictionary
@@ -4403,7 +4401,79 @@ endfunction
 
 endif
 
+if ( exists( "*VM_StartDebug" ) == 0 )
+
+" Fonction : VM_StartDebug
+"
+" But : Start a debug session
+"-------------------------------------------------------------------------------
+function VM_StartDebug()
+   tabnew
+   execute "TermdebugCommand " . g:BG_listDebugPrograms[ g:BG_currentDebugProgram ]
+   1 wincmd w
+   quit
+   wincmd L
+   execute g:VM_sizeOutputWindow . " wincmd >"
+   wincmd h
+   let b:VM_debugStart = 1
+   let g:VM_debugModeActive = 1
+   tmap <buffer> <silent> <F4> run<CR>
+   tmap <buffer> <silent> <S-F4> <C-C>
+   tmap <buffer> <silent> <C-F4> <C-W>:Source<CR>
+   tmap <buffer> <silent> <F9> next<CR>
+   tmap <buffer> <silent> <S-F9> step<CR>
+   tmap <buffer> <silent> <C-F9> continue<CR>
+endfunction
+
 endif
+
+if ( exists( "*VM_SelectDebug" ) == 0 )
+
+" Fonction : VM_SelectDebug
+"
+" But : Select the program to use for the debug session
+"-------------------------------------------------------------------------------
+function VM_SelectDebug()
+   let listPrograms = []
+   let indexProgram = 0
+   for program in g:BG_listDebugPrograms
+      if ( indexProgram == g:VM_currentDebugProgram )
+         call add( listPrograms, indexProgram . " > ((" . program . "))" )
+      else
+         call add( listPrograms, indexProgram . " > [" . program . "]" )
+      endif
+      let indexProgram += 1
+   endfor
+
+   let programNumber = inputlist( listPrograms )
+
+   if ( ( programNumber >= 0 ) && ( programNumber < indexProgram ) )
+     let g:VM_currentDebugProgram = programNumber
+   endif " End IF the program selected is the correct one
+endfunction
+
+endif
+
+if ( exists( "*VM_CloseTerminal" ) == 0 )
+
+" Fonction : VM_CloseTerminal
+"
+" But : Signal the end of the use of the terminal.
+"-------------------------------------------------------------------------------
+function VM_CloseTerminal()
+   if ( exists( "b:VM_debugStart" ) != 0 )
+     unlet g:VM_debugModeActive
+   endif
+endfunction
+
+endif
+
+if ( exists( "g:VM_sizeOutputWindow" ) == 0 )
+  let g:VM_sizeOutputWindow = 64
+endif
+
+command Debug call VM_StartDebug()
+command SelectDebug call VM_SelectDebug()
 
 "-------------------------------------------------------------------------------
 " DEBUT DU CODE
@@ -4432,7 +4502,7 @@ if ( exists( "g:VM_projectDirSeparator" ) == 0 )
 endif
 
 if ( exists( "g:VM_projectMainFolder" ) == 0 )
-   let g:VM_projectMainFolder = "~/.vim/PROJECT"
+   let g:VM_projectMainFolder = "~/.local/share/nvim/IDE/PROJECT"
 endif
 
 if ( exists( "g:VM_projectDirReference" ) == 0 )
@@ -4657,7 +4727,7 @@ autocmd BufReadPre * call VM_DetermineFileSize( expand( "<afile>" ) )
 autocmd BufReadPost * call VM_DeterminePostFileSize()
 autocmd BufEnter * call VM_ProjectEnterFile()
 autocmd BufLeave * call VM_ProjectLeaveFile()
-autocmd TerminalWinopen * call VM_ProjectExecuteEnteringFile( "terminal" )
+" autocmd TerminalWinopen * call VM_ProjectExecuteEnteringFile( "terminal" )
 
 " Setting the commands
 "---------------------

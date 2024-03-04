@@ -2,7 +2,7 @@
 "
 " But : The way the language files are created
 "
-" Auteur : VM - vincent.menager@bnpparibas.com
+" Auteur : Vince "Cool Coyote" - coolcoyote358@gmail.com
 " Date : 22 Aug 2017
 "
 "-------------------------------------------------------------------------------

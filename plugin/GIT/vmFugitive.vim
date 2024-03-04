@@ -2,7 +2,7 @@
 "
 " But : The branch management that is not in fugitive.
 "
-" Auteur : VM - vincent.menager@bnpparibas.com
+" Auteur : Vince "Cool Coyote" - coolcoyote358@gmail.com
 " Date : 14 Aug 2017
 "
 "-------------------------------------------------------------------------------
@@ -547,7 +547,7 @@ if ( exists( "*VM_GetCurrentBranchName" ) == 0 )
 "     The current branch name
 "-------------------------------------------------------------------------------
 function VM_GetCurrentBranchName()
-   return fugitive#head()
+   return fugitive#Head()
 endfunction
 
 endif

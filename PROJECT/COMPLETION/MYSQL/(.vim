@@ -2,7 +2,7 @@
 "
 " But : Expand the table definition to build associated procedures.
 "
-" Auteur : VM - vincent.menager@bnpparibas.com
+" Auteur : Vince "Cool Coyote" - coolcoyote358@gmail.com
 " Date : 02 Jun 2015
 "
 "-------------------------------------------------------------------------------

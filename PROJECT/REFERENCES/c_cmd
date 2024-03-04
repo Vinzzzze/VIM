@@ -1,0 +1,107 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+/*---< Includes >-------------------------------------------------------------*/
+
+#include <stddef.h>
+
+#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].h"
+
+/*---< Local Predefined Types >-----------------------------------------------*/
+
+#include "DATA/data_CommandList.typ"
+
+/*---< Local Macros >---------------------------------------------------------*/
+
+#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].mac"
+
+/*---< Local Variables >------------------------------------------------------*/
+/*---< Functions >------------------------------------------------------------*/
+
+/**
+ * Constructeur. Initialise les attributs de la structure.
+ *
+ * @param current - [@ELEMENT_NAME@]* : Structure à initialiser.
+ * @param execute - fctAction_base_Command : The function used to execute the command
+ * @param release - fctAction_base_Command : The function used to release the command
+ * @param errorHandler - int_ErrorCommandHandler* : The error handler
+ * @param application - base_ServerApplication* : The application context to be used
+ * @param signature - uint32 : The current signature for the current command
+ * @param trackerId - uint32 : The tracker identifier to follow the command through the services
+ * @param userId - ushort : The user identifier that launch the command
+ * @param iteration - uint64 : The number of the iteration to get the fibonacci value
+ *
+ * @return Structure initialisée.
+*/
+[@ELEMENT_NAME@]* build_[@ELEMENT_NAME@]( [@ELEMENT_NAME@]* current,
+[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  fctAction_base_Command   execute,
+[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  fctAction_base_Command   release,
+[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  int_ErrorCommandHandler* errorHandler,
+[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  base_ServerApplication*  application,
+[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  uint32                   signature,
+[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  uint32                   trackerId,
+[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  ushort                   userId,
+[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  uint64                   iteration )
+{
+   CMD_FIBONACCITEST_INIT( current,
+                           execute,
+                           release,
+                           errorHandler,
+                           application,
+                           DATA_COMMANDLIST_[@ELEMENT_MACRO@],
+                           signature,
+                           trackerId,
+                           userId,
+                           iteration );
+   return current;
+}
+
+/**
+ * Destructeur.
+ *
+ * @param current - [@ELEMENT_NAME@]* : Structure à détruire.
+*/
+void delete_[@ELEMENT_NAME@]( [@ELEMENT_NAME@]* current )
+{
+}
+
+/**
+ * The method used to release the command.
+ *
+ * @param command - base_Command* : The command to be released
+ *
+ * @return 0 if everything went ok, another value otherwise.
+*/
+int32 release_[@ELEMENT_NAME@]( base_Command*  command )
+{
+   return 0;
+}
+
+/**
+ * The function to execute and to compute the fibonacci value.
+ *
+ * @param command - base_Command* : The command used for the execasion
+ *
+ * @return 0 if everything went ok, another value otherwise.
+*/
+int32 execute_[@ELEMENT_NAME@]( base_Command*  command )
+{
+   register [@ELEMENT_NAME@]* current = CMD_FIBONACCITEST_CONVERT_FROM_BASE_COMMANDREMOTE( BASE_COMMANDREMOTE_CONVERT_FROM_BASE_COMMAND( command ) );
+   register int32<@INDENT_HERE@>retValue = false;
+
+   <@CODE_TO_ADD@>
+
+   return retValue;
+}
+
+/*---< End of file >----------------------------------------------------------*/
+

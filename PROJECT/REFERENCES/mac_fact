@@ -1,0 +1,34 @@
+/**
+ * @file : [@ELEMENT_FILE@]
+ *
+ * C accessors and macros
+ * [@ELEMENT_DESC@]
+ *
+ * @author : [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date : [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatime
+*/
+
+#pragma once
+
+/*---< Inclusions >-----------------------------------------------------------*/
+
+#include "BASE/base_FactoryInitRemoteCommand.mac"
+
+/*---< Macros >---------------------------------------------------------------*/
+
+#define [@ELEMENT_MACRO@]_INIT( current, init, uninit, description, application, errorHandler, handlerTrackerId ) [@ELEMENT_MACRO@]_PREFIXED_INIT( std, current, init, uninit, description, application, errorHandler, handlerTrackerId )
+#define [@ELEMENT_MACRO@]_PREFIXED_INIT( prefixe, current, init, uninit, description, application, errorHandler, handlerTrackerId ) \
+   BASE_FACTORYINITREMOTECOMMAND_PREFIXED_INIT( prefixe, \
+                                                current, \
+                                                init, \
+                                                uninit, \
+                                                description, \
+                                                application, \
+                                                errorHandler, \
+                                                handlerTrackerId )
+
+/*---< End of file >----------------------------------------------------------*/
+

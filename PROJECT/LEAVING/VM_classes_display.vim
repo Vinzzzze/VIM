@@ -2,7 +2,7 @@
 "
 " But : Unsetting the function for the classe display buffer
 "
-" Auteur : VM - vincent.menager@bnpparibas.com
+" Auteur : Vince "Cool Coyote" - coolcoyote358@gmail.com
 " Date : 05 Jan 2015
 "
 "-------------------------------------------------------------------------------

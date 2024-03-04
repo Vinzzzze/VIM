@@ -35,7 +35,7 @@
                                          conflationSize, \
                                          [@ELEMENT_MACRO@]_INDEX_LAST, \
                                          [@ELEMENT_MACRO@]_IDENTIFIER, \
-                                         NULL, \
+                                         [@ELEMENT_IDENTIFIER@], \
                                          [@CONFLATION_TYPE@]DATA_RIGHTDEFINITION_[@VALUE_TYPE@]_VALUE )
 
 /*---< End of file >----------------------------------------------------------*/

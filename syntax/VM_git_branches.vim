@@ -2,7 +2,7 @@
 "
 " But : The syntax for the branches list window
 "
-" Auteur : VM - vincent.menager@bnpparibas.com
+" Auteur : Vince "Cool Coyote" - coolcoyote358@gmail.com
 " Date : 14 Aug 2017
 "
 "-------------------------------------------------------------------------------

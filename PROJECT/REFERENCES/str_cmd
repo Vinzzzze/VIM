@@ -1,0 +1,28 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * Factory : default_[@ELEMENT_FACTORY_NAME@]
+ * Dynamic Desc : [@ELEMENT_DEFAULTBUF_NAME@]
+ *
+ * C structure
+ * [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+#pragma once
+
+/*---< Local Definition >----------------------------------*/
+
+#define CMD_FIBONACCITEST_HSTR( prefixe ) \
+   /**
+    * The ancestor part.
+   */ \
+   BASE_COMMANDREMOTE_HSTR( prefixe )<@ATTRIBUTES@>
+
+/*---< End of file >---------------------------------------*/
+

@@ -1,0 +1,25 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * C structure
+ * [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+#pragma once
+
+/*---< Local Definition >----------------------------------*/
+
+#define [@ELEMENT_MACRO@]_HSTR( prefixe ) \
+   /**
+    * The ancestor definition
+   */ \
+   BASE_FACTORYINITREMOTECOMMAND_HSTR( prefixe )
+
+/*---< End of file >---------------------------------------*/
+

@@ -2,7 +2,7 @@
 "
 " But : The mapping used on a sinmple terminal
 "
-" Auteur : vmenager - Vincent.MENAGER@amadeus.com
+" Auteur : Vince "Cool Coyote" - coolcoyote358@gmail.com
 " Date : 23 Aug 2018
 "
 "-------------------------------------------------------------------------------

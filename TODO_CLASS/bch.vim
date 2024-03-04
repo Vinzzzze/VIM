@@ -2,7 +2,7 @@
 "
 " But : Open the project with the workspace of the current branch.
 "
-" Auteur : VM - vincent.menager@bnpparibas.com
+" Auteur : Vince "Cool Coyote" - coolcoyote358@gmail.com
 " Date : 15 Aug 2017
 "
 "-------------------------------------------------------------------------------

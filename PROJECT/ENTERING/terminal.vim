@@ -25,6 +25,7 @@ tmap <buffer> <silent> <F1> <C-W>N
 tmap <buffer> <silent> <F3> <C-W>:
 tmap <buffer> <silent> <C-TAB> <C-W>:tabnext<CR>
 tmap <buffer> <silent> <S-C-TAB> <C-W>:tabprevious<CR>
+tmap <buffer> <silent> <C-T> <C-W>:tabnew<CR>
 tmap <buffer> <silent> <M-v> <C-W>:vert new<CR>
 tmap <buffer> <silent> <M-s> <C-W>:new<CR>
 tmap <buffer> <silent> <M-t> <C-W>:tabnew<CR>:tjump 
@@ -50,6 +51,7 @@ tmap <buffer> <silent> <C-P> <C-W>"
 tmap <buffer> <silent> <M-M> <C-W>_<C-W>\|
 tmap <buffer> <silent> <C-A> <C-W>=
 tmap <buffer> <silent> <C-a> <C-W>=
+tmap <buffer> <silent> <Esc><CR> <C-W>:call VM_CloseTerminal()<CR><C-D><C-D>
 
 "---< Fin de fichier >----------------------------------------------------------
 

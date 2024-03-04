@@ -2,7 +2,7 @@
 "
 " But : Expand the for instruction
 "
-" Auteur : VM - vincent.menager@bnpparibas.com
+" Auteur : Vince "Cool Coyote" - coolcoyote358@gmail.com
 " Date : 18 Jan 2018
 "
 "-------------------------------------------------------------------------------

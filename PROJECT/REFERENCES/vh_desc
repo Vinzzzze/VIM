@@ -1,0 +1,89 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+#pragma once
+
+/*---< Includes >-------------------------------------------------------------*/
+
+#include "DATA/data_ObjectVectorDescription.h"
+
+/*---< Predefined Types >-----------------------------------------------------*/
+
+#include "BASE/base_FactoryInitStreamObject.typ"
+#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].typ"
+
+/*---< Macros >---------------------------------------------------------------*/
+
+#define [@ELEMENT_MACRO@]_CONVERT_TO_DATA_OBJECTVECTORDESCRIPTION( object )   [@ELEMENT_MACRO@]_PREFIXED_CONVERT_TO_DATA_OBJECTVECTORDESCRIPTION( std, object )
+#define [@ELEMENT_MACRO@]_CONVERT_FROM_DATA_OBJECTVECTORDESCRIPTION( object ) [@ELEMENT_MACRO@]_PREFIXED_CONVERT_FROM_DATA_OBJECTVECTORDESCRIPTION( std, object )
+
+#define [@ELEMENT_MACRO@]_PREFIXED_CONVERT_TO_DATA_OBJECTVECTORDESCRIPTION( prefixe, object )   ((data_ObjectVectorDescription*)( DATA_OBJECTVECTORDESCRIPTION_PREFIXED_GETADDRFIRSTFIELD( prefixe, object ) ))
+#define [@ELEMENT_MACRO@]_PREFIXED_CONVERT_FROM_DATA_OBJECTVECTORDESCRIPTION( prefixe, object ) (([@ELEMENT_NAME@]*)( (char*)(object) - ( (char*)([@ELEMENT_MACRO@]_PREFIXED_CONVERT_TO_DATA_OBJECTVECTORDESCRIPTION( prefixe, (([@ELEMENT_NAME@]*)NULL) )) - (char*)NULL ) ))
+
+#define [@ELEMENT_MACRO@]_GETADDRFIRSTFIELD( object ) [@ELEMENT_MACRO@]_PREFIXED_GETADDRFIRSTFIELD( std, object )
+
+
+#define [@ELEMENT_MACRO@]_PREFIXED_GETADDRFIRSTFIELD( prefixe, object ) (([@ELEMENT_NAME@]*)( DATA_OBJECTDESCRIPTION_PREFIXED_GETADDRFIRSTFIELD( prefixe, object ) ))
+
+
+#define [@ELEMENT_MACRO@]_DEFAULT   default_[@ELEMENT_NAME@]
+
+/*---< Variables >------------------------------------------------------------*/
+
+/**
+ * The global variable 
+*/
+extern base_ObjectDescription* [@ELEMENT_MACRO@]_DEFAULT;
+
+/*---< Structure >------------------------------------------------------------*/
+
+#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].str"
+
+struct s_[@ELEMENT_NAME@]
+{
+   /*
+   || La structure est définie dans un fichier include afin de permettre
+   || l'héritage des capacitées de cette structure
+   */
+   [@ELEMENT_MACRO@]_HSTR( std );
+};
+
+/*---< Functions >------------------------------------------------------------*/
+
+/**
+ * Constructeur. Initialise les attributs de la structure.
+ *
+ * @param initFactory - base_FactoryInitStreamObject* : The factory used to initialize the built object
+ *
+ * @return Structure initialisée.
+*/
+base_ObjectDescription* init_[@ELEMENT_NAME@]( base_FactoryInitStreamObject* initFactory );
+
+/**
+ * Constructeur. Initialise les attributs de la structure.
+ *
+ * @param buffer - [@ELEMENT_NAME@]* : The buffer where the object definition can be created.
+ * @param initFactory - base_FactoryInitStreamObject* : The factory used to initialize the built object
+ *
+ * @return Structure initialisée.
+*/
+[@ELEMENT_NAME@]* build_[@ELEMENT_NAME@]( [@ELEMENT_NAME@]* buffer,
+[@ELEMENT_BLANK@]       [@ELEMENT_BLANK@]   base_FactoryInitStreamObject* initFactory );
+/**
+ * Destructeur.
+ *
+ * @param current - [@ELEMENT_NAME@]* : Structure à détruire.
+*/
+void delete_[@ELEMENT_NAME@]( [@ELEMENT_NAME@]* current );
+
+/*---< End of file >----------------------------------------------------------*/
+

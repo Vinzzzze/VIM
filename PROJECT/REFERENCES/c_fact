@@ -1,0 +1,161 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+/*---< Includes >-------------------------------------------------------------*/
+
+#include <stddef.h>
+
+#include "[@ASSOCIATED_OBJECT_FOLDER@]/[@ASSOCIATED_OBJECT_TYPE@].h"
+#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].h"
+#include "INTERFACE/int_HandlerTrackerId.h"
+
+/*---< Local Predefined Types >-----------------------------------------------*/
+
+#include "DATA/data_CommandList.typ"
+
+/*---< Local Macros >---------------------------------------------------------*/
+
+#include "[@ASSOCIATED_OBJECT_FOLDER@]/[@ASSOCIATED_OBJECT_TYPE@].mac"
+#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].mac"
+
+/*---< Local Variables >------------------------------------------------------*/
+
+static [@ELEMENT_NAME@] buffer;
+static [@ELEMENT_NAME@] bufferNoId;
+
+/* The default factory definition */
+base_FactoryInitStreamObject* default_[@ELEMENT_NAME@] = BASE_FACTORYINITSTREAMOBJECT_GETADDRFIRSTFIELD( (&buffer) );
+base_FactoryInitStreamObject* noIdefault_[@ELEMENT_NAME@] = BASE_FACTORYINITSTREAMOBJECT_GETADDRFIRSTFIELD( (&bufferNoId) );
+
+/*---< Functions >------------------------------------------------------------*/
+
+/**
+ * Constructeur. Initialise les attributs de la structure par défaut.
+ *
+ * @param description - base_ObjectDescription* : The description of the object that will invoque this factory
+ * @param application - base_ServerApplication* : The application that will run the command
+ * @param errorHandler - int_ErrorCommandHandler* : The error handler for the current command
+ * @param handlerTrackerId - int_HandlerTrackerId* : The handler used to compute the identifier
+ *
+ * @return Structure initialisée.
+*/
+[@ELEMENT_NAME@]* init_[@ELEMENT_NAME@]( base_ObjectDescription*    description,
+[@ELEMENT_BLANK@]       [@ELEMENT_BLANK@]  base_ServerApplication*    application,
+[@ELEMENT_BLANK@]       [@ELEMENT_BLANK@]  int_ErrorCommandHandler*   errorHandler,
+[@ELEMENT_BLANK@]       [@ELEMENT_BLANK@]  int_HandlerTrackerId*      handlerTrackerId )
+{
+   [@ELEMENT_MACRO@]_INIT( (&buffer),
+   [@ELEMENT_BLANK@]       initCommand_[@ELEMENT_NAME@],
+   [@ELEMENT_BLANK@]       uninitCommand_[@ELEMENT_NAME@],
+   [@ELEMENT_BLANK@]       description,
+   [@ELEMENT_BLANK@]       application,
+   [@ELEMENT_BLANK@]       errorHandler,
+   [@ELEMENT_BLANK@]       handlerTrackerId );
+   [@ELEMENT_MACRO@]_INIT( (&bufferNoId),
+   [@ELEMENT_BLANK@]       initCommand_[@ELEMENT_NAME@],
+   [@ELEMENT_BLANK@]       uninitCommand_[@ELEMENT_NAME@],
+   [@ELEMENT_BLANK@]       description,
+   [@ELEMENT_BLANK@]       application,
+   [@ELEMENT_BLANK@]       errorHandler,
+   [@ELEMENT_BLANK@]       NULL );
+   return &buffer;
+}
+
+/**
+ * Constructeur. Initialise les attributs de la structure.
+ *
+ * @param current - [@ELEMENT_NAME@]* : Structure à initialiser.
+ * @param description - base_ObjectDescription* : The description of the object that will invoque this factory
+ * @param application - base_ServerApplication* : The application that will run the command
+ * @param errorHandler - int_ErrorCommandHandler* : The error handler for the current command
+ * @param handlerTrackerId - int_HandlerTrackerId* : The handler used to compute the identifier
+ *
+ * @return Structure initialisée.
+*/
+[@ELEMENT_NAME@]* build_[@ELEMENT_NAME@]( [@ELEMENT_NAME@]*       current,
+[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  base_ObjectDescription*   description,
+[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  base_ServerApplication*   application,
+[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  int_ErrorCommandHandler*  errorHandler,
+[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  int_HandlerTrackerId*     handlerTrackerId )
+{
+   [@ELEMENT_MACRO@]_INIT( current,
+   [@ELEMENT_BLANK@]       initCommand_[@ELEMENT_NAME@],
+   [@ELEMENT_BLANK@]       uninitCommand_[@ELEMENT_NAME@],
+   [@ELEMENT_BLANK@]       description,
+   [@ELEMENT_BLANK@]       application,
+   [@ELEMENT_BLANK@]       errorHandler,
+   [@ELEMENT_BLANK@]       handlerTrackerId );
+   return current;
+}
+
+/**
+ * Destructeur.
+ *
+ * @param current - [@ELEMENT_NAME@]* : Structure à détruire.
+*/
+void delete_[@ELEMENT_NAME@]( [@ELEMENT_NAME@]* current )
+{
+}
+
+/**
+ * Initialize the command
+ *
+ * @param factory - base_FactoryInitStreamObject* : The factory used for the initialisation
+ * @param buffer - char* : The buffer where the object had to be initialized
+ * @param allocator - int_StreamObjectAllocator* : The allocator for the object
+*/
+void initCommand_[@ELEMENT_NAME@]( base_FactoryInitStreamObject*   factory,
+                 [@ELEMENT_BLANK@]  char*                           buffer,
+                 [@ELEMENT_BLANK@]  int_StreamObjectAllocator*      allocator )
+{
+   register [@ELEMENT_NAME@]*     current = [@ELEMENT_MACRO@]_CONVERT_FROM_BASE_FACTORYINITREMOTECOMMAND( BASE_FACTORYINITREMOTECOMMAND_CONVERT_FROM_BASE_FACTORYINITSTREAMOBJECT( factory ) );
+   register int_HandlerTrackerId*   trackerHandler;
+
+   if ( ( trackerHandler = BASE_FACTORYINITREMOTECOMMAND_GETHANDLERTRACKERID( current ) ) != NULL )
+   {
+      [@ASSOCIATED_OBJECT_MACRO@]_INITTRACKER( (([@ASSOCIATED_OBJECT_TYPE@]*)buffer),
+      [@ELEMENT_BLANK@]             execute_[@ASSOCIATED_OBJECT_TYPE@],
+      [@ELEMENT_BLANK@]             release_[@ASSOCIATED_OBJECT_TYPE@],
+      [@ELEMENT_BLANK@]             BASE_FACTORYINITREMOTECOMMAND_GETERRORHANDLER( current ),
+      [@ELEMENT_BLANK@]             BASE_FACTORYINITREMOTECOMMAND_GETAPPLICATION( current ),
+      [@ELEMENT_BLANK@]             DATA_COMMANDLIST_[@ASSOCIATED_OBJECT_MACRO@],
+      [@ELEMENT_BLANK@]             INT_HANDLERTRACKERID_GETBUILDTRACKERID( trackerHandler )( trackerHandler ) );
+   } /* End IF there is an handler for the tracker identifier */
+   else
+   {
+      [@ASSOCIATED_OBJECT_MACRO@]_BASEINIT( (([@ASSOCIATED_OBJECT_TYPE@]*)buffer),
+      [@ELEMENT_BLANK@]          execute_[@ASSOCIATED_OBJECT_TYPE@],
+      [@ELEMENT_BLANK@]          release_[@ASSOCIATED_OBJECT_TYPE@],
+      [@ELEMENT_BLANK@]          BASE_FACTORYINITREMOTECOMMAND_GETERRORHANDLER( current ),
+      [@ELEMENT_BLANK@]          BASE_FACTORYINITREMOTECOMMAND_GETAPPLICATION( current ),
+      [@ELEMENT_BLANK@]          DATA_COMMANDLIST_[@ASSOCIATED_OBJECT_MACRO@] );
+   } /* End IF there is no handlerhe tracker identifier */
+}
+
+/**
+ * Uninitialize the command
+ *
+ * @param factory - base_FactoryInitStreamObject* : The factory used for the initialisation
+ * @param buffer - char* : The buffer where the object had to be initialized
+ * @param allocator - int_StreamObjectAllocator* : The allocator for the object
+*/
+void uninitCommand_[@ELEMENT_NAME@]( base_FactoryInitStreamObject*   factory,
+                   [@ELEMENT_BLANK@]  char*                           buffer,
+                   [@ELEMENT_BLANK@]  int_StreamObjectAllocator*      allocator )
+{
+   register [@ELEMENT_NAME@]* current = [@ELEMENT_MACRO@]_CONVERT_FROM_BASE_FACTORYINITREMOTECOMMAND( BASE_FACTORYINITREMOTECOMMAND_CONVERT_FROM_BASE_FACTORYINITSTREAMOBJECT( factory ) );
+
+   <@CODE_TO_ADD@>
+}
+
+/*---< End of file >----------------------------------------------------------*/
+

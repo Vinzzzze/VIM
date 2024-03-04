@@ -2,7 +2,7 @@
 "
 " But : The plugin used to handle the fixed length files.
 "
-" Auteur : vmenager - Vincent.MENAGER@amadeus.com
+" Auteur : Vince "Cool Coyote" - coolcoyote358@gmail.com
 " Date : 13 Jan 2020
 "
 "-------------------------------------------------------------------------------

@@ -2,7 +2,7 @@
 "
 " But : Quitting the tab buffer definition
 "
-" Auteur : VM - vincent.menager@bnpparibas.com
+" Auteur : Vince "Cool Coyote" - coolcoyote358@gmail.com
 " Date : 10 Mar 2017
 "
 "-------------------------------------------------------------------------------

@@ -1,0 +1,22 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * C Types
+ * [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+#pragma once
+
+/*---< Includes >-------------------------------------------------------------*/
+/*---< Type >-----------------------------------------------------------------*/
+
+typedef struct s_[@ELEMENT_NAME@] [@ELEMENT_NAME@];
+
+/*---< End of file >----------------------------------------------------------*/
+

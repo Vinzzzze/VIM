@@ -2,7 +2,7 @@
 "
 " But : Handle the current line gotten from the tag file for the Java language.
 "
-" Auteur : VM - vincent.menager@bnpparibas.com
+" Auteur : Vince "Cool Coyote" - coolcoyote358@gmail.com
 " Date : 31 Dec 2014
 "
 "-------------------------------------------------------------------------------

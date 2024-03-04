@@ -2,7 +2,7 @@
 "
 " But : Entering in the column list of a fixed length file
 "
-" Auteur : vmenager - Vincent.MENAGER@amadeus.com
+" Auteur : Vince "Cool Coyote" - coolcoyote358@gmail.com
 " Date : 14 Jan 2020
 "
 "-------------------------------------------------------------------------------

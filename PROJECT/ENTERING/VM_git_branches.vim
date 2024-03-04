@@ -2,7 +2,7 @@
 "
 " But : The process done while opening the branch managment window
 "
-" Auteur : VM - vincent.menager@bnpparibas.com
+" Auteur : Vince "Cool Coyote" - coolcoyote358@gmail.com
 " Date : 15 Aug 2017
 "
 "-------------------------------------------------------------------------------

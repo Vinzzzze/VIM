@@ -2,7 +2,7 @@
 "
 " But : Quitting the fixed length column list definition
 "
-" Auteur : vmenager - Vincent.MENAGER@amadeus.com
+" Auteur : Vince "Cool Coyote" - coolcoyote358@gmail.com
 " Date : 15 Jan 2020
 "
 "-------------------------------------------------------------------------------

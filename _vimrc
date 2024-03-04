@@ -156,6 +156,7 @@ set wildchar=<Tab>
 set exrc
 " Définition du browser VIM
 "--------------------------
+let g:netrw_maxfilenamelen = 128
 let g:netrw_liststyle = 1
 let g:netrw_sort_sequence = "[\/]$,\.[ch]pp$,\.[ch]$,\.[a-np-z]$,*,\.info$,\.swp$,\.o$\.obj$,\.bak$"
 " Configuration du project manager
@@ -176,7 +177,7 @@ let g:c_syntax_for_h = 1
 set omnifunc=syntaxcomplete#Complete
 
 set laststatus=2
-set statusline=%<%f%h%m%r%=\ (%b\ 0x%B)\ -\ [%c%V]%l/%L
+set statusline=%<%f%h%m%r%=\ %{fugitive#statusline()}\ (%b\ 0x%B)\ -\ [%c%V]%l/%L
 
 let php_folding = 2
 let vimsyn_folding = "a"

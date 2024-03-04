@@ -69,9 +69,9 @@ static char*   name_[@ELEMENT_NAME@][] =
 };
 [@CONFLATION_INDEX_DECLARATION@]
 /**
- * The default definition for the default description usd
+ * The default definition for the default description used
 */
-static data_ObjectDescription defaultDescription;
+[@DESCRIPTION_DECLARE@][@ELEMENT_NAME@] [@DESCRIPTION_VARIABLE@];
 
 /**
  * The global variable 
@@ -99,39 +99,66 @@ static entryElement_base_HashTable* nameEntry_[@ELEMENT_NAME@][ [@ELEMENT_MACRO@
  *
  * @return Structure initialisée.
 */
-data_ObjectDescription* build_[@ELEMENT_NAME@]()
+base_ObjectDescription* init_[@ELEMENT_NAME@]( void )
 {
-   index_data_ObjectDescription  currentIndex;
-   register char**               currentAttributeName = name_[@ELEMENT_NAME@];
-
-   build_heap_Allocator( &nameAllocator_[@ELEMENT_NAME@],
-                         allocateStdPage_heap_Allocator,
-                         emptyFreeMemory_int_Allocator,
-                         HEAP_PAGEALLOCATOR_DEFAULT,
-                         bufferName_[@ELEMENT_NAME@],
-                         bufferName_[@ELEMENT_NAME@],
-                         [@ELEMENT_MACRO@]_ALLOCATOR_SIZE );
-   build_data_HashStringTable( &nameConverter_[@ELEMENT_NAME@],
-                               HEAP_ALLOCATOR_CONVERT_TO_INT_ALLOCATOR( (&nameAllocator_[@ELEMENT_NAME@]) ),
-                               nameEntry_[@ELEMENT_NAME@],
-                               computeEntryStdString_data_HashStringTable,
-                               compareStringReference_data_HashStringTable,
-                               [@ELEMENT_MACRO@]_ENTRYTABLE_SIZE );
-
-   for ( currentIndex = 0;
-         currentIndex < [@ELEMENT_MACRO@]_INDEX_LAST;
-         ++currentIndex )
+   if ( [@ELEMENT_MACRO@]_DEFAULT == NULL )
    {
-      add_base_HashTable( DATA_HASHSTRINGTABLE_CONVERT_TO_BASE_HASHTABLE( (&nameConverter_[@ELEMENT_NAME@]) ),
-                          *( currentAttributeName++ ),
-                          &currentIndex,
-                          NULL,
-                          copyIdentifier_data_ObjectDescription,
-                          false,
-                          NULL );
-   } /* End FOR all the names to be added to the hash-map */
+      index_data_ObjectDescription  currentIndex;
+      register char**               currentAttributeName = name_[@ELEMENT_NAME@];
 
-   [@ELEMENT_BUFFER_INIT@][@ELEMENT_MACRO@]_INIT( (&defaultDescription),
+      build_heap_Allocator( &nameAllocator_[@ELEMENT_NAME@],
+                            allocateStdPage_heap_Allocator,
+                            emptyFreeMemory_int_Allocator,
+                            HEAP_PAGEALLOCATOR_DEFAULT,
+                            bufferName_[@ELEMENT_NAME@],
+                            bufferName_[@ELEMENT_NAME@],
+                            [@ELEMENT_MACRO@]_ALLOCATOR_SIZE );
+      build_data_HashStringTable( &nameConverter_[@ELEMENT_NAME@],
+                                  HEAP_ALLOCATOR_CONVERT_TO_INT_ALLOCATOR( (&nameAllocator_[@ELEMENT_NAME@]) ),
+                                  nameEntry_[@ELEMENT_NAME@],
+                                  computeEntryStdString_data_HashStringTable,
+                                  compareStringReference_data_HashStringTable,
+                                  [@ELEMENT_MACRO@]_ENTRYTABLE_SIZE );
+
+      for ( currentIndex = 0;
+            currentIndex < [@ELEMENT_MACRO@]_INDEX_LAST;
+            ++currentIndex )
+      {
+         add_base_HashTable( DATA_HASHSTRINGTABLE_CONVERT_TO_BASE_HASHTABLE( (&nameConverter_[@ELEMENT_NAME@]) ),
+                             *( currentAttributeName++ ),
+                             &currentIndex,
+                             NULL,
+                             copyIdentifier_data_ObjectDescription,
+                             false,
+                             NULL );
+      } /* End FOR all the names to be added to the hash-map */
+
+      [@ELEMENT_BUFFER_INIT@][@ELEMENT_MACRO@]_INIT( (&[@DESCRIPTION_VARIABLE@]),
+      [@ELEMENT_BLANK@]    type_[@ELEMENT_NAME@],
+      [@ELEMENT_BLANK@]    offset_[@ELEMENT_NAME@],
+      [@ELEMENT_BLANK@]    name_[@ELEMENT_NAME@],
+      [@ELEMENT_BLANK@]    &nameConverter_[@ELEMENT_NAME@],
+      [@ELEMENT_BLANK@]    [@CONFLATION_INDEX_NAME@],
+      [@ELEMENT_BLANK@]    [@ELEMENT_BUFFER_NAME@],
+      [@ELEMENT_BLANK@]    [@CONFLATION_POSITION@],
+      [@ELEMENT_BLANK@]    [@CONFLATION_SIZE@] );
+
+      [@ELEMENT_MACRO@]_DEFAULT = BASE_OBJECTDESCRIPTION_GETADDRFIRSTFIELD( (&[@DESCRIPTION_VARIABLE@]) );
+   } /* End IF the default description is not initialized yet */
+
+   return [@ELEMENT_MACRO@]_DEFAULT;
+}
+
+/**
+ * Constructeur. Initialise les attributs de la structure.
+ *
+ * @param buffer - [@ELEMENT_NAME@]* : The buffer where the object definition can be created.
+ *
+ * @return Structure initialisée.
+*/
+[@ELEMENT_NAME@]* build_[@ELEMENT_NAME@]( [@ELEMENT_NAME@]* buffer )
+{
+   [@ELEMENT_BUFFER_INIT@][@ELEMENT_MACRO@]_INIT( buffer,
    [@ELEMENT_BLANK@]       type_[@ELEMENT_NAME@],
    [@ELEMENT_BLANK@]       offset_[@ELEMENT_NAME@],
    [@ELEMENT_BLANK@]       name_[@ELEMENT_NAME@],
@@ -140,7 +167,7 @@ data_ObjectDescription* build_[@ELEMENT_NAME@]()
    [@ELEMENT_BLANK@]       [@ELEMENT_BUFFER_NAME@],
    [@ELEMENT_BLANK@]       [@CONFLATION_POSITION@],
    [@ELEMENT_BLANK@]       [@CONFLATION_SIZE@] );
-   return (&defaultDescription);
+   return buffer;
 }
 
 /**

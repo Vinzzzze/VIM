@@ -1,0 +1,211 @@
+/**
+ * @file [@ELEMENT_FILE@]
+ *
+ * [@ELEMENT_DESC@]
+ *
+ * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatim
+*/
+
+/*---< Includes >-------------------------------------------------------------*/
+
+#include <stddef.h>
+
+#include "[@ASSOCIATED_OBJECT_FOLDER@]/[@ASSOCIATED_OBJECT_TYPE@].h"
+[@ASSOCIATED_INCLUDE@]#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].h"
+[@FACTORY_INCLUDE@]#include "DATA/data_HashStringTable.h"
+#include "HEAP/heap_Allocator.h"
+#include "HEAP/heap_PageAllocator.h"
+
+/*---< Local Predefined Types >-----------------------------------------------*/
+
+/**
+ * The export object identifier list
+*/
+enum
+{
+#include "allObjects.export"
+};
+
+/*---< Local Macros >---------------------------------------------------------*/
+
+#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].mac"
+
+#define [@ELEMENT_MACRO@]_ALLOCATOR_SIZE  1024
+#define [@ELEMENT_MACRO@]_ENTRYTABLE_SIZE ( [@ELEMENT_MACRO@]_INDEX_LAST | 1 )
+
+/*---< Local Variables >------------------------------------------------------*/
+
+/**
+ * The buffer use for the allocation for the attribute converter
+*/
+static char bufferName_[@ELEMENT_NAME@][ [@ELEMENT_MACRO@]_ALLOCATOR_SIZE ];
+
+/**
+ * The offset to the attribute definition
+*/
+static offset_data_ObjectDescription   offset_[@ELEMENT_NAME@][] =
+{
+[@ELEMENT_OFFSET_VALUE_LIST@]
+};
+
+/**
+ * The array for the types of the attribues
+*/
+static typeAttribute_base_ObjectDescription  type_[@ELEMENT_NAME@][] =
+{
+[@ELEMENT_TYPE_VALUE_LIST@]
+};
+
+/**
+ * The array for the names of the attributes
+*/
+static char*   name_[@ELEMENT_NAME@][] =
+{
+[@ELEMENT_NAME_VALUE_LIST@]
+};
+[@CONFLATION_INDEX_DECLARATION@]
+/**
+ * The default definition for the default description used
+*/
+#ifndef BASE_COMMANDREMOTE_USE_EXPORT
+[@DESCRIPTION_DECLARE@][@ELEMENT_NAME@] [@DESCRIPTION_VARIABLE@];
+#else
+[@DESCRIPTION_DECLARE@][@ELEMENT_NAME@] [@DESCRIPTION_VARIABLE@]_export;
+#endif
+
+/**
+ * The global variable 
+*/
+#ifndef BASE_COMMANDREMOTE_USE_EXPORT
+base_ObjectDescription* [@ELEMENT_MACRO@]_DEFAULT = NULL;
+#endif
+
+/**
+ * The allocator used for the hash-map to convert the attribute name to an index
+*/
+static heap_Allocator   nameAllocator_[@ELEMENT_NAME@];
+
+/**
+ * The hash-map used to convert the name into an offset value
+*/
+static data_HashStringTable   nameConverter_[@ELEMENT_NAME@];
+
+/**
+*/
+static entryElement_base_HashTable* nameEntry_[@ELEMENT_NAME@][ [@ELEMENT_MACRO@]_ENTRYTABLE_SIZE ];
+
+[@ELEMENT_BUFFER_DECLARE@]/*---< Functions >------------------------------------------------------------*/
+
+#ifndef BASE_COMMANDREMOTE_USE_EXPORT
+/**
+ * Constructeur. Initialise les attributs de la structure.
+ *
+ * @param buffer - [@ELEMENT_NAME@]* : The buffer where the object definition can be created.
+ *
+ * @return Structure initialisée.
+*/
+[@ELEMENT_NAME@]* build_[@ELEMENT_NAME@]( [@ELEMENT_NAME@]* buffer )
+{
+   [@ELEMENT_BUFFER_INIT@][@ELEMENT_MACRO@]_INIT( buffer,
+   [@ELEMENT_BLANK@]       type_[@ELEMENT_NAME@],
+   [@ELEMENT_BLANK@]       offset_[@ELEMENT_NAME@],
+   [@ELEMENT_BLANK@]       name_[@ELEMENT_NAME@],
+   [@ELEMENT_BLANK@]       &nameConverter_[@ELEMENT_NAME@],
+   [@ELEMENT_BLANK@]       [@CONFLATION_INDEX_NAME@],
+   [@ELEMENT_BLANK@]       [@ELEMENT_BUFFER_NAME@],
+   [@ELEMENT_BLANK@]       [@CONFLATION_POSITION@],
+   [@ELEMENT_BLANK@]       [@CONFLATION_SIZE@] );
+   return buffer;
+}
+
+/**
+ * Destructeur.
+ *
+ * @param current - [@ELEMENT_NAME@]* : Structure à détruire.
+*/
+void delete_[@ELEMENT_NAME@]( [@ELEMENT_NAME@]* current )
+{
+}
+
+/**
+ * Constructeur. Initialise les attributs de la structure.
+ *
+ * @return Structure initialisée.
+*/
+base_ObjectDescription* init_[@ELEMENT_NAME@]( void )
+#else
+base_ObjectDescription* init_[@ELEMENT_NAME@]_export( void )
+#endif
+{
+#ifndef BASE_COMMANDREMOTE_USE_EXPORT
+   if ( [@ELEMENT_MACRO@]_DEFAULT == NULL )
+#endif
+   {
+      index_data_ObjectDescription  currentIndex;
+      register char**               currentAttributeName = name_[@ELEMENT_NAME@];
+
+      build_heap_Allocator( &nameAllocator_[@ELEMENT_NAME@],
+                            allocateStdPage_heap_Allocator,
+                            emptyFreeMemory_int_Allocator,
+                            HEAP_PAGEALLOCATOR_DEFAULT,
+                            bufferName_[@ELEMENT_NAME@],
+                            bufferName_[@ELEMENT_NAME@],
+                            [@ELEMENT_MACRO@]_ALLOCATOR_SIZE );
+      build_data_HashStringTable( &nameConverter_[@ELEMENT_NAME@],
+                                  HEAP_ALLOCATOR_CONVERT_TO_INT_ALLOCATOR( (&nameAllocator_[@ELEMENT_NAME@]) ),
+                                  nameEntry_[@ELEMENT_NAME@],
+                                  computeEntryStdString_data_HashStringTable,
+                                  compareStringReference_data_HashStringTable,
+                                  [@ELEMENT_MACRO@]_ENTRYTABLE_SIZE );
+
+      for ( currentIndex = 0;
+            currentIndex < [@ELEMENT_MACRO@]_INDEX_LAST;
+            ++currentIndex )
+      {
+         add_base_HashTable( DATA_HASHSTRINGTABLE_CONVERT_TO_BASE_HASHTABLE( (&nameConverter_[@ELEMENT_NAME@]) ),
+                             *( currentAttributeName++ ),
+                             &currentIndex,
+                             NULL,
+                             copyIdentifier_data_ObjectDescription,
+                             false,
+                             NULL );
+      } /* End FOR all the names to be added to the hash-map */
+
+#ifndef BASE_COMMANDREMOTE_USE_EXPORT
+      [@ELEMENT_BUFFER_INIT@][@ELEMENT_MACRO@]_INIT( (&[@DESCRIPTION_VARIABLE@]),
+      [@ELEMENT_BLANK@]       type_[@ELEMENT_NAME@],
+      [@ELEMENT_BLANK@]       offset_[@ELEMENT_NAME@],
+      [@ELEMENT_BLANK@]       name_[@ELEMENT_NAME@],
+      [@ELEMENT_BLANK@]       &nameConverter_[@ELEMENT_NAME@],
+      [@ELEMENT_BLANK@]       [@CONFLATION_INDEX_NAME@],
+      [@ELEMENT_BLANK@]       [@ELEMENT_BUFFER_NAME@],
+      [@ELEMENT_BLANK@]       [@CONFLATION_POSITION@],
+      [@ELEMENT_BLANK@]       [@CONFLATION_SIZE@] );
+
+      [@ELEMENT_MACRO@]_DEFAULT = BASE_OBJECTDESCRIPTION_GETADDRFIRSTFIELD( (&[@DESCRIPTION_VARIABLE@]) );
+#else
+      [@ELEMENT_BUFFER_INIT@][@ELEMENT_MACRO@]_INIT( (&[@DESCRIPTION_VARIABLE@]_export),
+      [@ELEMENT_BLANK@]       type_[@ELEMENT_NAME@],
+      [@ELEMENT_BLANK@]       offset_[@ELEMENT_NAME@],
+      [@ELEMENT_BLANK@]       name_[@ELEMENT_NAME@],
+      [@ELEMENT_BLANK@]       &nameConverter_[@ELEMENT_NAME@],
+      [@ELEMENT_BLANK@]       [@CONFLATION_INDEX_NAME@],
+      [@ELEMENT_BLANK@]       [@ELEMENT_BUFFER_NAME@],
+      [@ELEMENT_BLANK@]       [@CONFLATION_POSITION@],
+      [@ELEMENT_BLANK@]       [@CONFLATION_SIZE@] );
+#endif
+   } /* End IF the default description is not initialized yet */
+
+#ifndef BASE_COMMANDREMOTE_USE_EXPORT
+   return [@ELEMENT_MACRO@]_DEFAULT;
+#else
+   return BASE_OBJECTDESCRIPTION_GETADDRFIRSTFIELD( (&[@DESCRIPTION_VARIABLE@]_export) );
+#endif
+}
+
+/*---< End of file >----------------------------------------------------------*/
+

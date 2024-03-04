@@ -21,6 +21,9 @@ nmap <PageDown> zo
 nmap <PageUp> zc
 nmap <S-PageDown> zO
 nmap <S-PageUp> zC
+vmap <S-Del> d
+vmap <C-Insert> y
+nmap <S-Insert> p
 
 "---< Fin de fichier >----------------------------------------------------------
 

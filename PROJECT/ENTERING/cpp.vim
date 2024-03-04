@@ -330,6 +330,32 @@ if ( exists( "g:VM_terminalUsage" ) == 0 )
    "--------------------------------------
    vmap <buffer> <F4> <ESC>:call VM_CommentAtMinIndente( "// " )<CR>
    vmap <buffer> <S-F4> :substitute /\/\/ //<CR>
+
+   if ( exists( "g:VM_debugModeActive" ) == 0 )
+      nmap <buffer> <silent> <F4> :Debug<CR>
+      nmap <buffer> <silent> <M-F1> :SelectDebug<CR>
+      if ( exists( "b:VM_localDebugMapping" ) != 0 )
+         unlet b:VM_localDebugMapping
+
+         nunmap <buffer> <S-F4>
+         nunmap <buffer> <C-F4>
+         nunmap <buffer> <C-F9>
+         nunmap <buffer> <F1>
+         nunmap <buffer> <S-F1>
+      endif
+   else " End IF the debug mode is not active
+      " Pour commenter / décommenter une zone
+      "--------------------------------------
+      let b:VM_localDebugMapping = 1
+      nmap <buffer> <silent> <F4> :Run<CR>
+      nmap <buffer> <silent> <S-F4> :Stop<CR>
+      nmap <buffer> <silent> <C-F4> :Gdb<CR>
+      nmap <buffer> <silent> <F9> :Over<CR>
+      nmap <buffer> <silent> <S-F9> :Step<CR>
+      nmap <buffer> <silent> <C-F9> :Continue<CR>
+      nmap <buffer> <silent> <F1> :Break<CR>
+      nmap <buffer> <silent> <S-F1> :Clear<CR>
+   endif " End IF the debug mode is active
 else
    call VM_ProjectTerminalMappingFile( "termCPPMapping" )
 endif

@@ -1,0 +1,85 @@
+source ~/.VIMPROJECT_LOCAL/cpp.project_def
+
+let g:VM_ctagsFolders = "*"
+let g:VM_projectCTagsOut = "-f"
+let g:VM_baseWorkspace = expand( "~/.WORKSPACE/BAGUERA" )
+let g:VM_fugitiveSwitchBranch = "VM_SwitchBranchTag"
+let g:VM_fugitiveDeleteBranch = "VM_DeleteBranchTag"
+let g:VM_projectCTags = "ctags-exuberant --fields=+l --c-kinds=+p --c++-kinds=+p --extra=+q -R"
+
+let g:VM_UpSearchedFolder = "sdk/"
+let g:VM_DownSearchedFolder = "src/"
+
+let g:VM_workspaceSave = 1
+let g:clang_format_style = 'file'
+
+let g:VM_exeProjectFolder = "bin-debug"
+let $LD_LIBRARY_PATH= g:VM_todoCurrentProject . "/" . g:VM_exeProjectFolder . ":" . $VM_LD_LIBRARY_PATH
+let g:BG_listDebugPrograms = [g:VM_exeProjectFolder . "/hmi.bin --nosplash", g:VM_exeProjectFolder . "/rt.bin --auto-simulation --level debug --prompt prompt", g:VM_exeProjectFolder . "/test_archivage.bin", g:VM_exeProjectFolder . "/test_archive.bin", g:VM_exeProjectFolder . "/test_backup.bin", g:VM_exeProjectFolder . "/test_channel.bin", g:VM_exeProjectFolder . "/test_drfm.bin", g:VM_exeProjectFolder . "/test_pra.bin", g:VM_exeProjectFolder . "/test_sch_condition.bin", g:VM_exeProjectFolder . "/test_trace.bin", g:VM_exeProjectFolder . "/test_utils.bin"]
+let g:BG_currentDebugProgram = 0
+let g:VM_projectDefaultEnteringFileInit = expand( "~/.VIMPROJECT_LOCAL/baguera.mapping.vim" )
+
+set autowrite
+
+call VM_SwitchBranch( VM_GetCurrentBranchName() )
+call VM_AutoWorkspaceLoad()
+
+if ( exists( "*BG_StartDebug" ) == 0 )
+
+" Fonction : BG_StartDebug
+"
+" But : Start a debug session
+"-------------------------------------------------------------------------------
+function BG_StartDebug()
+   tabnew
+   execute "TermdebugCommand " . g:BG_listDebugPrograms[ g:BG_currentDebugProgram ]
+   1 wincmd w
+   quit
+   wincmd L
+   execute g:VM_sizeOutputWindow . " wincmd >"
+   wincmd h
+   let b:VM_debugStart = 1
+   let g:VM_debugModeActive = 1
+   tmap <buffer> <silent> <F4> run<CR>
+   tmap <buffer> <silent> <S-F4> <C-C>
+   tmap <buffer> <silent> <C-F4> <C-W>:Source<CR>
+   tmap <buffer> <silent> <F9> next<CR>
+   tmap <buffer> <silent> <S-F9> step<CR>
+   tmap <buffer> <silent> <C-F9> continue<CR>
+endfunction
+
+endif
+
+if ( exists( "*BG_SelectDebug" ) == 0 )
+
+" Fonction : BG_SelectDebug
+"
+" But : Select the program to use for the debug session
+"-------------------------------------------------------------------------------
+function BG_SelectDebug()
+   let listPrograms = []
+   let indexProgram = 0
+   for program in g:BG_listDebugPrograms
+      if ( indexProgram == g:BG_currentDebugProgram )
+         call add( listPrograms, indexProgram . " > ((" . program . "))" )
+      else
+         call add( listPrograms, indexProgram . " > [" . program . "]" )
+      endif
+      let indexProgram += 1
+   endfor
+
+   let programNumber = inputlist( listPrograms )
+
+   if ( ( programNumber >= 0 ) && ( programNumber < indexProgram ) )
+     let g:BG_currentDebugProgram = programNumber
+   endif " End IF the program selected is the correct one
+endfunction
+
+endif
+
+if ( exists( "g:VM_sizeOutputWindow" ) == 0 )
+  let g:VM_sizeOutputWindow = 64
+endif
+
+command! Debug call BG_StartDebug()
+command! SelectDebug call BG_SelectDebug()

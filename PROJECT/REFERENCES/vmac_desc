@@ -1,0 +1,36 @@
+/**
+ * @file : [@ELEMENT_FILE@]
+ *
+ * C accessors and macros
+ * [@ELEMENT_DESC@]
+ *
+ * @author : [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
+ * @date : [@ELEMENT_DATE@]
+ * @verbatim
+ * -------------------------
+ * @endverbatime
+*/
+
+#pragma once
+
+/*---< Inclusions >-----------------------------------------------------------*/
+
+#include "DATA/data_ObjectVectorDescription.mac"
+
+/*---< Macros >---------------------------------------------------------------*/
+
+#define [@ELEMENT_MACRO@]_INIT( current, initFactory, size, identifier, specificStream, objectIdentifier, typeAllocator, type, isConflated ) [@ELEMENT_MACRO@]_PREFIXED_INIT( std, current, initFactory, size, identifier, specificStream, objectIdentifier, typeAllocator, type, isConflated )
+#define [@ELEMENT_MACRO@]_PREFIXED_INIT( prefixe, current, initFactory, size, identifier, specificStream, objectIdentifier, typeAllocator, type, isConflated ) \
+   DATA_OBJECTVECTORDESCRIPTION_PREFIXED_INIT( prefixe, \
+                                               current, \
+                                               initFactory, \
+                                               size, \
+                                               identifier, \
+                                               specificStream, \
+                                               objectIdentifier, \
+                                               typeAllocator, \
+                                               type, \
+                                               isConflated )
+
+/*---< End of file >----------------------------------------------------------*/
+

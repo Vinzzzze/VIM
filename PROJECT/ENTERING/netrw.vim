@@ -22,7 +22,7 @@
 
 " Utilise les même tab stop qu'à l'ouverture du répertoire
 "---------------------------------------------------------
-setlocal tabstop=32
+setlocal tabstop=64
 
 "---< Fin de fichier >----------------------------------------------------------
 
