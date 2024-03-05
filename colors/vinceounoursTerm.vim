@@ -53,8 +53,8 @@ highlight Function guifg=#d0ffff gui=italic ctermfg=white cterm=bold
 highlight FoldColumn guifg=green guibg=#606060 ctermfg=green ctermbg=gray
 highlight Folded guifg=#a0ffa0 guibg=#105010 ctermfg=white ctermbg=22
 highlight TabLineFill guifg=orange guibg=#202020 ctermfg=white ctermbg=gray
-highlight TabLine guifg=orange guibg=#303030 ctermfg=yellow ctermbg=darkgray
-highlight TabLineSel guifg=white guibg=#404040 ctermfg=white ctermbg=darkred cterm=bold
+highlight TabLine guifg=#a0a0a0 guibg=#404040 ctermfg=yellow ctermbg=darkgray
+highlight TabLineSel guifg=yellow guibg=black ctermfg=white ctermbg=black cterm=bold
 
 " Definition des couleurs
 "------------------------

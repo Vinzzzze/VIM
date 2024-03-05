@@ -22,9 +22,12 @@ endif
 set guioptions=a
 set mouse=
 set guicursor=n-v-c:block-Cursor,ve:ver35-Cursor,o:hor50-Cursor,i-ci:ver25-Cursor,r-cr:hor20-Cursor,sm:
-set showtabline=0
 
 let g:VM_projectCtrlEnter = "<C-CR>"
+
+" Disable the awfull gui tab display
+"-----------------------------------
+GuiTabline 0
 
 " Execute le local file definition
 "---------------------------------

@@ -200,7 +200,3 @@ endif
 filetype on
 filetype plugin off
 filetype indent off
-
-" Load the graphical definition when starting with the GUI
-"---------------------------------------------------------
-autocmd UIEnter * runtime ginit.vim

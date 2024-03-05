@@ -4,12 +4,12 @@
 " Last Change:	2010 Sep 29
 
 " my filetype file
-if exists("did_load_filetypes")
+if exists("did_load_my_filetypes")
   finish
 endif
 
 " Disable filetype.vim
-let g:did_load_filetypes = 1
+let g:did_load_my_filetypes = 1
 
 augroup filetypedetect
 
