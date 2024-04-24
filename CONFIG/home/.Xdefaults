@@ -1,0 +1,7 @@
+URxvt*foreground: #00ff60
+URxvt*background: black
+URxvt*cursorColor: Yellow
+URxvt*saveLines: 8192
+URxvt*scrollBar: false
+URxvt*color4: #007fff
+URxvt*color12: #ff7f7f

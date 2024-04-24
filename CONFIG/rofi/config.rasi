@@ -1,0 +1,6 @@
+configuration {
+   font: "pango:DejaVu Sans Mono 8";
+   modi: "window,run,drun,ssh,combi";
+   combi-modi: "window,drun";
+}
+@theme "~/.config/rofi/vince.rasi"
