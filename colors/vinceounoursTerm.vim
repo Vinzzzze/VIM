@@ -44,7 +44,7 @@ highlight clear TabLineSel
 
 highlight StatusLine guibg=#700000 guifg=yellow ctermfg=yellow ctermbg=darkred cterm=bold
 highlight StatusLineNC guibg=#606060 guifg=#c0c000 ctermfg=yellow ctermbg=darkgray cterm=NONE
-highlight StatusTermLine guibg=#700000 guifg=yellow ctermfg=yellow ctermbg=darkred cterm=bold
+highlight StatusLineTerm guibg=#700000 guifg=yellow ctermfg=yellow ctermbg=darkred cterm=bold
 highlight StatusLineTermNC guibg=#606060 guifg=#c0c000 ctermfg=yellow ctermbg=235 cterm=NONE
 highlight LocalVar guifg=#60ff90 ctermfg=green ctermbg=NONE
 highlight GlobalVar guifg=#f0ff70 gui=italic ctermfg=lightgray ctermbg=NONE cterm=underline
@@ -52,7 +52,7 @@ highlight Procedure guifg=#90ffe0 gui=italic ctermfg=lightgreen cterm=bold
 highlight Function guifg=#d0ffff gui=italic ctermfg=white cterm=bold
 highlight FoldColumn guifg=green guibg=#606060 ctermfg=green ctermbg=gray
 highlight Folded guifg=#a0ffa0 guibg=#105010 ctermfg=white ctermbg=22
-highlight TabLineFill guifg=orange guibg=#202020 ctermfg=white ctermbg=gray
+highlight TabLineFill guifg=orange guibg=#303030 ctermfg=white ctermbg=gray
 highlight TabLine guifg=#a0a0a0 guibg=#404040 ctermfg=yellow ctermbg=darkgray
 highlight TabLineSel guifg=yellow guibg=black ctermfg=white ctermbg=black cterm=bold
 

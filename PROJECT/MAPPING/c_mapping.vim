@@ -31,7 +31,7 @@ nmap <F10> :call VM_OpenProjectFileDescription( g:VM_projectDefinitionFilename, 
 nmap <C-F8> :call VM_ShowTags( function( "VM_BuildBaseFolderDefault" ), function( "C_DictionnaryName" ) )<CR>
 nmap <F6> :call VM_GitBranchSelect( 0 )<CR>
 
-if ( expand( "%:e" ) == "str" )
+if ( ( expand( "%:e" ) == "str" )||( expand( "%:e" ) == "typ" ) )
    nmap <C-F5> :call VM_ProjectBuildClass()<CR>cdesc<CR>
 elseif ( ( substitute( expand( "%:t:r" ), "^bldr_Export.*Description.*", "", "" ) == "" )&&( expand( "%:e" ) == "c" ) )
    nmap <C-F5> :call C_BuildExportDescriptionArray()<CR>

@@ -72,5 +72,4 @@ colorscheme vinceounoursTerm
 
 if ( $TERM == "linux" )
    let g:VM_projectCtrlEnter = "<C-Space>"
-   call VM_ProjectEnterFile()
 endif " End IF I am on a console mode
