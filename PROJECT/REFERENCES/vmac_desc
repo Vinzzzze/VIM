@@ -13,7 +13,9 @@
 
 #pragma once
 
-/*---< Inclusions >-----------------------------------------------------------*/
+/*---< Includes >-------------------------------------------------------------*/
+
+#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].typ"
 
 #include "DATA/data_ObjectVectorDescription.mac"
 

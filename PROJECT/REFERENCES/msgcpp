@@ -10,7 +10,7 @@
  * @endverbatim
 */
 
-//---< Inclusions >-------------------------------------------------------------
+//---< Includes >---------------------------------------------------------------
 
 #include "BASE/base_Messages.hpp"
 #include "DATA/data_LogObject.hpp"

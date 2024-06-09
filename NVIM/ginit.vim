@@ -8,7 +8,7 @@
 "    Définition de couleurs sympatiques pour utiliser la syntaxe SQL
 "-------------------------------------------------------------------------------
 
-if ( exists( "$TERM" ) != 0 )
+if ( ( exists( "$TERM" ) != 0 )&&( $TERM != "linux" ) )
    finish
 endif
 

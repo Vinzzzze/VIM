@@ -118,11 +118,11 @@ function VM_BuildIncludeList( baseIncludes )
    let includeList = ""
 
    for currentInclude in values( a:baseIncludes )
-      let includeList .= "#include \"" . currentInclude . ".h\"\n"
+      let includeList .= "#include \"" . currentInclude . ".typ\"\n"
    endfor " End FOR all the object include
 
    for className in values( s:includes )
-      let includeList .= "#include \"" . s:repository . "/" . className . ".h\"\n"
+      let includeList .= "#include \"" . s:repository . "/" . className . ".typ\"\n"
    endfor
 
    return includeList
@@ -145,7 +145,7 @@ function VM_BuildIncludeFactory( factoryInclude )
    let includeCode = ""
 
    if ( a:factoryInclude > "" )
-      let includeCode = "#ifndef FACT_COMMANDREMOTE_USE_EXPORT\n#include \"" . a:factoryInclude . ".h\"\n#else\n#include \"" . a:factoryInclude . "Export.h\"\n#endif\n"
+      let includeCode = "#ifndef FACT_COMMANDREMOTE_USE_EXPORT\n#include \"" . a:factoryInclude . ".typ\"\n#else\n#include \"" . a:factoryInclude . "Export.typ\"\n#endif\n"
    endif " End IF the factory include is defined
 
    return includeCode
@@ -438,6 +438,29 @@ endfunction
 
 endif
 
+if ( exists( "*VM_BuildIncludeVectorType" ) == 0 )
+
+" Fonction : VM_BuildIncludeVectorType
+"
+" But : Build the include for the type used in the vector definition.
+"
+" Parametres :
+"     sizeText - The string used to define the size of the element of the vector
+"-------------------------------------------------------------------------------
+function VM_BuildIncludeVectorType( sizeText )
+   let typeUsed = substitute( substitute( a:sizeText, " *sizeof( *", "", "" ), " *) *", "", "" )
+
+   if ( typeUsed != a:sizeText )
+      let vectorFolder = VM_SelectExistingFolderEmpty( typeUsed )
+
+      if ( vectorFolder != "" )
+         let s:baseIncludes[ toupper( typeUsed ) ] = vectorFolder . "/" . typeUsed
+      endif " End IF the folder of the type is found
+   endif " End IF the size definition is a standard definition
+endfunction
+
+endif
+
 if ( exists( "*VM_BuildInitializationParameter" ) == 0 )
 
 " Fonction : VM_BuildInitializationParameter
@@ -472,17 +495,22 @@ function VM_BuildInitializationParameter( currentParam )
       let s:associatedObjectInit .= "      }\n"
    " End IF the currnet attribute is initialized with the string
    elseif ( a:currentParam.fctInit == "vector" )
+      call VM_BuildIncludeVectorType( a:currentParam.sizeElement )
+
+      let s:baseIncludes[ toupper( s:heapPageAllocator ) ] = VM_SelectExistingFolderEmpty( s:heapPageAllocator ) . "/" . s:heapPageAllocator
       let s:associatedObjectInit .= "      {\n"
       let s:associatedObjectInit .= "         register heap_Vector* vectorInit = " . a:currentParam.address . ";\n"
-      let s:associatedObjectInit .= "         register heap_Vector* source = " . initValue . ";\n\n"
+      let s:associatedObjectInit .= "         register heap_Vector* source = " . initValue . ";\n"
+      let s:associatedObjectInit .= "         register fctMallocHeap_heap_Allocator  newPage = allocatePage_fact_CommandExport;\n"
+      let s:associatedObjectInit .= "         register fctDeleteMemory_int_Allocator freePages = freePages_fact_CommandExport;\n\n"
       let s:associatedObjectInit .= "         HEAP_VECTOR_INIT( vectorInit,\n"
-      let s:associatedObjectInit .= "                           allocatePage_fact_CommandExport,\n"
-      let s:associatedObjectInit .= "                           freePages_fact_CommandExport,\n"
-      let s:associatedObjectInit .= "                           (heap_PageAllocator*)FACT_COMMANDEXPORT_GETALLOCATOR( factory ),\n"
+      let s:associatedObjectInit .= "                           newPage,\n"
+      let s:associatedObjectInit .= "                           freePages,\n"
+      let s:associatedObjectInit .= "                           ((heap_PageAllocator*)FACT_COMMANDEXPORT_GETALLOCATOR( factory )),\n"
       let s:associatedObjectInit .= "                           " . a:currentParam.sizeElement . ",\n"
       let s:associatedObjectInit .= "                           ( " . a:currentParam.sizeElement . " >= sizeof( void* ) ),\n"
-      let s:associatedObjectInit .= "                           NULL\n"
-      let s:associatedObjectInit .= "                           NULL\n"
+      let s:associatedObjectInit .= "                           NULL,\n"
+      let s:associatedObjectInit .= "                           NULL,\n"
       let s:associatedObjectInit .= "                           0 );\n\n"
       let s:associatedObjectInit .= "         if ( " . initValue . " != NULL )\n"
       let s:associatedObjectInit .= "         {\n"
@@ -694,6 +722,7 @@ let s:noParamDefinition = ".* NoParam : "
 let s:defaultValueDefinition = ".* Default : "
 let s:sizeVectorDefinition = ".* size : "
 let s:dynamicValueDefinition = ".* Dynamic : "
+let s:heapPageAllocator = "heap_PageAllocator"
 
 let s:currentPrefixe = ""
 let s:offsetValues = ""
@@ -735,6 +764,7 @@ let s:parameterListName = []
 let s:parameterListDictionary = {}
 let s:conditionCheck = ""
 let s:conditionParamList = []
+let s:baseRemotePrefixe = VM_BuildPrefixeAttribute()
 
 if ( s:typeClassName == "cmd" )
    let s:typeValue = "COMPLETE"
@@ -911,6 +941,10 @@ while ( ( s:usedObject > "" )||( len( s:objectListAdded ) > 0 ) )
 
                let s:ancestorDefinition = { "prefixe": s:tempCurrentPrefixe, "realPrefixe": s:tempCurrentPrefixeObject, "type": s:currentType, "associated": s:usedObject }
                call add( s:objectListAdded, s:ancestorDefinition )
+
+               if ( s:currentType == "BASE_COMMANDREMOTE" )
+                  let s:baseRemotePrefixe = VM_BuildPrefixeAttribute() . s:tempCurrentPrefixeObject
+               endif " End IF we are on the command remote definition
             elseif ( s:currentType == "char" )
                let s:noParam = substitute( s:currentLines[ s:lineNumber - 2 ], s:noParamDefinition, "", "" )
                let s:defaultValue = substitute( s:currentLines[ s:lineNumber - 2 ], s:defaultValueDefinition, "", "" )
@@ -985,6 +1019,7 @@ while ( ( s:usedObject > "" )||( len( s:objectListAdded ) > 0 ) )
                endif
             elseif ( s:currentArray != s:currentLine )
                if ( s:currentType != "typeAttribute_base_ObjectDescription" )
+                  let s:currentArray = substitute( s:currentArray, ";.*", "", "" )
                   let s:offsetValues .= "   (offset_data_ObjectDescription)( " . s:bufferOffset . " ),\n"
                   let s:typeValues .= "   BASE_OBJECTDESCRIPTION_TYPE_VECTOR,\n"
                   let s:bufferInitDeclare[ "vector_data_ObjectDescription" ] = "initVector"
@@ -1418,7 +1453,7 @@ while ( ( s:usedObject > "" )||( len( s:objectListAdded ) > 0 ) )
                            let s:isDynamic = ( s:dynamicLine != s:currentLines[ s:lineNumber - 2 ] )
                            let s:paramLine = 2
 
-                           if ( s.isDynamic != 0 )
+                           if ( s:isDynamic != 0 )
                               let s:paramLine = 3
                            endif " End IF this is a dynamic definition
 
@@ -1783,7 +1818,7 @@ while ( ( s:usedObject > "" )||( len( s:objectListAdded ) > 0 ) )
                let s:initObject = "initObject"
                let s:paramLine = 2
 
-               if ( s.isDynamic != 0 )
+               if ( s:isDynamic != 0 )
                   let s:paramLine = 3
                endif " End IF this is a dynamic definition
 
@@ -1870,13 +1905,13 @@ if ( s:typeValues > "" )
 endif
 
 if ( s:dynamicInit == "" )
-   let s:dynamicInclude = "\n"
-   let s:dynamicIncludeExport = "\n"
+   let s:dynamicInclude = ""
+   let s:dynamicIncludeExport = ""
    let s:dynamicInit = "defaultDescription"
    let s:dynamicDeclare = "static "
 else " End IF the dynamic is not defined
-   let s:dynamicInclude = "extern [@ELEMENT_NAME@] " . s:dynamicInit . ";\n"
-   let s:dynamicIncludeExport = "extern [@ELEMENT_NAME@] " . s:dynamicInit . "_export;\n"
+   let s:dynamicInclude = "\nextern [@ELEMENT_NAME@] " . s:dynamicInit . ";\n\n"
+   let s:dynamicIncludeExport = "\nextern [@ELEMENT_NAME@] " . s:dynamicInit . "_export;\n\n"
    let s:dynamicDeclare = ""
 endif " End IF the dynamic is defined
 
@@ -1900,7 +1935,7 @@ let g:VM_additionnalValues[ "ELEMENT_BUFFER_DECLARE" ] = substitute( s:bufferDec
 let g:VM_additionnalValues[ "ELEMENT_BUFFER_INIT" ] = substitute( s:bufferInit, "\n", "", "g" )
 let g:VM_additionnalValues[ "ELEMENT_BUFFER_NAME" ] = substitute( s:bufferName, "\n", "", "g" )
 let g:VM_additionnalValues[ "ELEMENT_BUFFER_SIZE" ] = substitute( s:bufferSize, "\n", "", "g" )
-let g:VM_additionnalValues[ "ELEMENT_INDEX_LIST" ] = substitute( substitute( s:indexesList, toupper( s:baseClassName . s:extentionClass ), toupper( s:baseClassName . "NoId" . s:extentionClass ), "g" ), "\n", "", "g" )
+let g:VM_additionnalValues[ "ELEMENT_INDEX_LIST" ] = substitute( s:indexesList, "\n", "", "g" )
 let g:VM_additionnalValues[ "CONFLATION_INDEX_LIST" ] = substitute( s:conflationIndex, "\n", "", "g" )
 let g:VM_additionnalValues[ "CONFLATION_OFFSET_LIST" ] = substitute( s:conflationOffset, "\\\n", "\\\\", "g" )
 let g:VM_additionnalValues[ "CONFLATION_POSITION" ] = substitute( s:conflationPosition, "\n", "", "g" )
@@ -1923,12 +1958,16 @@ let g:VM_additionnalValues[ "ASSOCIATED_OBJECT_INIT" ] = substitute( s:associate
 let g:VM_additionnalValues[ "ASSOCIATED_OBJECT_MACRO" ] = substitute( toupper( s:associatedObject ), "\n", "", "g" )
 let g:VM_additionnalValues[ "ASSOCIATED_OBJECT_TYPE" ] = substitute( s:associatedObject, "\n", "", "g" )
 let g:VM_additionnalValues[ "ASSOCIATED_OBJECT_FOLDER" ] = substitute( s:associatedFolder, "\n", "", "g" )
+let g:VM_additionnalValues[ "ASSOCIATED_OBJECT_BLANK" ] = substitute( s:associatedObject, ".", " ", "g" )
+let g:VM_additionnalValues[ "ELEMENT_REMOTE_PREFIXE" ] = s:baseRemotePrefixe
+let g:VM_additionnalValues[ "ELEMENT_DESC_MACRO" ] = toupper( s:baseClassName )
 
 tabnew
 
 if ( s:typeClassName == "cmd" )
    let s:className = s:baseClassName . "NoId" . s:extentionClass
    call VM_AddDescGlobal( s:className )
+   let g:VM_additionnalValues[ "ELEMENT_INDEX_LIST" ] = substitute( substitute( s:indexesList, toupper( s:baseClassName . s:extentionClass ), toupper( s:baseClassName . "NoId" . s:extentionClass ), "g" ), "\n", "", "g" )
 
    " Construit le fichier de corps de class
    "---------------------------------------
@@ -1945,10 +1984,6 @@ if ( s:typeClassName == "cmd" )
    " Construit le fichier de type
    "-----------------------------
    call VM_ProjectBuildFile( "split", s:className, "typ_desc", s:comment, s:className . ".typ", s:repository, s:projectFolder )
-
-   " Construit le fichier de structure
-   "----------------------------------
-   call VM_ProjectBuildFile( "split", s:className, "str_desc", s:comment, s:className . ".str", s:repository, s:projectFolder )
 
    " Construit le fichier de conflation
    "-----------------------------------
@@ -1967,7 +2002,7 @@ if ( s:typeClassName == "cmd" )
    " Add the tracker identifier to the definition
    "---------------------------------------------
    let s:indexesList .= "   " . toupper( s:className ) . "_INDEX_TRACKERID,\n"
-   let s:offsetValues .= ",\n   (offset_data_ObjectDescription)( (char*)\\&( BASE_COMMANDREMOTE_PREFIXED_GETTRACKERID( std, ( (" . s:associatedObject . "*)NULL ) ) ) - (char*)NULL )"
+   let s:offsetValues .= ",\n   (offset_data_ObjectDescription)( (char*)\\&( BASE_COMMANDREMOTE_PREFIXED_GETTRACKERID( " . s:baseRemotePrefixe . ", ( (" . s:associatedObject . "*)NULL ) ) ) - (char*)NULL )"
    let s:typeValues .= ",\n   BASE_OBJECTDESCRIPTION_TYPE_UINT32"
    let s:namesList .= ",\n   \"trackerId\""
 
@@ -1991,10 +2026,6 @@ if ( s:typeClassName == "cmd" )
    " Construit le fichier de type
    "-----------------------------
    call VM_ProjectBuildFile( "split", s:className, "typmd_desc", s:comment, s:className . ".typ", s:repository, s:projectFolder )
-
-   " Construit le fichier de structure
-   "----------------------------------
-   call VM_ProjectBuildFile( "split", s:className, "str_desc", s:comment, s:className . ".str", s:repository, s:projectFolder )
 
    " Construit le fichier de conflation
    "-----------------------------------
@@ -2031,10 +2062,6 @@ if ( s:typeClassName == "cmd" )
       " Construit le fichier de type
       "-----------------------------
       call VM_ProjectBuildFile( "split", s:className, "typ_fact", s:comment, s:className . ".typ", s:repository, s:projectFolder )
-
-      " Construit le fichier de structure
-      "----------------------------------
-      call VM_ProjectBuildFile( "split", s:className, "str_fact", s:comment, s:className . ".str", s:repository, s:projectFolder )
    endif " End IF the factory is not built yet
 
    let s:className = s:baseClassName
@@ -2059,17 +2086,13 @@ if ( s:typeClassName == "cmd" )
       " Construit le fichier de type
       "-----------------------------
       call VM_ProjectBuildFile( "split", s:className, "typ_fact", s:comment, s:className . ".typ", s:repository, s:projectFolder )
-
-      " Construit le fichier de structure
-      "----------------------------------
-      call VM_ProjectBuildFile( "split", s:className, "str_fact", s:comment, s:className . ".str", s:repository, s:projectFolder )
    endif " End IF the factory is not built yet
 else " End IF we are on the build of a command export
    " Construit le fichier de corps de class
    "---------------------------------------
    call VM_ProjectBuildFile( "edit", s:className, "c_desc", s:comment, s:className . ".c", s:repository, s:projectFolder )
 
-   if ( search( "^#include <stddef.h>$", "w" ) > 0 )
+   if ( search( "-< Local Predefined Types >-", "w" ) > 0 )
       +2
       ,/^$/-1 sort
       write
@@ -2086,10 +2109,6 @@ else " End IF we are on the build of a command export
    " Construit le fichier de type
    "-----------------------------
    call VM_ProjectBuildFile( "split", s:className, "typ_desc", s:comment, s:className . ".typ", s:repository, s:projectFolder )
-
-   " Construit le fichier de structure
-   "----------------------------------
-   call VM_ProjectBuildFile( "split", s:className, "str_desc", s:comment, s:className . ".str", s:repository, s:projectFolder )
 
    " Construit le fichier de conflation
    "-----------------------------------

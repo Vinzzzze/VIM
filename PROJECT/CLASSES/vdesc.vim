@@ -113,7 +113,7 @@ else " End IF we want a vector for a unsigned type
       let s:repository .= "/"
    endif " End IF the repository of the class had been found
 
-   let s:includeName = "#include \"" . s:repository . s:vectorizedType . ".h\""
+   let s:includeName = "#include \"" . s:repository . s:vectorizedType . ".typ\"\n\n"
    let s:partialType = substitute( s:vectorizedType, "[^_]*_", "", "" )
    let s:macroIdentifier = "DESC_" . toupper( s:partialType ) . "_IDENTIFIER"
    let s:usedType = "OBJECT"
@@ -140,7 +140,7 @@ if ( VM_ProjectTestFileExists( s:className . ".c", s:repository, s:projectFolder
    finish
 endif
 
-let g:VM_additionnalValues[ "ASSOCIATED_INCLUDE" ] = s:includeName
+let g:VM_additionnalValues[ "ASSOCIATED_INCLUDE" ] = substitute( s:includeName, "\n", "", "g" )
 let g:VM_additionnalValues[ "ELEMENT_ASSOCIATED_TYPE" ] = s:vectorizedType
 let g:VM_additionnalValues[ "ELEMENT_ASSOCIATED_MACRO" ] = s:macroIdentifier
 let g:VM_additionnalValues[ "ELEMENT_USED_TYPE" ] = s:usedType
@@ -172,11 +172,7 @@ call VM_ProjectBuildFile( "vsplit", s:className, "vh_desc", s:comment, s:classNa
 
 " Construit le fichier de type
 "-----------------------------
-call VM_ProjectBuildFile( "split", s:className, "typ", s:comment, s:className . ".typ", s:repository, s:projectFolder )
-
-" Construit le fichier de structure
-"----------------------------------
-call VM_ProjectBuildFile( "split", s:className, "vstr_desc", s:comment, s:className . ".str", s:repository, s:projectFolder )
+call VM_ProjectBuildFile( "split", s:className, "vtyp_desc", s:comment, s:className . ".typ", s:repository, s:projectFolder )
 
 wincmd =
 

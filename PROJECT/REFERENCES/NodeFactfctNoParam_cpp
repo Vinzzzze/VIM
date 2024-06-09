@@ -10,7 +10,7 @@
  * @endverbatim
 */
 
-//---< Inclusions >-------------------------------------------------------------
+//---< Includes >---------------------------------------------------------------
 
 #include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].hpp"
 #include "HEAP/heap_FormulaManager.hpp"

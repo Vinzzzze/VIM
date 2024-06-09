@@ -13,7 +13,7 @@
 
 #pragma once
 
-/*---< Local Definition >----------------------------------*/
+/*---< Local Definition >-----------------------------------------------------*/
 
 #define [@ELEMENT_MACRO@]CONFLATED_HSTR( prefixe, typeConflation ) \
    /**
@@ -31,5 +31,5 @@
    */ \
    typeConflation prefixe##_arrayConflation[ [@ELEMENT_MACRO@]CONFLATED_CONFLATION_INDEX_LAST ]
 
-/*---< End of file >---------------------------------------*/
+/*---< End of file >----------------------------------------------------------*/
 

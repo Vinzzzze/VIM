@@ -41,20 +41,22 @@ highlight clear Folded
 highlight clear TabLine
 highlight clear TabLineFill
 highlight clear TabLineSel
+highlight clear VertSplit
 
 highlight StatusLine guibg=#700000 guifg=yellow ctermfg=yellow ctermbg=darkred cterm=bold
-highlight StatusLineNC guibg=#606060 guifg=#c0c000 ctermfg=yellow ctermbg=darkgray cterm=NONE
+highlight StatusLineNC guibg=#606060 guifg=#c0c000 ctermfg=yellow ctermbg=blue cterm=NONE
 highlight StatusLineTerm guibg=#700000 guifg=yellow ctermfg=yellow ctermbg=darkred cterm=bold
-highlight StatusLineTermNC guibg=#606060 guifg=#c0c000 ctermfg=yellow ctermbg=235 cterm=NONE
-highlight LocalVar guifg=#60ff90 ctermfg=green ctermbg=NONE
+highlight StatusLineTermNC guibg=#606060 guifg=#c0c000 ctermfg=yellow ctermbg=blue cterm=NONE
+highlight LocalVar guifg=#60ff90 ctermfg=blue ctermbg=NONE
 highlight GlobalVar guifg=#f0ff70 gui=italic ctermfg=lightgray ctermbg=NONE cterm=underline
 highlight Procedure guifg=#90ffe0 gui=italic ctermfg=lightgreen cterm=bold
 highlight Function guifg=#d0ffff gui=italic ctermfg=white cterm=bold
-highlight FoldColumn guifg=green guibg=#606060 ctermfg=green ctermbg=gray
-highlight Folded guifg=#a0ffa0 guibg=#105010 ctermfg=white ctermbg=22
+highlight FoldColumn guifg=green guibg=#606060 ctermfg=blue ctermbg=gray
+highlight Folded guifg=#a0ffa0 guibg=#105010 ctermfg=white ctermbg=green cterm=bold
 highlight TabLineFill guifg=orange guibg=#303030 ctermfg=white ctermbg=gray
 highlight TabLine guifg=#a0a0a0 guibg=#404040 ctermfg=yellow ctermbg=darkgray
 highlight TabLineSel guifg=yellow guibg=black ctermfg=white ctermbg=black cterm=bold
+highlight VertSplit guifg=orange guibg=#303030 ctermfg=white ctermbg=gray
 
 " Definition des couleurs
 "------------------------
@@ -86,14 +88,15 @@ highlight clear Visual
 highlight clear VisualNOS
 highlight clear WildMenu
 highlight clear Cursor
+highlight clear CursorLine
 
-highlight Normal guifg=#7fffaf guibg=Black ctermfg=lightgreen ctermbg=black
+highlight Normal guifg=#7fffaf guibg=Black ctermfg=green ctermbg=black
 highlight String guifg=#ff88c8 guibg=Black ctermfg=11 ctermbg=black cterm=bold
 highlight Comment guifg=LightGray guibg=Black ctermfg=gray ctermbg=black
 highlight Constant guifg=LightRed guibg=Black ctermfg=9 ctermbg=black
 highlight Special guifg=LightCyan guibg=Black ctermfg=lightcyan ctermbg=black
 highlight Identifier guifg=White guibg=Black ctermfg=white ctermbg=black
-highlight Statement guifg=#40ff40 guibg=Black ctermfg=green ctermbg=black
+highlight Statement guifg=#40ff40 guibg=Black ctermfg=blue ctermbg=black
 highlight PreProc guifg=#ffc0b8 guibg=Black ctermfg=magenta ctermbg=black
 highlight Type guifg=Cyan guibg=Black ctermfg=cyan ctermbg=black
 highlight Ignore guifg=#a0ffa0 guibg=Black ctermfg=22 ctermbg=black
@@ -111,7 +114,7 @@ highlight ModeMsg guifg=#80ff80 guibg=Black ctermfg=white ctermbg=black
 highlight LineNr guifg=#80ff80 guibg=DarkGreen ctermfg=white ctermbg=22
 highlight Question guifg=Cyan guibg=Black ctermfg=lightcyan ctermbg=black
 highlight Title guifg=White guibg=DarkGreen ctermfg=white ctermbg=22 cterm=bold
-highlight Visual guifg=White guibg=DarkGreen ctermfg=white ctermbg=22
+highlight Visual guifg=White guibg=DarkGreen ctermfg=white ctermbg=darkred
 highlight VisualNOS guifg=#80ff80 guibg=DarkGreen ctermfg=lightgray ctermbg=22
 highlight WildMenu guifg=White guibg=DarkGreen ctermfg=white ctermbg=22
 highlight Cursor guifg=Black guibg=Yellow ctermfg=black ctermbg=yellow

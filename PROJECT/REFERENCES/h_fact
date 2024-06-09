@@ -12,46 +12,24 @@
 
 #pragma once
 
+/*---< Type >-----------------------------------------------------------------*/
+
+typedef struct s_[@ELEMENT_NAME@] [@ELEMENT_NAME@];
+
 /*---< Includes >-------------------------------------------------------------*/
 
-#include "BASE/base_FactoryInitRemoteCommand.h"
-
-/*---< Predefined Types >-----------------------------------------------------*/
-
-#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].typ"
-
-/*---< Macros >---------------------------------------------------------------*/
-
-#define [@ELEMENT_MACRO@]_CONVERT_TO_BASE_FACTORYINITREMOTECOMMAND( object )   [@ELEMENT_MACRO@]_PREFIXED_CONVERT_TO_BASE_FACTORYINITREMOTECOMMAND( std, object )
-#define [@ELEMENT_MACRO@]_CONVERT_FROM_BASE_FACTORYINITREMOTECOMMAND( object ) [@ELEMENT_MACRO@]_PREFIXED_CONVERT_FROM_BASE_FACTORYINITREMOTECOMMAND( std, object )
-
-#define [@ELEMENT_MACRO@]_PREFIXED_CONVERT_TO_BASE_FACTORYINITREMOTECOMMAND( prefixe, object )   ((base_FactoryInitRemoteCommand*)( BASE_FACTORYINITREMOTECOMMAND_PREFIXED_GETADDRFIRSTFIELD( prefixe, object ) ))
-#define [@ELEMENT_MACRO@]_PREFIXED_CONVERT_FROM_BASE_FACTORYINITREMOTECOMMAND( prefixe, object ) (([@ELEMENT_NAME@]*)( (char*)(object) - ( (char*)([@ELEMENT_MACRO@]_CONVERT_TO_BASE_FACTORYINITREMOTECOMMAND( (([@ELEMENT_NAME@]*)NULL) )) - (char*)NULL ) ))
-
-#define [@ELEMENT_MACRO@]_GETADDRFIRSTFIELD( object ) [@ELEMENT_MACRO@]_PREFIXED_GETADDRFIRSTFIELD( std, object )
-
-
-#define [@ELEMENT_MACRO@]_PREFIXED_GETADDRFIRSTFIELD( prefixe, object ) (([@ELEMENT_NAME@]*)( BASE_FACTORYINITREMOTECOMMAND_PREFIXED_GETADDRFIRSTFIELD( prefixe, object ) ))
-
+#include "BASE/base_FactoryInitStreamObject.h"
+#include "BASE/base_ObjectDescription.h"
+#include "BASE/base_ServerApplication.h"
+#include "INTERFACE/int_ErrorCommandHandler.h"
+#include "INTERFACE/int_HandlerTrackerId.h"
+#include "INTERFACE/int_StreamObjectAllocator.h"
 
 /*---< Variables >------------------------------------------------------------*/
 
 /* The default factory definition */
 extern base_FactoryInitStreamObject* default_[@ELEMENT_NAME@];
 extern base_FactoryInitStreamObject* noIdefault_[@ELEMENT_NAME@];
-
-/*---< Structure >------------------------------------------------------------*/
-
-#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].str"
-
-struct s_[@ELEMENT_NAME@]
-{
-   /*
-   || La structure est définie dans un fichier include afin de permettre
-   || l'héritage des capacitées de cette structure
-   */
-   [@ELEMENT_MACRO@]_HSTR( std );
-};
 
 /*---< Functions >------------------------------------------------------------*/
 
@@ -65,10 +43,10 @@ struct s_[@ELEMENT_NAME@]
  *
  * @return Structure initialisée.
 */
-[@ELEMENT_NAME@]* init_[@ELEMENT_NAME@]( base_ObjectDescription*    description,
-[@ELEMENT_BLANK@]       [@ELEMENT_BLANK@]  base_ServerApplication*    application,
-[@ELEMENT_BLANK@]       [@ELEMENT_BLANK@]  int_ErrorCommandHandler*   errorHandler,
-[@ELEMENT_BLANK@]       [@ELEMENT_BLANK@]  int_HandlerTrackerId*      handlerTrackerId );
+[@ELEMENT_NAME@]* init_[@ELEMENT_NAME@]( base_ObjectDescription*  description,
+[@ELEMENT_BLANK@]       [@ELEMENT_BLANK@]  base_ServerApplication*  application,
+[@ELEMENT_BLANK@]       [@ELEMENT_BLANK@]  int_ErrorCommandHandler* errorHandler,
+[@ELEMENT_BLANK@]       [@ELEMENT_BLANK@]  int_HandlerTrackerId*    handlerTrackerId );
 /**
  * Constructeur. Initialise les attributs de la structure.
  *
@@ -80,11 +58,11 @@ struct s_[@ELEMENT_NAME@]
  *
  * @return Structure initialisée.
 */
-[@ELEMENT_NAME@]* build_[@ELEMENT_NAME@]( [@ELEMENT_NAME@]*       current,
-[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  base_ObjectDescription*   description,
-[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  base_ServerApplication*   application,
-[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  int_ErrorCommandHandler*  errorHandler,
-[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  int_HandlerTrackerId*     handlerTrackerId );
+[@ELEMENT_NAME@]* build_[@ELEMENT_NAME@]( [@ELEMENT_NAME@]* current,
+[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  base_ObjectDescription*  description,
+[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  base_ServerApplication*  application,
+[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  int_ErrorCommandHandler* errorHandler,
+[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  int_HandlerTrackerId*    handlerTrackerId );
 /**
  * Destructeur.
  *
@@ -99,9 +77,9 @@ void delete_[@ELEMENT_NAME@]( [@ELEMENT_NAME@]* current );
  * @param buffer - char* : The buffer where the object had to be initialized
  * @param allocator - int_StreamObjectAllocator* : The allocator for the object
 */
-void initCommand_[@ELEMENT_NAME@]( base_FactoryInitStreamObject*   factory,
-                 [@ELEMENT_BLANK@]  char*                           buffer,
-                 [@ELEMENT_BLANK@]  int_StreamObjectAllocator*      allocator );
+void initCommand_[@ELEMENT_NAME@]( base_FactoryInitStreamObject* factory,
+                 [@ELEMENT_BLANK@]  char*                         buffer,
+                 [@ELEMENT_BLANK@]  int_StreamObjectAllocator*    allocator );
 /**
  * Uninitialize the command
  *
@@ -109,9 +87,9 @@ void initCommand_[@ELEMENT_NAME@]( base_FactoryInitStreamObject*   factory,
  * @param buffer - char* : The buffer where the object had to be initialized
  * @param allocator - int_StreamObjectAllocator* : The allocator for the object
 */
-void uninitCommand_[@ELEMENT_NAME@]( base_FactoryInitStreamObject*   factory,
-                   [@ELEMENT_BLANK@]  char*                           buffer,
-                   [@ELEMENT_BLANK@]  int_StreamObjectAllocator*      allocator );
+void uninitCommand_[@ELEMENT_NAME@]( base_FactoryInitStreamObject* factory,
+                   [@ELEMENT_BLANK@]  char*                         buffer,
+                   [@ELEMENT_BLANK@]  int_StreamObjectAllocator*    allocator );
 
 /*---< End of file >----------------------------------------------------------*/
 

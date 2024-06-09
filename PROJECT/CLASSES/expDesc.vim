@@ -43,22 +43,17 @@ if ( input( "Valide ( Y/N ) ? " ) == "Y" )
    "---------------------------------------
    call VM_ProjectBuildFile( "edit", s:className, "bldr_ExpDesc_c", s:comment, s:className . ".c", s:repository, s:projectFolder )
 
-   " Construit le fichier d'entête de class
-   "---------------------------------------
-   call VM_ProjectBuildFile( "vsplit", s:className, "bldr_ExpDesc_h", s:comment, s:className . ".h", s:repository, s:projectFolder )
-
    " Construit le fichier d'accessors
    "---------------------------------
    call VM_ProjectBuildFile( "vsplit", s:className, "bldr_ExpDesc_mac", s:comment, s:className . ".mac", s:repository, s:projectFolder )
 
+   " Construit le fichier d'entête de class
+   "---------------------------------------
+   call VM_ProjectBuildFile( "vsplit", s:className, "bldr_ExpDesc_h", s:comment, s:className . ".h", s:repository, s:projectFolder )
+
    " Construit le fichier de type
    "-----------------------------
    call VM_ProjectBuildFile( "split", s:className, "bldr_ExpDesc_typ", s:comment, s:className . ".typ", s:repository, s:projectFolder )
-
-   " Construit le fichier de structure
-   "----------------------------------
-   wincmd h
-   call VM_ProjectBuildFile( "split", s:className, "bldr_ExpDesc_str", s:comment, s:className . ".str", s:repository, s:projectFolder )
 
    " Construit le fichier de reference des identifiants de description d'export
    "---------------------------------------------------------------------------

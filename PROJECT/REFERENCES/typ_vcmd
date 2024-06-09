@@ -21,10 +21,19 @@
 #include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].h"
 
 #include "BASE/base_CommandRemote.typ"
+#include "HEAP/heap_Vector.typ"
 
 /*---< Local Definition >-----------------------------------------------------*/
 
 #define [@ELEMENT_MACRO@]_HSTR( prefixe ) \
+   /**
+    * The storage for the parameter list
+    * Default : NULL
+    * size : sizeof( <@ELEMENT_VECTOR@> )
+    * Vector : <@VECTOR_DESCRIPTION@>
+   */ \
+   HEAP_VECTOR_HSTR( prefixe ); \
+\
    /**
     * The ancestor part.
    */ \
@@ -34,14 +43,18 @@
 
 #define [@ELEMENT_MACRO@]_CONVERT_TO_BASE_COMMANDREMOTE( object )   [@ELEMENT_MACRO@]_PREFIXED_CONVERT_TO_BASE_COMMANDREMOTE( std, object )
 #define [@ELEMENT_MACRO@]_CONVERT_FROM_BASE_COMMANDREMOTE( object ) [@ELEMENT_MACRO@]_PREFIXED_CONVERT_FROM_BASE_COMMANDREMOTE( std, object )
+#define [@ELEMENT_MACRO@]_CONVERT_TO_HEAP_VECTOR( object )          [@ELEMENT_MACRO@]_PREFIXED_CONVERT_TO_HEAP_VECTOR( std, object )
+#define [@ELEMENT_MACRO@]_CONVERT_FROM_HEAP_VECTOR( object )        [@ELEMENT_MACRO@]_PREFIXED_CONVERT_FROM_HEAP_VECTOR( std, object )
 
 #define [@ELEMENT_MACRO@]_PREFIXED_CONVERT_TO_BASE_COMMANDREMOTE( prefixe, object )   ((base_CommandRemote*)( BASE_COMMANDREMOTE_PREFIXED_GETADDRFIRSTFIELD( prefixe, object ) ))
 #define [@ELEMENT_MACRO@]_PREFIXED_CONVERT_FROM_BASE_COMMANDREMOTE( prefixe, object ) (([@ELEMENT_NAME@]*)( (char*)(object) - ( (char*)([@ELEMENT_MACRO@]_CONVERT_TO_BASE_COMMANDREMOTE( (([@ELEMENT_NAME@]*)NULL) )) - (char*)NULL ) ))
+#define [@ELEMENT_MACRO@]_PREFIXED_CONVERT_TO_HEAP_VECTOR( prefixe, object )          ((heap_Vector*)( HEAP_VECTOR_PREFIXED_GETADDRFIRSTFIELD( prefixe, object ) ))
+#define [@ELEMENT_MACRO@]_PREFIXED_CONVERT_FROM_HEAP_VECTOR( prefixe, object )        (([@ELEMENT_NAME@]*)( (char*)(object) - ( (char*)([@ELEMENT_MACRO@]_CONVERT_TO_HEAP_VECTOR( ((cmd_LogWriteCommandTest*)NULL) )) - (char*)NULL ) ))
 
 #define [@ELEMENT_MACRO@]_GETADDRFIRSTFIELD( object ) [@ELEMENT_MACRO@]_PREFIXED_GETADDRFIRSTFIELD( std, object )
 
 
-#define [@ELEMENT_MACRO@]_PREFIXED_GETADDRFIRSTFIELD( prefixe, object ) (([@ELEMENT_NAME@]*)( BASE_COMMANDREMOTE_PREFIXED_GETADDRFIRSTFIELD( prefixe, object ) ))
+#define [@ELEMENT_MACRO@]_PREFIXED_GETADDRFIRSTFIELD( prefixe, object ) (([@ELEMENT_NAME@]*)( HEAP_VECTOR_PREFIXED_GETADDRFIRSTFIELD( prefixe, object ) ))
 
 
 /*---< Variables >------------------------------------------------------------*/

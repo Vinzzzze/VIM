@@ -1,3 +1,26 @@
+" Fichier : str.vim
+"
+" But : The comment for the structure definition.
+"
+" Auteur : VM "Cool Coyote" - coolcoyote@noos.fr
+" Date : 25 janv. 2017
+"
+"-------------------------------------------------------------------------------
+
+"---< Utilisation de modules communs >------------------------------------------
+
+"-------------------------------------------------------------------------------
+" DECLARATION DES VARIABLES GLOBALES
+"-------------------------------------------------------------------------------
+
+"-------------------------------------------------------------------------------
+" DECLARATION DES FONCTIONS
+"-------------------------------------------------------------------------------
+
+"-------------------------------------------------------------------------------
+" DEBUT DU CODE
+"-------------------------------------------------------------------------------
+
 " Je demande le nom de la fonction et le libellé que je vais devoir utiliser
 "---------------------------------------------------------------------------
 let s:currentTypeReturned = input( "Type de l'attribut : " )
@@ -82,7 +105,7 @@ if ( s:goForAction == "Y" )
 
       call append( s:numLine, g:VM_projectIndentation . "*/ \\" )
 
-      if ( COpenAlternate( "split", "h" ) != 0 )
+      if ( COpenAlternate( "split", "typ" ) != 0 )
          " Save the modified status
          "-------------------------
          let s:saveAlternate = &modified
@@ -129,7 +152,7 @@ if ( s:goForAction == "Y" )
 
       call append( s:numLine, g:VM_projectIndentation . "*/ \\" )
 
-      if ( COpenAlternate( "split", "h" ) != 0 )
+      if ( COpenAlternate( "split", "typ" ) != 0 )
          " Save the modified status
          "-------------------------
          let s:saveAlternate = &modified
@@ -167,4 +190,6 @@ if ( s:goForAction == "Y" )
       endif
    endif
 endif
+
+"---< Fin de fichier >----------------------------------------------------------
 

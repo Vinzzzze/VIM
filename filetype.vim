@@ -191,6 +191,18 @@ function! s:IsEdifact()
    endif " End IF the file already have a filetype
 endfunction
 
+" Fonction : s:TermOpen
+"
+" But : Open the terminal
+"-------------------------------------------------------------------------------
+function! s:TermOpen()
+   setfiletype terminal
+
+   if ( exists( "*VM_ProjectEnterFile" ) != 0 )
+      call VM_ProjectEnterFile()
+   endif
+endfunction
+
 au BufNewFile,BufRead *.NBC.*.*.*.M[0123456789][0123456789][0123456789][0123456789][0123456789][0123456789]  call s:FixedLengthDefinition()
 au BufNewFile,BufRead *.NBC.*.*.*.D[0123456789][0123456789][0123456789][0123456789][0123456789][0123456789].DATA  call s:FixedLengthDefinition()
 au BufNewFile,BufRead *.NBC.*.D[0123456789][0123456789][0123456789][0123456789][0123456789][0123456789].dat  call s:FixedLengthDefinition()
@@ -204,5 +216,8 @@ au BufNewFile,BufRead *.UISC.*.D[0123456789][0123456789][0123456789][0123456789]
 au BufNewFile,BufRead *Output_[0123456789][0123456789][0123456789][0123456789][0123456789][0123456789][0123456789][0123456789]  setfiletype xml
 au BufNewFile,BufRead *.edif setfiletype edifact
 au BufNewFile,BufRead * call s:IsEdifact()
+
+au TermOpen * call s:TermOpen()
+au TermEnter * setfiletype terminal
 
 augroup END

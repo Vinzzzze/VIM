@@ -10,7 +10,7 @@
  * @endverbatim
 */
 
-//---< Inclusions >-------------------------------------------------------------
+//---< Includes >---------------------------------------------------------------
 
 #include "POOL/pool_[@COMMAND_CLASS_NAME@]CommandMessageServer.hpp"
 

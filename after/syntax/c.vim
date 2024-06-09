@@ -22,6 +22,7 @@
 "-------------------------------------------------------------------------------
 
 syn keyword cType		   int32 uint32 int64 uint64 uchar schar ushort
+syn keyword cConstant   va_start va_arg va_end
 
 "---< Fin de fichier >----------------------------------------------------------
 

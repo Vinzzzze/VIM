@@ -12,59 +12,52 @@
 
 #pragma once
 
+/*---< Type >-----------------------------------------------------------------*/
+
+typedef struct s_[@ELEMENT_NAME@] [@ELEMENT_NAME@];
+
+/**
+ * List the indexes for the current description
+*/
+typedef enum
+{
+[@ELEMENT_INDEX_LIST@]   [@ELEMENT_MACRO@]_INDEX_LAST
+} index_[@ELEMENT_NAME@];
+
+#ifdef BASE_COMMANDREMOTE_USE_EXPORT
+
+/*---< Includes >-------------------------------------------------------------*/
+
+#include "BASE/base_CommandRemote.h"
+
+/*---< Type >-----------------------------------------------------------------*/
+
+typedef enum
+{
+[@DECLARATION_ENUM_LIST@]   [@ELEMENT_MACRO@]_PARAM_LAST
+} params_[@ELEMENT_NAME@];
+#endif
+
 /*---< Includes >-------------------------------------------------------------*/
 
 #include "DATA/data_ObjectDescription.h"
 
-/*---< Predefined Types >-----------------------------------------------------*/
-
-#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].typ"
 #ifdef BASE_COMMANDREMOTE_USE_EXPORT
-#include "FACTORY/fact_CommandExport.typ"
+#include "FACTORY/fact_CommandExport.h"
 #endif
 
 /*---< Macros >---------------------------------------------------------------*/
 
-#define [@ELEMENT_MACRO@]_CONVERT_TO_DATA_OBJECTDESCRIPTION( object )   [@ELEMENT_MACRO@]_PREFIXED_CONVERT_TO_DATA_OBJECTDESCRIPTION( std, object )
-#define [@ELEMENT_MACRO@]_CONVERT_FROM_DATA_OBJECTDESCRIPTION( object ) [@ELEMENT_MACRO@]_PREFIXED_CONVERT_FROM_DATA_OBJECTDESCRIPTION( std, object )
-
-#define [@ELEMENT_MACRO@]_PREFIXED_CONVERT_TO_DATA_OBJECTDESCRIPTION( prefixe, object )   ((data_ObjectDescription*)( DATA_OBJECTDESCRIPTION_PREFIXED_GETADDRFIRSTFIELD( prefixe, object ) ))
-#define [@ELEMENT_MACRO@]_PREFIXED_CONVERT_FROM_DATA_OBJECTDESCRIPTION( prefixe, object ) (([@ELEMENT_NAME@]*)( (char*)(object) - ( (char*)([@ELEMENT_MACRO@]_PREFIXED_CONVERT_TO_DATA_OBJECTDESCRIPTION( prefixe, (([@ELEMENT_NAME@]*)NULL) )) - (char*)NULL ) ))
-
-#define [@ELEMENT_MACRO@]_GETADDRFIRSTFIELD( object ) [@ELEMENT_MACRO@]_PREFIXED_GETADDRFIRSTFIELD( std, object )
-
-
-#define [@ELEMENT_MACRO@]_PREFIXED_GETADDRFIRSTFIELD( prefixe, object ) (([@ELEMENT_NAME@]*)( DATA_OBJECTDESCRIPTION_PREFIXED_GETADDRFIRSTFIELD( prefixe, object ) ))
-
-
 #define [@ELEMENT_MACRO@]_DEFAULT   default_[@ELEMENT_NAME@]
 
-[@ELEMENT_BUFFER_SIZE@]/*---< Variables >------------------------------------------------------------*/
+/*---< Variables >------------------------------------------------------------*/
 
 #ifndef BASE_COMMANDREMOTE_USE_EXPORT
 /**
  * The global variable 
 */
 extern base_ObjectDescription* [@ELEMENT_MACRO@]_DEFAULT;
-[@DESCRIPTION_DECLARATION@]#else
-[@DESCRIPTION_DECLARATION_EXPORT@]#endif
-
-#ifdef BASE_COMMANDREMOTE_USE_EXPORT
-extern fact_CommandExportDescription commandExport_[@ELEMENT_NAME@];
 #endif
-
-/*---< Structure >------------------------------------------------------------*/
-
-#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].str"
-
-struct s_[@ELEMENT_NAME@]
-{
-   /*
-   || La structure est définie dans un fichier include afin de permettre
-   || l'héritage des capacitées de cette structure
-   */
-   [@ELEMENT_MACRO@]_HSTR( std );
-};
 
 /*---< Functions >------------------------------------------------------------*/
 

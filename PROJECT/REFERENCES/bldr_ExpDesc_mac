@@ -13,24 +13,11 @@
 
 #pragma once
 
-/*---< Inclusions >-----------------------------------------------------------*/
+/*---< Includes >-------------------------------------------------------------*/
+
+#include "BUILDER/bldr_ExportDescriptions.typ"
+
 /*---< Macros >---------------------------------------------------------------*/
-
-#define BLDR_EXPORTDESCRIPTIONS_CONVERT_TO_INT_BUILDERDESCRIPTION( object )   BLDR_EXPORTDESCRIPTIONS_PREFIXED_CONVERT_TO_INT_BUILDERDESCRIPTION( std, object )
-#define BLDR_EXPORTDESCRIPTIONS_CONVERT_FROM_INT_BUILDERDESCRIPTION( object ) BLDR_EXPORTDESCRIPTIONS_PREFIXED_CONVERT_FROM_INT_BUILDERDESCRIPTION( std, object )
-
-#define BLDR_EXPORTDESCRIPTIONS_PREFIXED_CONVERT_TO_INT_BUILDERDESCRIPTION( prefixe, object )   ((int_BuilderDescription*)( INT_BUILDERDESCRIPTION_PREFIXED_GETADDRFIRSTFIELD( prefixe, object ) ))
-#define BLDR_EXPORTDESCRIPTIONS_PREFIXED_CONVERT_FROM_INT_BUILDERDESCRIPTION( prefixe, object ) ((bldr_ExportDescriptions*)( (char*)(object) - ( (char*)(BLDR_EXPORTDESCRIPTIONS_PREFIXED_CONVERT_TO_INT_BUILDERDESCRIPTION( prefixe, ((bldr_ExportDescriptions*)NULL) )) - (char*)NULL ) ))
-
-#define BLDR_EXPORTDESCRIPTIONS_GETADDRFIRSTFIELD( object ) BLDR_EXPORTDESCRIPTIONS_PREFIXED_GETADDRFIRSTFIELD( std, object )
-
-#define BLDR_EXPORTDESCRIPTIONS_GETARRAYDESCRIPTIONS( object )        BLDR_EXPORTDESCRIPTIONS_PREFIXED_GETARRAYDESCRIPTIONS( std, object )
-#define BLDR_EXPORTDESCRIPTIONS_SETARRAYDESCRIPTIONS( object, value ) BLDR_EXPORTDESCRIPTIONS_PREFIXED_SETARRAYDESCRIPTIONS( std, object, value )
-
-#define BLDR_EXPORTDESCRIPTIONS_PREFIXED_GETADDRFIRSTFIELD( prefixe, object ) ((bldr_ExportDescriptions*)(&BLDR_EXPORTDESCRIPTIONS_PREFIXED_GET<@FIRST_FIELD_NAME@>( prefixe, object )))
-
-#define BLDR_EXPORTDESCRIPTIONS_PREFIXED_GETARRAYDESCRIPTIONS( prefixe, object )        object->prefixe##_arrayDescriptions
-#define BLDR_EXPORTDESCRIPTIONS_PREFIXED_SETARRAYDESCRIPTIONS( prefixe, object, value ) object->prefixe##_arrayDescriptions = value
 
 #define BLDR_EXPORTDESCRIPTIONS_INIT( current ) BLDR_EXPORTDESCRIPTIONS_PREFIXED_INIT( std, current )
 #define BLDR_EXPORTDESCRIPTIONS_PREFIXED_INIT( prefixe, current ) \

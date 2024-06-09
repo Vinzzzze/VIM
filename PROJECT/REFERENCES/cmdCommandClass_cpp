@@ -10,7 +10,7 @@
  * @endverbatim
 */
 
-//---< Inclusions >-------------------------------------------------------------
+//---< Includes >---------------------------------------------------------------
 
 #include "BASE/base_FactoryCommandServer.hpp"
 #include "DATA/data_[@COMMAND_CLASS_NAME@]CommandMessageServer.hpp"

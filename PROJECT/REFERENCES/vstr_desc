@@ -13,7 +13,7 @@
 
 #pragma once
 
-/*---< Local Definition >----------------------------------*/
+/*---< Local Definition >-----------------------------------------------------*/
 
 #define [@ELEMENT_MACRO@]_HSTR( prefixe ) \
    /**
@@ -21,5 +21,5 @@
    */ \
    DATA_OBJECTVECTORDESCRIPTION_HSTR( prefixe )
 
-/*---< End of file >---------------------------------------*/
+/*---< End of file >----------------------------------------------------------*/
 

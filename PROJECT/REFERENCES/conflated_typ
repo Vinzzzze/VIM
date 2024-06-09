@@ -1,7 +1,7 @@
 /**
  * @file [@ELEMENT_FILE@]
  *
- * C Types
+ * C complete type definition
  * [@ELEMENT_DESC@]
  *
  * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
@@ -14,9 +14,66 @@
 #pragma once
 
 /*---< Includes >-------------------------------------------------------------*/
-/*---< Type >-----------------------------------------------------------------*/
 
-typedef struct s_[@ELEMENT_NAME@]Conflated [@ELEMENT_NAME@]Conflated;
+#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@]Conflated.h"
+
+#include "BASE/base_ConflationObject.typ"
+#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].typ"
+
+/*---< Local Definition >-----------------------------------------------------*/
+
+#define [@ELEMENT_MACRO@]CONFLATED_HSTR( prefixe, typeConflation ) \
+   /**
+    * The ancestor definition
+   */ \
+   [@ELEMENT_MACRO@]_HSTR( prefixe ); \
+\
+   /**
+    * The conflation definition
+   */ \
+   BASE_CONFLATIONOBJECT_HSTR( prefixe, \
+                               typeConflation ); \
+   /**
+    * The array that stores the conflation values.
+   */ \
+   typeConflation prefixe##_arrayConflation[ [@ELEMENT_MACRO@]CONFLATED_CONFLATION_INDEX_LAST ]
+
+/*---< Macros >---------------------------------------------------------------*/
+
+#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@]Conflated.cflt"
+
+#define [@ELEMENT_MACRO@]CONFLATED_CONVERT_TO_BASE_CONFLATIONOBJECT( object )   [@ELEMENT_MACRO@]CONFLATED_PREFIXED_CONVERT_TO_BASE_CONFLATIONOBJECT( std, object )
+#define [@ELEMENT_MACRO@]CONFLATED_CONVERT_FROM_BASE_CONFLATIONOBJECT( object ) [@ELEMENT_MACRO@]CONFLATED_PREFIXED_CONVERT_FROM_BASE_CONFLATIONOBJECT( std, object )
+#define [@ELEMENT_MACRO@]CONFLATED_CONVERT_TO_DATA_PARTIALEXPORT( object )      [@ELEMENT_MACRO@]CONFLATED_PREFIXED_CONVERT_TO_DATA_PARTIALEXPORT( std, object )
+#define [@ELEMENT_MACRO@]CONFLATED_CONVERT_FROM_DATA_PARTIALEXPORT( object )    [@ELEMENT_MACRO@]CONFLATED_PREFIXED_CONVERT_FROM_DATA_PARTIALEXPORT( std, object )
+
+#define [@ELEMENT_MACRO@]CONFLATED_PREFIXED_CONVERT_TO_BASE_CONFLATIONOBJECT( prefixe, object )   ((base_ConflationObject*)( BASE_CONFLATIONOBJECT_PREFIXED_GETADDRFIRSTFIELD( prefixe, object ) ))
+#define [@ELEMENT_MACRO@]CONFLATED_PREFIXED_CONVERT_FROM_BASE_CONFLATIONOBJECT( prefixe, object ) (([@ELEMENT_NAME@]Conflated*)( (char*)(object) - ( (char*)([@ELEMENT_MACRO@]CONFLATED_PREFIXED_CONVERT_TO_BASE_CONFLATIONOBJECT( prefixe, (([@ELEMENT_NAME@]Conflated*)NULL) )) - (char*)NULL ) ))
+#define [@ELEMENT_MACRO@]CONFLATED_PREFIXED_CONVERT_TO_DATA_PARTIALEXPORT( prefixe, object )      (([@ELEMENT_NAME@]*)( [@ELEMENT_MACRO@]_PREFIXED_GETADDRFIRSTFIELD( prefixe, object ) ))
+#define [@ELEMENT_MACRO@]CONFLATED_PREFIXED_CONVERT_FROM_DATA_PARTIALEXPORT( prefixe, object )    (([@ELEMENT_NAME@]Conflated*)( (char*)(object) - ( (char*)([@ELEMENT_MACRO@]CONFLATED_PREFIXED_CONVERT_TO_[@ELEMENT_MACRO@]( prefixe, (([@ELEMENT_NAME@]Conflated*)NULL) )) - (char*)NULL ) ))
+
+#define [@ELEMENT_MACRO@]CONFLATED_GETADDRFIRSTFIELD( object ) [@ELEMENT_MACRO@]CONFLATED_PREFIXED_GETADDRFIRSTFIELD( std, object )
+
+#define [@ELEMENT_MACRO@]CONFLATED_GETARRAYCONFLATION( object )        [@ELEMENT_MACRO@]CONFLATED_PREFIXED_GETARRAYCONFLATION( std, object )
+#define [@ELEMENT_MACRO@]CONFLATED_SETARRAYCONFLATION( object, value ) [@ELEMENT_MACRO@]CONFLATED_PREFIXED_SETARRAYCONFLATION( std, object, value )
+
+#define [@ELEMENT_MACRO@]CONFLATED_PREFIXED_GETADDRFIRSTFIELD( prefixe, object ) (([@ELEMENT_NAME@]Conflated*)( [@ELEMENT_MACRO@]_PREFIXED_GETADDRFIRSTFIELD( prefixe, object ) ))
+
+#define [@ELEMENT_MACRO@]CONFLATED_PREFIXED_GETARRAYCONFLATION( prefixe, object )        object->prefixe##_arrayConflation
+#define [@ELEMENT_MACRO@]CONFLATED_PREFIXED_SETARRAYCONFLATION( prefixe, object, value ) object->prefixe##_arrayConflation = value
+
+/*---< Variables >------------------------------------------------------------*/
+/*---< Structure >------------------------------------------------------------*/
+
+struct s_[@ELEMENT_NAME@]Conflated
+{
+   /*
+   || La structure est définie dans un fichier include afin de permettre
+   || l'héritage des capacitées de cette structure
+   */
+   [@ELEMENT_MACRO@]CONFLATED_HSTR( std,
+    [@ELEMENT_BLANK@]                BASE_CONFLATIONOBJECT_DEFAULT_TYPE );
+};
 
 /*---< End of file >----------------------------------------------------------*/
 

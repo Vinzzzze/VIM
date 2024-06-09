@@ -14,7 +14,6 @@
 
 #include "BASE/base_Memory.h"
 #include "DATA/data_ObjectDescription.h"
-#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@]Conflated.h"
 
 /*---< Local Predefined Types >-----------------------------------------------*/
 /*---< Local Macros >---------------------------------------------------------*/

@@ -13,7 +13,10 @@
 
 #pragma once
 
-/*---< Inclusions >-----------------------------------------------------------*/
+/*---< Includes >-------------------------------------------------------------*/
+
+#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].typ"
+
 /*---< Macros >---------------------------------------------------------------*/
 
 #define [@ELEMENT_MACRO@]_INIT( current ) [@ELEMENT_MACRO@]_PREFIXED_INIT( std, current )

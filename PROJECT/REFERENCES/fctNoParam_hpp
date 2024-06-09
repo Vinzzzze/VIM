@@ -14,7 +14,7 @@
 #ifndef [@ELEMENT_INCLUDE@]
 #define [@ELEMENT_INCLUDE@] 1
 
-//---< Inclusions >-------------------------------------------------------------
+//---< Includes >---------------------------------------------------------------
 
 #include "stdBaseDefinition.mac"
 

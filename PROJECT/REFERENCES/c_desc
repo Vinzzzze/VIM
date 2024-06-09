@@ -14,13 +14,14 @@
 
 #include <stddef.h>
 
-#include "[@ASSOCIATED_OBJECT_FOLDER@]/[@ASSOCIATED_OBJECT_TYPE@].h"
-[@ASSOCIATED_INCLUDE@]#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].h"
-#include "DATA/data_HashStringTable.h"
-#include "HEAP/heap_Allocator.h"
+#include "DATA/data_RightDefinition.h"
 #include "HEAP/heap_PageAllocator.h"
 
 /*---< Local Predefined Types >-----------------------------------------------*/
+
+#include "[@ASSOCIATED_OBJECT_FOLDER@]/[@ASSOCIATED_OBJECT_TYPE@].typ"
+[@ASSOCIATED_INCLUDE@]#include "DATA/data_HashStringTable.typ"
+#include "HEAP/heap_Allocator.typ"
 
 /**
  * The export object identifier list
@@ -134,14 +135,14 @@ base_ObjectDescription* init_[@ELEMENT_NAME@]( void )
       } /* End FOR all the names to be added to the hash-map */
 
       [@ELEMENT_BUFFER_INIT@][@ELEMENT_MACRO@]_INIT( (&[@DESCRIPTION_VARIABLE@]),
-      [@ELEMENT_BLANK@]    type_[@ELEMENT_NAME@],
-      [@ELEMENT_BLANK@]    offset_[@ELEMENT_NAME@],
-      [@ELEMENT_BLANK@]    name_[@ELEMENT_NAME@],
-      [@ELEMENT_BLANK@]    &nameConverter_[@ELEMENT_NAME@],
-      [@ELEMENT_BLANK@]    [@CONFLATION_INDEX_NAME@],
-      [@ELEMENT_BLANK@]    [@ELEMENT_BUFFER_NAME@],
-      [@ELEMENT_BLANK@]    [@CONFLATION_POSITION@],
-      [@ELEMENT_BLANK@]    [@CONFLATION_SIZE@] );
+      [@ELEMENT_BLANK@]       type_[@ELEMENT_NAME@],
+      [@ELEMENT_BLANK@]       offset_[@ELEMENT_NAME@],
+      [@ELEMENT_BLANK@]       name_[@ELEMENT_NAME@],
+      [@ELEMENT_BLANK@]       &nameConverter_[@ELEMENT_NAME@],
+      [@ELEMENT_BLANK@]       [@CONFLATION_INDEX_NAME@],
+      [@ELEMENT_BLANK@]       [@ELEMENT_BUFFER_NAME@],
+      [@ELEMENT_BLANK@]       [@CONFLATION_POSITION@],
+      [@ELEMENT_BLANK@]       [@CONFLATION_SIZE@] );
 
       [@ELEMENT_MACRO@]_DEFAULT = BASE_OBJECTDESCRIPTION_GETADDRFIRSTFIELD( (&[@DESCRIPTION_VARIABLE@]) );
    } /* End IF the default description is not initialized yet */

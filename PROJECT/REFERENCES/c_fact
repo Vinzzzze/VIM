@@ -14,13 +14,16 @@
 
 #include <stddef.h>
 
-#include "[@ASSOCIATED_OBJECT_FOLDER@]/[@ASSOCIATED_OBJECT_TYPE@].h"
-#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].h"
-#include "INTERFACE/int_HandlerTrackerId.h"
+#include "DATA/data_CommandList.h"
 
 /*---< Local Predefined Types >-----------------------------------------------*/
 
-#include "DATA/data_CommandList.typ"
+#include "INTERFACE/int_HandlerTrackerId.typ"
+
+enum
+{
+#include "allObjects.export"
+};
 
 /*---< Local Macros >---------------------------------------------------------*/
 
@@ -81,11 +84,11 @@ base_FactoryInitStreamObject* noIdefault_[@ELEMENT_NAME@] = BASE_FACTORYINITSTRE
  *
  * @return Structure initialisée.
 */
-[@ELEMENT_NAME@]* build_[@ELEMENT_NAME@]( [@ELEMENT_NAME@]*       current,
-[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  base_ObjectDescription*   description,
-[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  base_ServerApplication*   application,
-[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  int_ErrorCommandHandler*  errorHandler,
-[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  int_HandlerTrackerId*     handlerTrackerId )
+[@ELEMENT_NAME@]* build_[@ELEMENT_NAME@]( [@ELEMENT_NAME@]* current,
+[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  base_ObjectDescription*  description,
+[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  base_ServerApplication*  application,
+[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  int_ErrorCommandHandler* errorHandler,
+[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  int_HandlerTrackerId*    handlerTrackerId )
 {
    [@ELEMENT_MACRO@]_INIT( current,
    [@ELEMENT_BLANK@]       initCommand_[@ELEMENT_NAME@],
@@ -113,9 +116,9 @@ void delete_[@ELEMENT_NAME@]( [@ELEMENT_NAME@]* current )
  * @param buffer - char* : The buffer where the object had to be initialized
  * @param allocator - int_StreamObjectAllocator* : The allocator for the object
 */
-void initCommand_[@ELEMENT_NAME@]( base_FactoryInitStreamObject*   factory,
-                 [@ELEMENT_BLANK@]  char*                           buffer,
-                 [@ELEMENT_BLANK@]  int_StreamObjectAllocator*      allocator )
+void initCommand_[@ELEMENT_NAME@]( base_FactoryInitStreamObject* factory,
+                 [@ELEMENT_BLANK@]  char*                         buffer,
+                 [@ELEMENT_BLANK@]  int_StreamObjectAllocator*    allocator )
 {
    register [@ELEMENT_NAME@]*     current = [@ELEMENT_MACRO@]_CONVERT_FROM_BASE_FACTORYINITREMOTECOMMAND( BASE_FACTORYINITREMOTECOMMAND_CONVERT_FROM_BASE_FACTORYINITSTREAMOBJECT( factory ) );
    register int_HandlerTrackerId*   trackerHandler;
@@ -123,22 +126,22 @@ void initCommand_[@ELEMENT_NAME@]( base_FactoryInitStreamObject*   factory,
    if ( ( trackerHandler = BASE_FACTORYINITREMOTECOMMAND_GETHANDLERTRACKERID( current ) ) != NULL )
    {
       [@ASSOCIATED_OBJECT_MACRO@]_INITTRACKER( (([@ASSOCIATED_OBJECT_TYPE@]*)buffer),
-      [@ELEMENT_BLANK@]             execute_[@ASSOCIATED_OBJECT_TYPE@],
-      [@ELEMENT_BLANK@]             release_[@ASSOCIATED_OBJECT_TYPE@],
-      [@ELEMENT_BLANK@]             BASE_FACTORYINITREMOTECOMMAND_GETERRORHANDLER( current ),
-      [@ELEMENT_BLANK@]             BASE_FACTORYINITREMOTECOMMAND_GETAPPLICATION( current ),
-      [@ELEMENT_BLANK@]             DATA_COMMANDLIST_[@ASSOCIATED_OBJECT_MACRO@],
-      [@ELEMENT_BLANK@]             INT_HANDLERTRACKERID_GETBUILDTRACKERID( trackerHandler )( trackerHandler ) );
+      [@ASSOCIATED_OBJECT_BLANK@]              execute_[@ASSOCIATED_OBJECT_TYPE@],
+      [@ASSOCIATED_OBJECT_BLANK@]              release_[@ASSOCIATED_OBJECT_TYPE@],
+      [@ASSOCIATED_OBJECT_BLANK@]              BASE_FACTORYINITREMOTECOMMAND_GETERRORHANDLER( current ),
+      [@ASSOCIATED_OBJECT_BLANK@]              BASE_FACTORYINITREMOTECOMMAND_GETAPPLICATION( current ),
+      [@ASSOCIATED_OBJECT_BLANK@]              [@ELEMENT_DESC_MACRO@]_IDENTIFIER,
+      [@ASSOCIATED_OBJECT_BLANK@]              INT_HANDLERTRACKERID_GETBUILDTRACKERID( trackerHandler )( trackerHandler ) );
    } /* End IF there is an handler for the tracker identifier */
    else
    {
       [@ASSOCIATED_OBJECT_MACRO@]_BASEINIT( (([@ASSOCIATED_OBJECT_TYPE@]*)buffer),
-      [@ELEMENT_BLANK@]          execute_[@ASSOCIATED_OBJECT_TYPE@],
-      [@ELEMENT_BLANK@]          release_[@ASSOCIATED_OBJECT_TYPE@],
-      [@ELEMENT_BLANK@]          BASE_FACTORYINITREMOTECOMMAND_GETERRORHANDLER( current ),
-      [@ELEMENT_BLANK@]          BASE_FACTORYINITREMOTECOMMAND_GETAPPLICATION( current ),
-      [@ELEMENT_BLANK@]          DATA_COMMANDLIST_[@ASSOCIATED_OBJECT_MACRO@] );
-   } /* End IF there is no handlerhe tracker identifier */
+      [@ASSOCIATED_OBJECT_BLANK@]           execute_[@ASSOCIATED_OBJECT_TYPE@],
+      [@ASSOCIATED_OBJECT_BLANK@]           release_[@ASSOCIATED_OBJECT_TYPE@],
+      [@ASSOCIATED_OBJECT_BLANK@]           BASE_FACTORYINITREMOTECOMMAND_GETERRORHANDLER( current ),
+      [@ASSOCIATED_OBJECT_BLANK@]           BASE_FACTORYINITREMOTECOMMAND_GETAPPLICATION( current ),
+      [@ASSOCIATED_OBJECT_BLANK@]           [@ELEMENT_DESC_MACRO@]_IDENTIFIER );
+   } /* End IF there is no handler for the tracker identifier */
 }
 
 /**
@@ -148,9 +151,9 @@ void initCommand_[@ELEMENT_NAME@]( base_FactoryInitStreamObject*   factory,
  * @param buffer - char* : The buffer where the object had to be initialized
  * @param allocator - int_StreamObjectAllocator* : The allocator for the object
 */
-void uninitCommand_[@ELEMENT_NAME@]( base_FactoryInitStreamObject*   factory,
-                   [@ELEMENT_BLANK@]  char*                           buffer,
-                   [@ELEMENT_BLANK@]  int_StreamObjectAllocator*      allocator )
+void uninitCommand_[@ELEMENT_NAME@]( base_FactoryInitStreamObject* factory,
+                   [@ELEMENT_BLANK@]  char*                         buffer,
+                   [@ELEMENT_BLANK@]  int_StreamObjectAllocator*    allocator )
 {
    register [@ELEMENT_NAME@]* current = [@ELEMENT_MACRO@]_CONVERT_FROM_BASE_FACTORYINITREMOTECOMMAND( BASE_FACTORYINITREMOTECOMMAND_CONVERT_FROM_BASE_FACTORYINITSTREAMOBJECT( factory ) );
 

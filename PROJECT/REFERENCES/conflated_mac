@@ -13,7 +13,9 @@
 
 #pragma once
 
-/*---< Inclusions >-----------------------------------------------------------*/
+/*---< Includes >-------------------------------------------------------------*/
+
+#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@]Conflated.typ"
 
 #include "BASE/base_ConflationObject.mac"
 #include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].mac"

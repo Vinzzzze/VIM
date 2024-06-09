@@ -909,5 +909,30 @@ if ( exists( "g:VM_xmmsCurrentTrackMarker" ) == 0 )
    let g:VM_xmmsCurrentTrackMarker = "<>"
 endif
 
+command! Xpause echo system( "xmms2 pause" )
+command! Xplay echo system( "xmms2 play" )
+command! Xtgl echo system( "xmms2 toggle" )
+command! Xstop echo system( "xmms2 stop" )
+command! Xlist echo system( "xmms2 list" )
+command! Xnext echo system( "xmms2 next" )
+command! Xprev echo system( "xmms2 prev" )
+command! Xcurrent echo system( "xmms2 current" )
+command! Xclean echo system( "xmms2 playlist clear" )
+command! Xsort echo system( "xmms2 playlist sort" )
+command! Xpshuffle echo system( "xmms2 playlist config -t pshuffle -s 10 -u 19" )
+command! Xplist echo system( "xmms2 playlist config -t list" )
+command! Xpqueue echo system( "xmms2 playlist config -t queue" )
+command! -nargs=1 Xjump echo system( "xmms2 jump " . <q-args> )
+command! -nargs=+ Xadd echo system( "xmms2 add -o artist,date,album,tracknr \"" . <q-args> . "\"" )
+command! -nargs=+ Xmove echo system( "xmms2 move " . <q-args> )
+command! -nargs=1 Xremove echo system( "xmms2 remove " . <q-args> )
+command! -nargs=+ Xsearch echo system( "xmms2 search -o artist,date,album,tracknr -l id,artist,album,tracknr,title,genre,date \"" . <q-args> . "\"" )
+command! -nargs=+ Xslast echo system( "xmms2 search -o lmod -l id,artist,album tracknr:1 \"" . <q-args> . "\"" )
+command! -nargs=+ Xsalbum echo system( "xmms2 search -o artist,album -l id,artist,album tracknr:1 \"" . <q-args> . "\"" )
+command! -nargs=1 Xsalbdt echo system( "xmms2 search -o artist,date,album -l id,artist,album,date tracknr:1 \"" . <q-args> . "\"" )
+command! -nargs=1 Xinfo echo system( "xmms2 info " . <q-args> )
+command! -nargs=1 Xswitch echo system( "xmms2 playlist switch " . <q-args> )
+command! -nargs=1 Xpls echo system( "xmms2 playlist list " . <q-args> )
+
 "---< Fin de fichier >----------------------------------------------------------
 

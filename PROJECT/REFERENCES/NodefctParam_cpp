@@ -10,7 +10,7 @@
  * @endverbatim
 */
 
-//---< Inclusions >-------------------------------------------------------------
+//---< Includes >---------------------------------------------------------------
 
 #include "DATA/data_DynamicHandler.hpp"
 #include "DATA/data_LogObject.hpp"

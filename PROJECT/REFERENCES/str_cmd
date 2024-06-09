@@ -16,13 +16,13 @@
 
 #pragma once
 
-/*---< Local Definition >----------------------------------*/
+/*---< Local Definition >-----------------------------------------------------*/
 
-#define CMD_FIBONACCITEST_HSTR( prefixe ) \
+#define [@ELEMENT_MACRO@]_HSTR( prefixe ) \
    /**
     * The ancestor part.
    */ \
    BASE_COMMANDREMOTE_HSTR( prefixe )<@ATTRIBUTES@>
 
-/*---< End of file >---------------------------------------*/
+/*---< End of file >----------------------------------------------------------*/
 

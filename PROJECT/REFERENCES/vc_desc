@@ -14,18 +14,17 @@
 
 #include <stddef.h>
 
-[@ASSOCIATED_INCLUDE@]#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].h"
+#include "FACTORY/fact_FactoryStreamSelector.h"
 
 /*---< Local Predefined Types >-----------------------------------------------*/
 
-/**
+[@ASSOCIATED_INCLUDE@]/**
  * The export object identifier list
 */
 enum
 {
 #include "allObjects.export"
 };
-#include "FACTORY/fact_FactoryStreamSelector.typ"
 
 /*---< Local Macros >---------------------------------------------------------*/
 

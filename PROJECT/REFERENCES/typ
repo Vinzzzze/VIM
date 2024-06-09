@@ -1,7 +1,7 @@
 /**
  * @file [@ELEMENT_FILE@]
  *
- * C Types
+ * C complete type definition
  * [@ELEMENT_DESC@]
  *
  * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
@@ -14,9 +14,32 @@
 #pragma once
 
 /*---< Includes >-------------------------------------------------------------*/
-/*---< Type >-----------------------------------------------------------------*/
 
-typedef struct s_[@ELEMENT_NAME@] [@ELEMENT_NAME@];
+#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].h"
+
+/*---< Local Definition >-----------------------------------------------------*/
+
+#define [@ELEMENT_MACRO@]_HSTR( prefixe ) \
+
+/*---< Macros >---------------------------------------------------------------*/
+
+#define [@ELEMENT_MACRO@]_GETADDRFIRSTFIELD( object ) [@ELEMENT_MACRO@]_PREFIXED_GETADDRFIRSTFIELD( std, object )
+
+
+#define [@ELEMENT_MACRO@]_PREFIXED_GETADDRFIRSTFIELD( prefixe, object ) (([@ELEMENT_NAME@]*)(&[@ELEMENT_MACRO@]_PREFIXED_GET<@FIRST_FIELD_NAME@>( prefixe, object )))
+
+
+/*---< Variables >------------------------------------------------------------*/
+/*---< Structure >------------------------------------------------------------*/
+
+struct s_[@ELEMENT_NAME@]
+{
+   /*
+   || La structure est définie dans un fichier include afin de permettre
+   || l'héritage des capacitées de cette structure
+   */
+   [@ELEMENT_MACRO@]_HSTR( std );
+};
 
 /*---< End of file >----------------------------------------------------------*/
 

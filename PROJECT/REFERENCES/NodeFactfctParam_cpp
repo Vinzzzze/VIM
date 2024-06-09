@@ -10,7 +10,7 @@
  * @endverbatim
 */
 
-//---< Inclusions >-------------------------------------------------------------
+//---< Includes >---------------------------------------------------------------
 
 #include "DATA/data_FormulaHandler.hpp"
 #include "DATA/data_HashedDynamicStruct.hpp"

@@ -10,30 +10,33 @@
  * @endverbatim
 */
 
+#pragma once
+
+/*---< Type >-----------------------------------------------------------------*/
+
+typedef struct s_[@ELEMENT_NAME@] [@ELEMENT_NAME@];
+
 /*---< Includes >-------------------------------------------------------------*/
 
 #include <stddef.h>
 
-#include "DATA/data_CommandList.h"
+#include "vmtypes.h"
 
-/*---< Local Predefined Types >-----------------------------------------------*/
+#include "BASE/base_Command.h"
+#include "BASE/base_ServerApplication.h"
+#include "HEAP/heap_PageAllocator.h"
+#include "INTERFACE/int_ErrorCommandHandler.h"
 
-enum
-{
-#include "allObjects.export"
-};
-
-/*---< Local Macros >---------------------------------------------------------*/
-
-#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].mac"
-
-/*---< Local Variables >------------------------------------------------------*/
 /*---< Functions >------------------------------------------------------------*/
 
 /**
  * Constructeur. Initialise les attributs de la structure.
  *
  * @param current - [@ELEMENT_NAME@]* : Structure à initialiser.
+ * @param pageAllocator - heap_PageAllocator* : The object use to allocate the pages
+ * @param defaultHeapPage - char* : The initial base page of the allocator
+ * @param defaultHeapPosition - char* : The initial heap position
+ * @param defaultHeapSizeLeft - size_t : The initial heap size
  * @param errorHandler - int_ErrorCommandHandler* : The error handler
  * @param application - base_ServerApplication* : The application context to be used
  * @param signature - uint32 : The signature of the command
@@ -43,32 +46,21 @@ enum
  * @return Structure initialisée.
 */
 [@ELEMENT_NAME@]* build_[@ELEMENT_NAME@]( [@ELEMENT_NAME@]* current,
+[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  heap_PageAllocator*      pageAllocator,
+[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  char*                    defaultHeapPage,
+[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  char*                    defaultHeapPosition,
+[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  size_t                   defaultHeapSizeLeft,
 [@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  int_ErrorCommandHandler* errorHandler,
 [@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  base_ServerApplication*  application,
 [@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  uint32                   signature,
 [@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  uint32                   trackerId,
-[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  ushort                   userId<@PARAM@> )
-{
-   [@ELEMENT_MACRO@]_INIT( current,
-   [@ELEMENT_BLANK@]       execute_[@ELEMENT_NAME@],
-   [@ELEMENT_BLANK@]       release_[@ELEMENT_NAME@],
-   [@ELEMENT_BLANK@]       errorHandler,
-   [@ELEMENT_BLANK@]       application,
-   [@ELEMENT_BLANK@]       [@ELEMENT_DESC_MACRO@]_IDENTIFIER,
-   [@ELEMENT_BLANK@]       signature,
-   [@ELEMENT_BLANK@]       trackerId,
-   [@ELEMENT_BLANK@]       userId<@PARAM@> );
-   return current;
-}
-
+[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  ushort                   userId<@PARAM@> );
 /**
  * Destructeur.
  *
  * @param current - [@ELEMENT_NAME@]* : Structure à détruire.
 */
-void delete_[@ELEMENT_NAME@]( [@ELEMENT_NAME@]* current )
-{
-}
+void delete_[@ELEMENT_NAME@]( [@ELEMENT_NAME@]* current );
 
 /**
  * The method used to release the command.
@@ -77,10 +69,7 @@ void delete_[@ELEMENT_NAME@]( [@ELEMENT_NAME@]* current )
  *
  * @return 0 if everything went ok, another value otherwise.
 */
-int32 release_[@ELEMENT_NAME@]( base_Command*  command )
-{
-   return 0;
-}
+int32 release_[@ELEMENT_NAME@]( base_Command*  command );
 
 /**
  * The function to execute and to compute the fibonacci value.
@@ -89,15 +78,7 @@ int32 release_[@ELEMENT_NAME@]( base_Command*  command )
  *
  * @return 0 if everything went ok, another value otherwise.
 */
-int32 execute_[@ELEMENT_NAME@]( base_Command*  command )
-{
-   register [@ELEMENT_NAME@]* current = CMD_FIBONACCITEST_CONVERT_FROM_BASE_COMMANDREMOTE( BASE_COMMANDREMOTE_CONVERT_FROM_BASE_COMMAND( command ) );
-   register int32<@INDENT_HERE@>retValue = false;
-
-   <@CODE_TO_ADD@>
-
-   return retValue;
-}
+int32 execute_[@ELEMENT_NAME@]( base_Command*  command );
 
 /*---< End of file >----------------------------------------------------------*/
 

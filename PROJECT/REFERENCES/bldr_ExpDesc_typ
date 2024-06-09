@@ -1,7 +1,7 @@
 /**
  * @file bldr_ExportDescriptions.typ
  *
- * C Types
+ * C complete type definition
  * The builder for the object description.
  *
  * @author : [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
@@ -14,13 +14,53 @@
 #pragma once
 
 /*---< Includes >-------------------------------------------------------------*/
-/*---< Type >-----------------------------------------------------------------*/
 
-typedef struct s_bldr_ExportDescriptions bldr_ExportDescriptions;
-typedef enum
+#include "BUILDER/bldr_ExportDescriptions.h"
+
+#include "INTERFACE/int_BuilderDescription.typ"
+
+/*---< Local Definition >-----------------------------------------------------*/
+
+#define BLDR_EXPORTDESCRIPTIONS_HSTR( prefixe ) \
+   /**
+    * The ancestor definition
+   */ \
+   INT_BUILDERDESCRIPTION_HSTR( prefixe ); \
+\
+   /**
+    * The array of the objects description
+   */ \
+   data_ObjectDescription** prefixe##_arrayDescriptions[ LAST_ALLOBJECTS_EXPORT_IDENTIFIER ]
+
+/*---< Macros >---------------------------------------------------------------*/
+
+#define BLDR_EXPORTDESCRIPTIONS_CONVERT_TO_INT_BUILDERDESCRIPTION( object )   BLDR_EXPORTDESCRIPTIONS_PREFIXED_CONVERT_TO_INT_BUILDERDESCRIPTION( std, object )
+#define BLDR_EXPORTDESCRIPTIONS_CONVERT_FROM_INT_BUILDERDESCRIPTION( object ) BLDR_EXPORTDESCRIPTIONS_PREFIXED_CONVERT_FROM_INT_BUILDERDESCRIPTION( std, object )
+
+#define BLDR_EXPORTDESCRIPTIONS_PREFIXED_CONVERT_TO_INT_BUILDERDESCRIPTION( prefixe, object )   ((int_BuilderDescription*)( INT_BUILDERDESCRIPTION_PREFIXED_GETADDRFIRSTFIELD( prefixe, object ) ))
+#define BLDR_EXPORTDESCRIPTIONS_PREFIXED_CONVERT_FROM_INT_BUILDERDESCRIPTION( prefixe, object ) ((bldr_ExportDescriptions*)( (char*)(object) - ( (char*)(BLDR_EXPORTDESCRIPTIONS_PREFIXED_CONVERT_TO_INT_BUILDERDESCRIPTION( prefixe, ((bldr_ExportDescriptions*)NULL) )) - (char*)NULL ) ))
+
+#define BLDR_EXPORTDESCRIPTIONS_GETADDRFIRSTFIELD( object ) BLDR_EXPORTDESCRIPTIONS_PREFIXED_GETADDRFIRSTFIELD( std, object )
+
+#define BLDR_EXPORTDESCRIPTIONS_GETARRAYDESCRIPTIONS( object )        BLDR_EXPORTDESCRIPTIONS_PREFIXED_GETARRAYDESCRIPTIONS( std, object )
+#define BLDR_EXPORTDESCRIPTIONS_SETARRAYDESCRIPTIONS( object, value ) BLDR_EXPORTDESCRIPTIONS_PREFIXED_SETARRAYDESCRIPTIONS( std, object, value )
+
+#define BLDR_EXPORTDESCRIPTIONS_PREFIXED_GETADDRFIRSTFIELD( prefixe, object ) ((bldr_ExportDescriptions*)(&BLDR_EXPORTDESCRIPTIONS_PREFIXED_GET<@FIRST_FIELD_NAME@>( prefixe, object )))
+
+#define BLDR_EXPORTDESCRIPTIONS_PREFIXED_GETARRAYDESCRIPTIONS( prefixe, object )        object->prefixe##_arrayDescriptions
+#define BLDR_EXPORTDESCRIPTIONS_PREFIXED_SETARRAYDESCRIPTIONS( prefixe, object, value ) object->prefixe##_arrayDescriptions = value
+
+/*---< Variables >------------------------------------------------------------*/
+/*---< Structure >------------------------------------------------------------*/
+
+struct s_bldr_ExportDescriptions
 {
-#include "allObjects.export"
-} enum_bldr_ExportDescriptions;
+   /*
+   || La structure est définie dans un fichier include afin de permettre
+   || l'héritage des capacitées de cette structure
+   */
+   BLDR_EXPORTDESCRIPTIONS_HSTR( std );
+};
 
 /*---< End of file >----------------------------------------------------------*/
 

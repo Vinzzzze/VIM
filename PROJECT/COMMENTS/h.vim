@@ -18,9 +18,15 @@ endif
 
 " Vérification de la validité des opérations saisies
 "---------------------------------------------------
-let s:goForAction = input( "Les informations saisies sont-elles correctes ( Y/N ) : " )
+let s:goForAction = input( "Créer une fonction ou un type ou annuler ( T/F/A ) : " )
 
-if ( s:goForAction == "Y" )
+let s:introType = ""
+if ( s:goForAction == "T" )
+   let s:introType = "typedef "
+   let s:goForAction = "F"
+endif " End IF we want to add a function type
+
+if ( s:goForAction == "F" )
    " Cherche si la fonction à créer est inline ou non
    "-------------------------------------------------
    let s:voidFunction = 0
@@ -32,28 +38,30 @@ if ( s:goForAction == "Y" )
    " Call the function used to build the header
    "-------------------------------------------
    let s:numLine = BuildFunctionComment( line( "." ), s:currentFunctionName, s:currentLibelleName, s:voidFunction )
-   call append( s:numLine, s:currentTypeReturned . " " . ComputeFunctionName( s:currentFunctionName ) . "();" )
+   call append( s:numLine, s:introType . s:currentTypeReturned . " " . ComputeFunctionName( s:currentFunctionName ) . "();" )
 
-   call COpenAlternate( "split", "c" )
+   if ( s:introType == "" )
+      call COpenAlternate( "split", "c" )
 
-   " Save the modified status
-   "-------------------------
-   let s:saveAlternate = &modified
+      " Save the modified status
+      "-------------------------
+      let s:saveAlternate = &modified
 
-   " Move to the line to use for the creation of the function
-   "---------------------------------------------------------
-   $
-   ?^}
+      " Move to the line to use for the creation of the function
+      "---------------------------------------------------------
+      $
+      ?^}
 
-   " Build the header
-   "-----------------
-   call BuildFunctionBody( line( "." ), s:currentTypeReturned, s:currentFunctionName, s:currentLibelleName, s:voidFunction )
+      " Build the header
+      "-----------------
+      call BuildFunctionBody( line( "." ), s:currentTypeReturned, s:currentFunctionName, s:currentLibelleName, s:voidFunction )
 
-   " Close the file opened
-   "----------------------
-   if ( s:saveAlternate == 0 )
-      write
-   endif
+      " Close the file opened
+      "----------------------
+      if ( s:saveAlternate == 0 )
+         write
+      endif
+   endif " End IF a function is defined in h and c files, not a type
 
    quit
 endif

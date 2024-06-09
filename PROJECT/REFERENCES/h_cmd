@@ -12,41 +12,17 @@
 
 #pragma once
 
+/*---< Type >-----------------------------------------------------------------*/
+
+typedef struct s_[@ELEMENT_NAME@] [@ELEMENT_NAME@];
+
 /*---< Includes >-------------------------------------------------------------*/
 
-#include "BASE/base_CommandRemote.h"
+#include "vmtypes.h"
 
-/*---< Predefined Types >-----------------------------------------------------*/
-
-#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].typ"
-
-/*---< Macros >---------------------------------------------------------------*/
-
-#define [@ELEMENT_MACRO@]_CONVERT_TO_BASE_COMMANDREMOTE( object )   [@ELEMENT_MACRO@]_PREFIXED_CONVERT_TO_BASE_COMMANDREMOTE( std, object )
-#define [@ELEMENT_MACRO@]_CONVERT_FROM_BASE_COMMANDREMOTE( object ) [@ELEMENT_MACRO@]_PREFIXED_CONVERT_FROM_BASE_COMMANDREMOTE( std, object )
-
-#define [@ELEMENT_MACRO@]_PREFIXED_CONVERT_TO_BASE_COMMANDREMOTE( prefixe, object )   ((base_CommandRemote*)( BASE_COMMANDREMOTE_PREFIXED_GETADDRFIRSTFIELD( prefixe, object ) ))
-#define [@ELEMENT_MACRO@]_PREFIXED_CONVERT_FROM_BASE_COMMANDREMOTE( prefixe, object ) (([@ELEMENT_NAME@]*)( (char*)(object) - ( (char*)([@ELEMENT_MACRO@]_CONVERT_TO_BASE_COMMANDREMOTE( (([@ELEMENT_NAME@]*)NULL) )) - (char*)NULL ) ))
-
-#define [@ELEMENT_MACRO@]_GETADDRFIRSTFIELD( object ) [@ELEMENT_MACRO@]_PREFIXED_GETADDRFIRSTFIELD( std, object )
-
-
-#define [@ELEMENT_MACRO@]_PREFIXED_GETADDRFIRSTFIELD( prefixe, object ) (([@ELEMENT_NAME@]*)( BASE_COMMANDREMOTE_PREFIXED_GETADDRFIRSTFIELD( prefixe, object ) ))
-
-
-/*---< Variables >------------------------------------------------------------*/
-/*---< Structure >------------------------------------------------------------*/
-
-#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].str"
-
-struct s_[@ELEMENT_NAME@]
-{
-   /*
-   || La structure est définie dans un fichier include afin de permettre
-   || l'héritage des capacitées de cette structure
-   */
-   [@ELEMENT_MACRO@]_HSTR( std );
-};
+#include "BASE/base_Command.h"
+#include "BASE/base_ServerApplication.h"
+#include "INTERFACE/int_ErrorCommandHandler.h"
 
 /*---< Functions >------------------------------------------------------------*/
 
@@ -54,26 +30,20 @@ struct s_[@ELEMENT_NAME@]
  * Constructeur. Initialise les attributs de la structure.
  *
  * @param current - [@ELEMENT_NAME@]* : Structure à initialiser.
- * @param execute - fctAction_base_Command : The function used to execute the command
- * @param release - fctAction_base_Command : The function used to release the command
  * @param errorHandler - int_ErrorCommandHandler* : The error handler
  * @param application - base_ServerApplication* : The application context to be used
- * @param signature - uint32 : The current signature for the current command
+ * @param signature - uint32 : The signature of the command
  * @param trackerId - uint32 : The tracker identifier to follow the command through the services
  * @param userId - ushort : The user identifier that launch the command
- * @param iteration - uint64 : The number of the iteration to get the fibonacci value
  *
  * @return Structure initialisée.
 */
 [@ELEMENT_NAME@]* build_[@ELEMENT_NAME@]( [@ELEMENT_NAME@]* current,
-[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  fctAction_base_Command   execute,
-[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  fctAction_base_Command   release,
 [@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  int_ErrorCommandHandler* errorHandler,
 [@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  base_ServerApplication*  application,
 [@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  uint32                   signature,
 [@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  uint32                   trackerId,
-[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  ushort                   userId,
-[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  uint64                   iteration );
+[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  ushort                   userId<@PARAM@> );
 /**
  * Destructeur.
  *

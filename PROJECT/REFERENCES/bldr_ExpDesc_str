@@ -13,7 +13,7 @@
 
 #pragma once
 
-/*---< Local Definition >----------------------------------*/
+/*---< Local Definition >-----------------------------------------------------*/
 
 #define BLDR_EXPORTDESCRIPTIONS_HSTR( prefixe ) \
    /**
@@ -26,5 +26,5 @@
    */ \
    data_ObjectDescription** prefixe##_arrayDescriptions[ LAST_ALLOBJECTS_EXPORT_IDENTIFIER ]
 
-/*---< End of file >---------------------------------------*/
+/*---< End of file >----------------------------------------------------------*/
 

@@ -14,13 +14,14 @@
 
 #include <stddef.h>
 
-#include "[@ASSOCIATED_OBJECT_FOLDER@]/[@ASSOCIATED_OBJECT_TYPE@].h"
-[@ASSOCIATED_INCLUDE@]#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].h"
-[@FACTORY_INCLUDE@]#include "DATA/data_HashStringTable.h"
-#include "HEAP/heap_Allocator.h"
+#include "DATA/data_RightDefinition.h"
 #include "HEAP/heap_PageAllocator.h"
 
 /*---< Local Predefined Types >-----------------------------------------------*/
+
+[@ASSOCIATED_INCLUDE@]#include "[@ASSOCIATED_OBJECT_FOLDER@]/[@ASSOCIATED_OBJECT_TYPE@].typ"
+[@FACTORY_INCLUDE@]#include "DATA/data_HashStringTable.typ"
+#include "HEAP/heap_Allocator.typ"
 
 /**
  * The export object identifier list
@@ -47,7 +48,11 @@ static char bufferName_[@ELEMENT_NAME@][ [@ELEMENT_MACRO@]_ALLOCATOR_SIZE ];
 /**
  * The offset to the attribute definition
 */
+#ifndef BASE_COMMANDREMOTE_USE_EXPORT
 static offset_data_ObjectDescription   offset_[@ELEMENT_NAME@][] =
+#else
+static offset_data_ObjectDescription   offset_[@ELEMENT_NAME@]_export[] =
+#endif
 {
 [@ELEMENT_OFFSET_VALUE_LIST@]
 };
@@ -190,7 +195,7 @@ base_ObjectDescription* init_[@ELEMENT_NAME@]_export( void )
 #else
       [@ELEMENT_BUFFER_INIT@][@ELEMENT_MACRO@]_INIT( (&[@DESCRIPTION_VARIABLE@]_export),
       [@ELEMENT_BLANK@]       type_[@ELEMENT_NAME@],
-      [@ELEMENT_BLANK@]       offset_[@ELEMENT_NAME@],
+      [@ELEMENT_BLANK@]       offset_[@ELEMENT_NAME@]_export,
       [@ELEMENT_BLANK@]       name_[@ELEMENT_NAME@],
       [@ELEMENT_BLANK@]       &nameConverter_[@ELEMENT_NAME@],
       [@ELEMENT_BLANK@]       [@CONFLATION_INDEX_NAME@],

@@ -12,11 +12,12 @@
 
 /*---< Includes >-------------------------------------------------------------*/
 
-#include <stddef.h>
-
 #include "DATA/data_CommandList.h"
 
 /*---< Local Predefined Types >-----------------------------------------------*/
+
+#include "DATA/data_LogParameter.typ"
+#include "HEAP/heap_PageAllocator.typ"
 
 enum
 {
@@ -34,22 +35,41 @@ enum
  * Constructeur. Initialise les attributs de la structure.
  *
  * @param current - [@ELEMENT_NAME@]* : Structure à initialiser.
+ * @param pageAllocator - heap_PageAllocator* : The object use to allocate the pages
+ * @param defaultHeapPage - char* : The initial base page of the allocator
+ * @param defaultHeapPosition - char* : The initial heap position
+ * @param defaultHeapSizeLeft - size_t : The initial heap size
  * @param errorHandler - int_ErrorCommandHandler* : The error handler
  * @param application - base_ServerApplication* : The application context to be used
- * @param signature - uint32 : The signature of the command
+ * @param signature - uint32 : The signature for of command
  * @param trackerId - uint32 : The tracker identifier to follow the command through the services
  * @param userId - ushort : The user identifier that launch the command
  *
  * @return Structure initialisée.
 */
 [@ELEMENT_NAME@]* build_[@ELEMENT_NAME@]( [@ELEMENT_NAME@]* current,
+[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  heap_PageAllocator*      pageAllocator,
+[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  char*                    defaultHeapPage,
+[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  char*                    defaultHeapPosition,
+[@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  size_t                   defaultHeapSizeLeft,
 [@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  int_ErrorCommandHandler* errorHandler,
 [@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  base_ServerApplication*  application,
 [@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  uint32                   signature,
 [@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  uint32                   trackerId,
 [@ELEMENT_BLANK@]        [@ELEMENT_BLANK@]  ushort                   userId<@PARAM@> )
 {
+   register fctMallocHeap_heap_Allocator  newPage = allocatePage_heap_Vector;
+   register fctDeleteMemory_int_Allocator freePages = freePages_heap_Vector;
+
    [@ELEMENT_MACRO@]_INIT( current,
+   [@ELEMENT_BLANK@]       newPage,
+   [@ELEMENT_BLANK@]       freePages,
+   [@ELEMENT_BLANK@]       pageAllocator,
+   [@ELEMENT_BLANK@]       sizeof( <@ELEMENT_VECTOR@> ),
+   [@ELEMENT_BLANK@]       <@ALIGNEMENT_VECTOR@>,
+   [@ELEMENT_BLANK@]       defaultHeapPage,
+   [@ELEMENT_BLANK@]       defaultHeapPosition,
+   [@ELEMENT_BLANK@]       defaultHeapSizeLeft,
    [@ELEMENT_BLANK@]       execute_[@ELEMENT_NAME@],
    [@ELEMENT_BLANK@]       release_[@ELEMENT_NAME@],
    [@ELEMENT_BLANK@]       errorHandler,
@@ -68,6 +88,8 @@ enum
 */
 void delete_[@ELEMENT_NAME@]( [@ELEMENT_NAME@]* current )
 {
+   INT_ALLOCATOR_GETFREEPAGES( current )( INT_ALLOCATOR_GETADDRFIRSTFIELD( current ),
+                                          NULL );
 }
 
 /**
@@ -79,6 +101,10 @@ void delete_[@ELEMENT_NAME@]( [@ELEMENT_NAME@]* current )
 */
 int32 release_[@ELEMENT_NAME@]( base_Command*  command )
 {
+   register [@ELEMENT_NAME@]* current = [@ELEMENT_MACRO@]_CONVERT_FROM_BASE_COMMANDREMOTE( BASE_COMMANDREMOTE_CONVERT_FROM_BASE_COMMAND( command ) );
+
+   INT_ALLOCATOR_GETFREEPAGES( current )( INT_ALLOCATOR_GETADDRFIRSTFIELD( current ),
+                                          NULL );
    return 0;
 }
 
@@ -91,7 +117,7 @@ int32 release_[@ELEMENT_NAME@]( base_Command*  command )
 */
 int32 execute_[@ELEMENT_NAME@]( base_Command*  command )
 {
-   register [@ELEMENT_NAME@]* current = CMD_FIBONACCITEST_CONVERT_FROM_BASE_COMMANDREMOTE( BASE_COMMANDREMOTE_CONVERT_FROM_BASE_COMMAND( command ) );
+   register [@ELEMENT_NAME@]* current = [@ELEMENT_MACRO@]_CONVERT_FROM_BASE_COMMANDREMOTE( BASE_COMMANDREMOTE_CONVERT_FROM_BASE_COMMAND( command ) );
    register int32<@INDENT_HERE@>retValue = false;
 
    <@CODE_TO_ADD@>

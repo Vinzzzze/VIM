@@ -1,7 +1,7 @@
 /**
  * @file [@ELEMENT_FILE@]
  *
- * C Types
+ * C complete type definition
  * [@ELEMENT_DESC@]
  *
  * @author [@ELEMENT_AUTHOR@] - [@ELEMENT_EMAIL@]
@@ -14,9 +14,44 @@
 #pragma once
 
 /*---< Includes >-------------------------------------------------------------*/
-/*---< Type >-----------------------------------------------------------------*/
 
-typedef struct s_[@ELEMENT_NAME@] [@ELEMENT_NAME@];
+#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].h"
+
+#include "BASE/base_FactoryInitRemoteCommand.typ"
+
+/*---< Local Definition >-----------------------------------------------------*/
+
+#define [@ELEMENT_MACRO@]_HSTR( prefixe ) \
+   /**
+    * The ancestor definition
+   */ \
+   BASE_FACTORYINITREMOTECOMMAND_HSTR( prefixe )
+
+/*---< Macros >---------------------------------------------------------------*/
+
+#define [@ELEMENT_MACRO@]_CONVERT_TO_BASE_FACTORYINITREMOTECOMMAND( object )   [@ELEMENT_MACRO@]_PREFIXED_CONVERT_TO_BASE_FACTORYINITREMOTECOMMAND( std, object )
+#define [@ELEMENT_MACRO@]_CONVERT_FROM_BASE_FACTORYINITREMOTECOMMAND( object ) [@ELEMENT_MACRO@]_PREFIXED_CONVERT_FROM_BASE_FACTORYINITREMOTECOMMAND( std, object )
+
+#define [@ELEMENT_MACRO@]_PREFIXED_CONVERT_TO_BASE_FACTORYINITREMOTECOMMAND( prefixe, object )   ((base_FactoryInitRemoteCommand*)( BASE_FACTORYINITREMOTECOMMAND_PREFIXED_GETADDRFIRSTFIELD( prefixe, object ) ))
+#define [@ELEMENT_MACRO@]_PREFIXED_CONVERT_FROM_BASE_FACTORYINITREMOTECOMMAND( prefixe, object ) (([@ELEMENT_NAME@]*)( (char*)(object) - ( (char*)([@ELEMENT_MACRO@]_CONVERT_TO_BASE_FACTORYINITREMOTECOMMAND( (([@ELEMENT_NAME@]*)NULL) )) - (char*)NULL ) ))
+
+#define [@ELEMENT_MACRO@]_GETADDRFIRSTFIELD( object ) [@ELEMENT_MACRO@]_PREFIXED_GETADDRFIRSTFIELD( std, object )
+
+
+#define [@ELEMENT_MACRO@]_PREFIXED_GETADDRFIRSTFIELD( prefixe, object ) (([@ELEMENT_NAME@]*)( BASE_FACTORYINITREMOTECOMMAND_PREFIXED_GETADDRFIRSTFIELD( prefixe, object ) ))
+
+
+/*---< Variables >------------------------------------------------------------*/
+/*---< Structure >------------------------------------------------------------*/
+
+struct s_[@ELEMENT_NAME@]
+{
+   /*
+   || La structure est définie dans un fichier include afin de permettre
+   || l'héritage des capacitées de cette structure
+   */
+   [@ELEMENT_MACRO@]_HSTR( std );
+};
 
 /*---< End of file >----------------------------------------------------------*/
 

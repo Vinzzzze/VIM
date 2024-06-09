@@ -43,10 +43,6 @@ if ( input( "Valide ( Y/N ) ? " ) == "Y" )
    "-----------------------------
    call VM_ProjectBuildFile( "split", s:className, "typ", s:comment, s:className . ".typ", s:repository, s:projectFolder )
 
-   " Construit le fichier de structure
-   "----------------------------------
-   call VM_ProjectBuildFile( "split", s:className, "str", s:comment, s:className . ".str", s:repository, s:projectFolder )
-
    wincmd =
 endif
 

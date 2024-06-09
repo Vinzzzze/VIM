@@ -18,11 +18,22 @@
 #include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].typ"
 
 #include "BASE/base_CommandRemote.mac"
+#include "HEAP/heap_Vector.mac"
 
 /*---< Macros >---------------------------------------------------------------*/
 
-#define [@ELEMENT_MACRO@]_INIT( current, execute, release, errorHandler, application, indexIdentifier, signature, trackerId, userId<@INIT_PARAM_LIST@> ) [@ELEMENT_MACRO@]_PREFIXED_INIT( std, current, execute, release, errorHandler, application, indexIdentifier, signature, trackerId, userId<@INIT_PARAM_LIST@> )
-#define [@ELEMENT_MACRO@]_PREFIXED_INIT( prefixe, current, execute, release, errorHandler, application, indexIdentifier, signature, trackerId, userId<@INIT_PARAM_LIST@> ) \
+#define [@ELEMENT_MACRO@]_INIT( current, newPage, freePages, pageAllocator, sizeElement, alignement, defaultHeapPage, defaultHeapPosition, defaultHeapSizeLeft, execute, release, errorHandler, application, indexIdentifier, signature, trackerId, userId<@INIT_PARAM_LIST@> ) [@ELEMENT_MACRO@]_PREFIXED_INIT( std, current, newPage, freePages, pageAllocator, sizeElement, alignement, defaultHeapPage, defaultHeapPosition, defaultHeapSizeLeft, execute, release, errorHandler, application, indexIdentifier, signature, trackerId, userId<@INIT_PARAM_LIST@> )
+#define [@ELEMENT_MACRO@]_PREFIXED_INIT( prefixe, current, newPage, freePages, pageAllocator, sizeElement, alignement, defaultHeapPage, defaultHeapPosition, defaultHeapSizeLeft, execute, release, errorHandler, application, indexIdentifier, signature, trackerId, userId<@INIT_PARAM_LIST@> ) \
+   HEAP_VECTOR_PREFIXED_INIT( prefixe, \
+                              current, \
+                              newPage, \
+                              freePages, \
+                              pageAllocator, \
+                              sizeElement, \
+                              alignement, \
+                              defaultHeapPage, \
+                              defaultHeapPosition, \
+                              defaultHeapSizeLeft ); \
    [@ELEMENT_MACRO@]_PREFIXED_INITTRACKER( prefixe, \
    [@ELEMENT_BLANK@]                       current, \
    [@ELEMENT_BLANK@]                       execute, \
@@ -41,6 +52,7 @@
 
 #define [@ELEMENT_MACRO@]_BASEINIT( current, execute, release, errorHandler, application, indexIdentifier ) [@ELEMENT_MACRO@]_PREFIXED_BASEINIT( std, current, execute, release, errorHandler, application, indexIdentifier )
 #define [@ELEMENT_MACRO@]_PREFIXED_BASEINIT( prefixe, current, execute, release, errorHandler, application, indexIdentifier ) \
+   /* No vector part initialisation as it will be initialized by the vector factory */ \
    BASE_COMMANDREMOTE_PREFIXED_BASEINIT( prefixe, \
                                          current, \
                                          execute, \
@@ -48,8 +60,7 @@
                                          errorHandler, \
                                          application, \
                                          indexIdentifier, \
-                                         [@ELEMENT_MACRO@]_SIGNATURE ); \
-   <@INIT_MACRO_CODE@>
+                                         [@ELEMENT_MACRO@]_SIGNATURE )
 
 #define [@ELEMENT_MACRO@]_INITTRACKER( current, execute, release, errorHandler, application, indexIdentifier, trackerId ) [@ELEMENT_MACRO@]_PREFIXED_INITTRACKER( std, current, execute, release, errorHandler, application, indexIdentifier, trackerId )
 #define [@ELEMENT_MACRO@]_PREFIXED_INITTRACKER( prefixe, current, execute, release, errorHandler, application, indexIdentifier, trackerId ) \

@@ -14,17 +14,18 @@
 
 #include <stddef.h>
 
-#include "[@ASSOCIATED_OBJECT_FOLDER@]/[@ASSOCIATED_OBJECT_TYPE@].h"
-[@ASSOCIATED_INCLUDE@]#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@].h"
-[@FACTORY_INCLUDE@]#include "DATA/data_HashStringTable.h"
-#ifdef BASE_COMMANDREMOTE_USE_EXPORT
-#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@]NoId.h"
-#include "FACTORY/fact_CommandExport.h"
-#endif
-#include "HEAP/heap_Allocator.h"
+#include "DATA/data_RightDefinition.h"
 #include "HEAP/heap_PageAllocator.h"
 
 /*---< Local Predefined Types >-----------------------------------------------*/
+
+[@ASSOCIATED_INCLUDE@]#include "[@ASSOCIATED_OBJECT_FOLDER@]/[@ASSOCIATED_OBJECT_TYPE@].typ"
+[@FACTORY_INCLUDE@]#include "DATA/data_HashStringTable.typ"
+#ifdef BASE_COMMANDREMOTE_USE_EXPORT
+#include "[@ELEMENT_REPOSITORY@][@ELEMENT_NAME@]NoId.typ"
+#include "FACTORY/fact_CommandExport.typ"
+#endif
+#include "HEAP/heap_Allocator.typ"
 
 /**
  * The export object identifier list
@@ -34,7 +35,7 @@ enum
 #include "allObjects.export"
 };
 #ifdef BASE_COMMANDREMOTE_USE_EXPORT
-#include "DATA/data_CommandList.typ"
+#include "DATA/data_CommandList.h"
 #endif
 
 /*---< Local Macros >---------------------------------------------------------*/
@@ -58,7 +59,11 @@ static char bufferName_[@ELEMENT_NAME@][ [@ELEMENT_MACRO@]_ALLOCATOR_SIZE ];
 /**
  * The offset to the attribute definition
 */
+#ifndef BASE_COMMANDREMOTE_USE_EXPORT
 static offset_data_ObjectDescription   offset_[@ELEMENT_NAME@][] =
+#else
+static offset_data_ObjectDescription   offset_[@ELEMENT_NAME@]_export[] =
+#endif
 {
 [@ELEMENT_OFFSET_VALUE_LIST@]
 };
@@ -110,16 +115,17 @@ static data_HashStringTable   nameConverter_[@ELEMENT_NAME@];
 static entryElement_base_HashTable* nameEntry_[@ELEMENT_NAME@][ [@ELEMENT_MACRO@]_ENTRYTABLE_SIZE ];
 
 #ifdef BASE_COMMANDREMOTE_USE_EXPORT
-int32 buildCommandExport_[@ELEMENT_NAME@]( fact_CommandExport* factory,
-                         [@ELEMENT_BLANK@]  char*               bufferCommand,
-                         [@ELEMENT_BLANK@]  ushort              userId,
-                         [@ELEMENT_BLANK@]  va_list             params );
+static int32 buildCommandExport_[@ELEMENT_NAME@]( fact_CommandExport* factory,
+                                [@ELEMENT_BLANK@]  base_CommandRemote* originCommand,
+                                [@ELEMENT_BLANK@]  char*               bufferCommand,
+                                [@ELEMENT_BLANK@]  ushort              userId,
+                                [@ELEMENT_BLANK@]  va_list             params );
 
 fact_CommandExportDescription commandExport_[@ELEMENT_NAME@] =
 {
    buildCommandExport_[@ELEMENT_NAME@],
-   BASE_OBJECTDESCRIPTION_GETADDRFIRSTFIELD( (&[@DESCRIPTION_VARIABLE@]_export,
-   BASE_OBJECTDESCRIPTION_GETADDRFIRSTFIELD( (&[@DESCRIPTION_VARIABLE@]NoId_export,
+   BASE_OBJECTDESCRIPTION_GETADDRFIRSTFIELD( (&[@DESCRIPTION_VARIABLE@]_export) ),
+   BASE_OBJECTDESCRIPTION_GETADDRFIRSTFIELD( (&[@DESCRIPTION_VARIABLE@]NoId_export) ),
    sizeof( [@ASSOCIATED_OBJECT_TYPE@] )
 };
 #endif
@@ -169,6 +175,7 @@ base_ObjectDescription* init_[@ELEMENT_NAME@]( void )
  * Build the command for the external call.
  *
  * @param factory - fact_CommandExport* : The factory that request the creation
+ * @param originCommand - base_CommandRemote* : The command that requests the build of the specified remote command
  * @param bufferCommand - char* : The buffer where the command will be created
  * @param userId - ushort : The user for which the command is built
  * @param params - va_list : The list of the parameters pair ( value type, value )
@@ -176,6 +183,7 @@ base_ObjectDescription* init_[@ELEMENT_NAME@]( void )
  * @return The error code, 0 for no error, the error code otherwise
 */
 static int32 buildCommandExport_[@ELEMENT_NAME@]( fact_CommandExport* factory,
+                                [@ELEMENT_BLANK@]  base_CommandRemote* originCommand,
                                 [@ELEMENT_BLANK@]  char*               bufferCommand,
                                 [@ELEMENT_BLANK@]  ushort              userId,
                                 [@ELEMENT_BLANK@]  va_list             params )
@@ -192,8 +200,8 @@ static int32 buildCommandExport_[@ELEMENT_NAME@]( fact_CommandExport* factory,
       {
          case BASE_COMMANDREMOTE_PARAM_USERID:
 
-            userId = va_arg( params,
-                             ushort );
+            userId = (ushort)va_arg( params,
+                                     uint32 );
             break;
 
 [@CASES_PARAM_LIST@]
@@ -207,7 +215,12 @@ static int32 buildCommandExport_[@ELEMENT_NAME@]( fact_CommandExport* factory,
 [@CONDITION_PARAM_CHECK@]   {
       register [@ASSOCIATED_OBJECT_TYPE@]* current = ([@ASSOCIATED_OBJECT_TYPE@]*)bufferCommand;
 
-[@ASSOCIATED_OBJECT_INIT@]      BASE_DYNAMICOBJECTDEFINITION_PREFIXED_SETINDEXIDENTIFIER( std, current, DATA_COMMANDLIST_[@ASSOCIATED_OBJECT_MACRO@] );
+[@ASSOCIATED_OBJECT_INIT@]      BASE_DYNAMICOBJECTDEFINITION_PREFIXED_SETINDEXIDENTIFIER( [@ELEMENT_REMOTE_PREFIXE@], current, [@ELEMENT_MACRO@]_IDENTIFIER );
+
+      if ( originCommand != NULL )
+      {
+         BASE_COMMANDREMOTE_PREFIXED_SETTRACKERID( [@ELEMENT_REMOTE_PREFIXE@], current, BASE_COMMANDREMOTE_GETTRACKERID( originCommand ) );
+      } /* End IF there is an original command from which the tracker id must be read */
    } /* End IF there is no critical error, the command can be built */
 
    return retValue;
@@ -270,7 +283,7 @@ base_ObjectDescription* init_[@ELEMENT_NAME@]_export( void )
 #else
       [@ELEMENT_BUFFER_INIT@][@ELEMENT_MACRO@]_INIT( (&[@DESCRIPTION_VARIABLE@]_export),
       [@ELEMENT_BLANK@]       type_[@ELEMENT_NAME@],
-      [@ELEMENT_BLANK@]       offset_[@ELEMENT_NAME@],
+      [@ELEMENT_BLANK@]       offset_[@ELEMENT_NAME@]_export,
       [@ELEMENT_BLANK@]       name_[@ELEMENT_NAME@],
       [@ELEMENT_BLANK@]       &nameConverter_[@ELEMENT_NAME@],
       [@ELEMENT_BLANK@]       [@CONFLATION_INDEX_NAME@],

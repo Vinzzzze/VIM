@@ -3749,19 +3749,16 @@ endfunction
 
 endif
 
-if ( exists( "*VM_SelectFolder" ) == 0 )
+if ( exists( "*VM_SelectExistingFolder" ) == 0 )
 
-" Fonction : VM_SelectFolder
+" Fonction : VM_SelectExistingFolder
 "
-" But : Select the folder for the class depending on the class name.
+" But : Select the folder for the class depending on the class name
 "
 " Parametres :
 "    className - the name of the class to create
-"    projectFolder - The project base folder
-" Retour :
-"    The folder name choosen
 "-------------------------------------------------------------------------------
-function VM_SelectFolder( className, projectFolder )
+function VM_SelectExistingFolder( className )
    " Get the file intro code
    "------------------------
    let fileIntro = VM_ExtractFileIntro( a:className )
@@ -3776,6 +3773,48 @@ function VM_SelectFolder( className, projectFolder )
          break
       endif
    endfor
+
+   return extentionDefinition
+endfunction
+
+endif
+
+if ( exists( "*VM_SelectExistingFolderEmpty" ) == 0 )
+
+" Fonction : VM_SelectExistingFolderEmpty
+"
+" But : Select the folder for the class depending on the class name, or return
+"       an empty string.
+"
+" Parametres :
+"    className - the name of the class to create
+"-------------------------------------------------------------------------------
+function VM_SelectExistingFolderEmpty( className )
+   let extentionDefinition = VM_SelectExistingFolder( a:className )
+
+   if ( empty( extentionDefinition ) )
+      return ""
+   endif
+
+   return extentionDefinition.folder
+endfunction
+
+endif
+
+if ( exists( "*VM_SelectFolder" ) == 0 )
+
+" Fonction : VM_SelectFolder
+"
+" But : Select the folder for the class depending on the class name.
+"
+" Parametres :
+"    className - the name of the class to create
+"    projectFolder - The project base folder
+" Retour :
+"    The folder name choosen
+"-------------------------------------------------------------------------------
+function VM_SelectFolder( className, projectFolder )
+   let extentionDefinition = VM_SelectExistingFolder( a:className )
 
    if ( empty( extentionDefinition ) )
       let separator = ""
@@ -4408,21 +4447,43 @@ if ( exists( "*VM_StartDebug" ) == 0 )
 " But : Start a debug session
 "-------------------------------------------------------------------------------
 function VM_StartDebug()
-   tabnew
-   execute "TermdebugCommand " . g:BG_listDebugPrograms[ g:BG_currentDebugProgram ]
-   1 wincmd w
-   quit
-   wincmd L
-   execute g:VM_sizeOutputWindow . " wincmd >"
-   wincmd h
-   let b:VM_debugStart = 1
-   let g:VM_debugModeActive = 1
-   tmap <buffer> <silent> <F4> run<CR>
-   tmap <buffer> <silent> <S-F4> <C-C>
-   tmap <buffer> <silent> <C-F4> <C-W>:Source<CR>
-   tmap <buffer> <silent> <F9> next<CR>
-   tmap <buffer> <silent> <S-F9> step<CR>
-   tmap <buffer> <silent> <C-F9> continue<CR>
+   let debugProgram = ""
+
+   if ( exists( "g:VM_listDebugPrograms" ) != 0 )
+      let debugProgram = g:VM_listDebugPrograms[ g:VM_currentDebugProgram ]
+   elseif ( exists( "g:VM_selectDebugPrograms" ) != 0 )
+      let debugProgramList = split( system( g:VM_selectDebugPrograms ), "\n" )
+      let debugChoiceList = []
+      let indexChoice = 0
+      for prgName in debugProgramList
+         call add( debugChoiceList, indexChoice . " > " . prgName )
+         let indexChoice += 1
+      endfor " End FOR all the debug program
+
+      let entryList = inputlist( debugChoiceList )
+
+      if ( ( entryList >= 0 )&&( entryList < indexChoice ) )
+         let debugProgram = debugProgramList[ entryList ]
+      endif " End IF a valid program to debug had been made
+   endif
+
+   if ( debugProgram > "" )
+      tabnew
+      execute "TermdebugCommand " . debugProgram
+      1 wincmd w
+      quit
+      wincmd L
+      execute g:VM_sizeOutputWindow . " wincmd >"
+      wincmd h
+      let b:VM_debugStart = 1
+      let g:VM_debugModeActive = 1
+      tmap <buffer> <silent> <F4> run<CR>
+      tmap <buffer> <silent> <S-F4> <C-C>
+      tmap <buffer> <silent> <C-F4> <C-\><C-N>:Source<CR>
+      tmap <buffer> <silent> <F9> next<CR>
+      tmap <buffer> <silent> <S-F9> step<CR>
+      tmap <buffer> <silent> <C-F9> continue<CR>
+   endif " End IF the program to debug had been selected
 endfunction
 
 endif
@@ -4434,22 +4495,24 @@ if ( exists( "*VM_SelectDebug" ) == 0 )
 " But : Select the program to use for the debug session
 "-------------------------------------------------------------------------------
 function VM_SelectDebug()
-   let listPrograms = []
-   let indexProgram = 0
-   for program in g:BG_listDebugPrograms
-      if ( indexProgram == g:VM_currentDebugProgram )
-         call add( listPrograms, indexProgram . " > ((" . program . "))" )
-      else
-         call add( listPrograms, indexProgram . " > [" . program . "]" )
-      endif
-      let indexProgram += 1
-   endfor
+   if ( exists( "g:VM_listDebugPrograms" ) != 0 )
+      let listPrograms = []
+      let indexProgram = 0
+      for program in g:VM_listDebugPrograms
+         if ( indexProgram == g:VM_currentDebugProgram )
+            call add( listPrograms, indexProgram . " > ((" . program . "))" )
+         else
+            call add( listPrograms, indexProgram . " > [" . program . "]" )
+         endif
+         let indexProgram += 1
+      endfor
 
-   let programNumber = inputlist( listPrograms )
+      let programNumber = inputlist( listPrograms )
 
-   if ( ( programNumber >= 0 ) && ( programNumber < indexProgram ) )
-     let g:VM_currentDebugProgram = programNumber
-   endif " End IF the program selected is the correct one
+      if ( ( programNumber >= 0 ) && ( programNumber < indexProgram ) )
+        let g:VM_currentDebugProgram = programNumber
+      endif " End IF the program selected is the correct one
+   endif
 endfunction
 
 endif
@@ -4462,7 +4525,10 @@ if ( exists( "*VM_CloseTerminal" ) == 0 )
 "-------------------------------------------------------------------------------
 function VM_CloseTerminal()
    if ( exists( "b:VM_debugStart" ) != 0 )
-     unlet g:VM_debugModeActive
+      unlet g:VM_debugModeActive
+   endif
+   if ( exists( "g:VM_debugModeActive" ) != 0 )
+      unlet g:VM_debugModeActive
    endif
 endfunction
 

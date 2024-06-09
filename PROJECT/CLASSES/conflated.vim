@@ -80,10 +80,6 @@ call VM_ProjectBuildFile( "vsplit", s:className, "conflated_h", s:comment, s:cla
 "-----------------------------
 call VM_ProjectBuildFile( "split", s:className, "conflated_typ", s:comment, s:className . "Conflated.typ", s:repository, s:projectFolder )
 
-" Construit le fichier de structure
-"----------------------------------
-call VM_ProjectBuildFile( "split", s:className, "conflated_str", s:comment, s:className . "Conflated.str", s:repository, s:projectFolder )
-
 wincmd =
 
 "---< Fin de fichier >----------------------------------------------------------

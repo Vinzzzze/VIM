@@ -14,30 +14,8 @@
 
 /*---< Includes >-------------------------------------------------------------*/
 
+#include "DATA/data_ObjectDescription.h"
 #include "INTERFACE/int_BuilderDescription.h"
-
-/*---< Predefined Types >-----------------------------------------------------*/
-
-#include "BUILDER/bldr_ExportDescriptions.typ"
-#include "DATA/data_ObjectDescription.typ"
-
-/*---< Macros >---------------------------------------------------------------*/
-
-#include "BUILDER/bldr_ExportDescriptions.mac"
-
-/*---< Variables >------------------------------------------------------------*/
-/*---< Structure >------------------------------------------------------------*/
-
-#include "BUILDER/bldr_ExportDescriptions.str"
-
-struct s_bldr_ExportDescriptions
-{
-   /*
-   || La structure est définie dans un fichier include afin de permettre
-   || l'héritage des capacitées de cette structure
-   */
-   BLDR_EXPORTDESCRIPTIONS_HSTR( std );
-};
 
 /*---< Functions >------------------------------------------------------------*/
 

@@ -95,10 +95,9 @@ cmap <F16> <C-R>=expand( "%:p:r" )<CR>
 " Pour la completion automatique
 "-------------------------------
 imap <C-Space> <Esc>:call VM_Completion( expand( "<cword>" ) )<CR>/<@/<CR>v/@>/<CR>l
-imap <Tab><Space> <Esc>/<@/<CR>v/@>/<CR>l
-nmap <Tab><Space> /<@/<CR>v/@>/<CR>l
-vmap <Tab><Space> <Esc>/<@/<CR>v/@>/<CR>l
-vmap <C-Space> s<C-CR>
+nmap <C-Space> /<@/<CR>v/@>/<CR>l
+vmap <C-Space> <Esc>/<@/<CR>v/@>/<CR>l
+vmap <Tab><Space> s<C-CR>
 " Pour passer en mode explorer
 "-----------------------------
 nmap <F8> :Explore<CR>
